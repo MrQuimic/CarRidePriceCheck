@@ -10,6 +10,7 @@ import javafx.scene.control.Label;
 import javafx.scene.paint.Color;
 
 import javafx.stage.Stage;
+import pt.isec.gps.team11.gui.MenuOpt;
 import pt.isec.gps.team11.gui.panes.RootPane;
 import pt.isec.gps.team11.model.CRPCManager;
 
@@ -22,6 +23,7 @@ import java.io.File;
 public class MainApplication extends Application {
 
     CRPCManager crpcManager;
+
 
     @Override
     public void init() throws Exception {

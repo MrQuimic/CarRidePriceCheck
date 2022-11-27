@@ -22,7 +22,7 @@ public class CSSManager {
      */
     public static void applyCSS(Parent parent, String filename) {
         var url = CSSManager.class.getResource("/css/"+filename);
-        System.out.println(url);
+        //System.out.println(url);
         if (url == null)
             return;
         String fileCSS = url.toExternalForm();

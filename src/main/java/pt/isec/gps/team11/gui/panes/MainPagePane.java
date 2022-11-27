@@ -1,9 +1,7 @@
 package pt.isec.gps.team11.gui.panes;
 
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -12,7 +10,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import pt.isec.gps.team11.gui.MenuOpt;
 import pt.isec.gps.team11.gui.panes.utils.MenuTop;
@@ -23,13 +20,9 @@ import pt.isec.gps.team11.model.fsm.States;
 
 import java.util.Objects;
 
-
-/**
- * The type Root pane.
- */
-public class RootPane extends BorderPane {
+public class MainPagePane extends BorderPane {
     CRPCManager crpcManager;
-    MenuOpt menuOpt;
+
     /**
      * The background color of the main window.
      * <p>
@@ -56,21 +49,19 @@ public class RootPane extends BorderPane {
      */
     Canvas canvas;
     VBox vBox;
-    /**
-     * The Predef table width.
-     */
-    int predefTableWidth = 1050;
+
 
     /**
      * The Canvas pane.
      */
     ScrollPane canvasPane;
 
+    MenuOpt menuOpt;
 
 
-
-    public RootPane(CRPCManager crpcManager){
+    public MainPagePane(CRPCManager crpcManager){
         this.crpcManager = crpcManager;
+        this.menuOpt = menuOpt;
         createViews();
         registerHandler();
         update();
@@ -82,56 +73,62 @@ public class RootPane extends BorderPane {
         vBox = new VBox();
 
 
-        MenuTop bp = new MenuTop(crpcManager);
-
-
-        StackPane stackPane;
-        stackPane = new StackPane(
-                new CreditsPane(crpcManager),
-                new BookingPane(crpcManager),
-                new MainPagePane(crpcManager)
-
-        );
-
-        stackPane.setBackground(new Background(new BackgroundImage(
+        vBox.setBackground(new Background(new BackgroundImage(
                 Objects.requireNonNull(ImageManager.getImage("bg1.jpg")),
                 BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT,
                 BackgroundPosition.CENTER,
                 new BackgroundSize(1,1,true,true,true,false)
         )));
 
-        //stackPane.setBackground(new Background(new BackgroundFill(Color.GAINSBORO, CornerRadii.EMPTY, Insets.EMPTY)));
 
 
-        HBox hBox = new HBox(bp);
 
 
-        vBox.getChildren().addAll(hBox, stackPane);
+        Label lbOurServices = new Label("Our Services");
+        VBox vbFirst = new VBox(new Separator(), lbOurServices, new Separator());
+
+        Image imgFirst = ImageManager.getImage("cars/Audi_A3.png");
+        ImageView img1 = new ImageView(imgFirst);
+        Image imgSecond = ImageManager.getImage("cars/Renault_Space.png");
+        ImageView img2 = new ImageView(imgSecond);
+        Image imgThird = ImageManager.getImage("cars/Seat_Ibiza.png");
+        ImageView img3 = new ImageView(imgThird);
+        Image imgFourth = ImageManager.getImage("cars/Tesla_Y.png");
+        ImageView img4 = new ImageView(imgFourth);
+
+        img1.setFitHeight(100);
+        img1.setPreserveRatio(true);
+        img2.setFitHeight(100);
+        img2.setPreserveRatio(true);
+        img3.setFitHeight(100);
+        img3.setPreserveRatio(true);
+        img4.setFitHeight(100);
+        img4.setPreserveRatio(true);
+
+        vBox.getChildren().addAll(vbFirst, img1, img2, img3, img4);
 
 
-        ScrollPane scrollPane = new ScrollPane();
-        scrollPane.setContent(vBox);
-        stackPane.setAlignment(Pos.TOP_CENTER);
-
-        scrollPane.setPannable(true);
-        scrollPane.setId("scrollPaneMain");
-        this.setCenter(scrollPane);
-        scrollPane.setFitToHeight(true);
-        scrollPane.setFitToWidth(true);
-
-        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
-        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+        this.setCenter(vBox);
     }
 
     private void registerHandler() {
 
-
+        crpcManager.addPropertyChangeListener(evt -> {
+            update();
+        });
     }
-
+    private void configAdapter() {
+    }
     private void update() {
 
 
+            if (crpcManager.getMenuOpt() == MenuOpt.MAIN_MENU) {
 
-    }
-
+                configAdapter();
+                this.setVisible(true);
+                return;
+            }else{
+                this.setVisible(false);
+            }
+}
 }

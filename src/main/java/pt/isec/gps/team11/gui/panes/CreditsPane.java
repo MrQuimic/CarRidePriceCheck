@@ -1,6 +1,132 @@
 package pt.isec.gps.team11.gui.panes;
 
-import javafx.scene.layout.BorderPane;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import pt.isec.gps.team11.gui.MenuOpt;
+import pt.isec.gps.team11.gui.panes.utils.MenuTop;
+import pt.isec.gps.team11.gui.resources.SoundManager;
+import pt.isec.gps.team11.model.CRPCManager;
+import pt.isec.gps.team11.model.fsm.States;
 
 public class CreditsPane extends BorderPane {
+    StackPane stackPane;
+    CRPCManager crpcManager;
+
+
+    /**
+     * The Background.
+     */
+    Color background = Color.LIGHTGRAY;
+    /**
+     * The Nr meta 1.
+     */
+    int nrMeta1,
+    /**
+     * The Nr meta 2.
+     */
+    nrMeta2,
+    /**
+     * The Nr custom.
+     */
+    nrCustom;
+    /**
+     * The Button meta 1.
+     */
+    Button buttonMeta1,
+    /**
+     * The Button meta 2.
+     */
+    buttonMeta2,
+    /**
+     * The Button custom.
+     */
+    buttonCustom,
+    /**
+     * The Btn menu.
+     */
+    btnMenu;
+    /**
+     * The Text field.
+     */
+    TextField textField;
+    private Label lbStatus;
+    private Label lbStatus2;
+
+
+
+    public CreditsPane(CRPCManager crpcManager){
+        this.crpcManager = crpcManager;
+        createViews();
+        registerHandlers();
+        update();
+    }
+
+    private void createViews() {
+
+
+        lbStatus2 = new Label();
+
+        lbStatus2.setPrefWidth(Integer.MAX_VALUE);
+        lbStatus2.setPadding(new Insets(2));
+        lbStatus2.setPadding(new Insets(2));
+        lbStatus2.setBorder(new Border(new BorderStroke(Color.DARKGRAY,
+                BorderStrokeStyle.SOLID,CornerRadii.EMPTY,new BorderWidths(2))));
+
+        lbStatus2.setStyle("-fx-background-color: rgba(73,69,69,0.08);-fx-font-family: 'Courrier New'; -fx-font-size: 16;");
+
+        this.setCenter(lbStatus2);
+    }
+
+    private void registerHandlers() {
+        crpcManager.addPropertyChangeListener(evt -> {
+            update();
+        });
+    }
+
+    private void configAdapter() {
+    }
+
+    private void update() {
+
+
+
+        if(crpcManager.getMenuOpt()==MenuOpt.CREDITS) {
+            this.setVisible(true);
+            //SoundManager.play("637996__davejf__melody-loop-110-bpm.mp3");
+
+        }else{
+            this.setVisible(false);
+
+            //crpcManager.play(" ");
+
+        }
+
+        setBackground(new Background(new BackgroundFill(background, CornerRadii.EMPTY, Insets.EMPTY)));
+
+        if (nrMeta1 == 20 || nrMeta2 == 20 || nrCustom == 20) {
+            lbStatus2.setText(String.format("" +
+                    "\uD83D\uDC96" +
+                    "\n\n\n ✎ Authors:\n" +
+                    " Carlos Santos  {Email: a2003035578@isec.pt}\n" +
+                    " Carlos Santos  {Email: a2003035578@isec.pt}\n" +
+                    " Carlos Santos  {Email: a2003035578@isec.pt}\n" +
+                    " Carlos Santos  {Email: a2003035578@isec.pt}\n" +
+                    " Leonardo Sousa {Email: a2019129243@isec.pt}\n\n"));
+        } else {
+
+            lbStatus2.setText(String.format("\n ⚑ Application Car Ride Price Check\n"+
+                    " ⌛ Date 2022/11/27\n\n" +
+                    " ⚑ This pratical assignment was carried out in an academic context \nfor the subject of GPS at ISEC!"));
+
+        }
+
+    }
+
+
+
 }

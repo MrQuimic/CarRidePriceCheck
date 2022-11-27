@@ -18,5 +18,7 @@ public class StatesContext {
 
     public void setState(IStates state){
         this.state = state;
+
+
     }
 }

@@ -7,6 +7,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import pt.isec.gps.team11.MyBrowser;
 import pt.isec.gps.team11.gui.MenuOpt;
+import pt.isec.gps.team11.gui.panes.utils.MenuTop;
 import pt.isec.gps.team11.model.CRPCManager;
 import pt.isec.gps.team11.model.fsm.States;
 import javafx.scene.control.Label;
@@ -26,10 +27,12 @@ public class BookingPane extends BorderPane {
     Button btnReset = new Button("Reset");
 
     VBox vbox, leftControl, rightControl;
+    MenuTop bp;
 
+    MenuOpt menuOpt;
     public BookingPane(CRPCManager crpcManager){
         this.crpcManager = crpcManager;
-
+        this.menuOpt = menuOpt;
         createViews();
         registerHandlers();
         update();
@@ -38,9 +41,8 @@ public class BookingPane extends BorderPane {
     private void createViews() {
 
 
-
         myBrowser = new MyBrowser();
-
+        VBox vBox= new VBox();
         SplitPane splitPane = new SplitPane();
 
 
@@ -57,28 +59,32 @@ public class BookingPane extends BorderPane {
 
 
         scene = new Scene(splitPane);
+        vBox.getChildren().addAll(splitPane);
 
-
-        this.setCenter(splitPane);
+        this.setCenter(vBox);
 
     }
 
     private void registerHandlers() {
-
+        crpcManager.addPropertyChangeListener(evt -> {
+            update();
+        });
     }
 
     private void configAdapter() {
     }
 
     private void update() {
-        if (crpcManager.getMenuOpt() == MenuOpt.IN_STATE && crpcManager.getState() == States.BOOKING) {
 
+
+        if (crpcManager.getMenuOpt() == MenuOpt.BOOKING) {
             configAdapter();
-
             this.setVisible(true);
             return;
+        }else{
+            this.setVisible(false);
         }
-        this.setVisible(false);
+
     }
 
 

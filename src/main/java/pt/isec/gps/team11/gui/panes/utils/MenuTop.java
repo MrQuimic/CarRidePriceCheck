@@ -16,42 +16,57 @@ import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import pt.isec.gps.team11.gui.MenuOpt;
 import pt.isec.gps.team11.gui.resources.CSSManager;
 import pt.isec.gps.team11.gui.resources.ImageManager;
 import pt.isec.gps.team11.model.CRPCManager;
+import pt.isec.gps.team11.model.fsm.IStates;
+import pt.isec.gps.team11.model.fsm.States;
+
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 
 public class MenuTop extends BorderPane {
     private CRPCManager manager;
     private Button btnHome, btnBooking, btnOurTeam, btnContacts, btnAboutUs, mSave;
     private HBox hBox, hBoxLogo;
     Text tMainMenu;
-
+    MenuOpt menuOpt;
+    PropertyChangeSupport pcs;
 
     public MenuTop(CRPCManager manager){
         this.manager = manager;
-        
+        pcs = new PropertyChangeSupport(this);
         createViews();
         registerHandlers();
     }
 
+    public void addPropertyChangeListener(PropertyChangeListener listener) {
+        pcs.addPropertyChangeListener(listener);
+    }
     private void registerHandlers() {
         btnHome.setOnAction(actionEvent -> {
+
+            manager.setMenuOpt(MenuOpt.MAIN_MENU);
 
         });
 
         btnBooking.setOnAction(actionEvent -> {
 
+            manager.setMenuOpt(MenuOpt.BOOKING);
+
         });
 
         btnOurTeam.setOnAction(actionEvent -> {
-
+            manager.setMenuOpt(MenuOpt.CREDITS);
         });
 
         btnContacts.setOnAction(actionEvent -> {
-
+            manager.setMenuOpt(MenuOpt.CREDITS);
         });
 
         btnAboutUs.setOnAction(actionEvent -> {
+            manager.setMenuOpt(MenuOpt.CREDITS);
 
         });
     }
@@ -101,7 +116,7 @@ public class MenuTop extends BorderPane {
         Image img = ImageManager.getImage("logoNoBkg.png");
         ImageView imgView = new ImageView(img);
         //imgView.setEffect(lightingBlack);
-        imgView.setFitHeight(200);
+        imgView.setFitHeight(100);
         imgView.setPreserveRatio(true);
 
 
@@ -119,17 +134,18 @@ public class MenuTop extends BorderPane {
         tMainMenu = new Text();
         tMainMenu.setText("⧉Top Menu");
 
-        tMainMenu.setFont(new Font("TimesRoman", 35));
+        tMainMenu.setFont(new Font("TimesRoman", 20));
 
         hBoxLogo = new HBox(imgView, imgView2, tMainMenu);
-
+        hBoxLogo.setSpacing(40.0);
         hBox = new HBox(hBoxLogo, btnHome, btnBooking,
                                         btnOurTeam, btnContacts, btnAboutUs,imgView2, mSave);
 
-        hBox.setSpacing(2.0);
+        hBox.setSpacing(5.0);
         hBox.setHgrow(this, Priority.ALWAYS);
-        hBox.setAlignment(Pos.TOP_CENTER);
+        hBox.setAlignment(Pos.TOP_LEFT);
 
         this.setCenter(hBox);
+
     }
 }

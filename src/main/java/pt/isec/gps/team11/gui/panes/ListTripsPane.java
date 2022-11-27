@@ -6,15 +6,16 @@ import javafx.scene.control.Separator;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import pt.isec.gps.team11.gui.MenuOpt;
 import pt.isec.gps.team11.gui.resources.ImageManager;
 import pt.isec.gps.team11.model.CRPCManager;
 import pt.isec.gps.team11.model.fsm.States;
 
-public class MainMenuPane extends BorderPane {
+public class ListTripsPane extends BorderPane {
     private CRPCManager crpcManager;
     private Button btnBooking;
 
-    public MainMenuPane(CRPCManager crpcManager){
+    public ListTripsPane(CRPCManager crpcManager){
         this.crpcManager = crpcManager;
         createViews();
         registerHandlers();
@@ -40,6 +41,15 @@ public class MainMenuPane extends BorderPane {
     }
 
     private void update() {
-        this.setVisible(crpcManager != null && crpcManager.getState() == States.MAIN_MENU);
+
+        if (crpcManager.getMenuOpt() == MenuOpt.IN_STATE && crpcManager.getState() == States.BOOKING) {
+
+            this.setVisible(crpcManager != null && crpcManager.getMenuOpt() == MenuOpt.IN_STATE && crpcManager.getState() == States.MAIN_MENU);
+            this.setVisible(true);
+            return;
+        }
+        this.setVisible(false);
+
+
     }
 }
