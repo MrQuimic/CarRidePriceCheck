@@ -5,13 +5,17 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import pt.isec.gps.team11.gui.panes.utils.MenuTop;
+import pt.isec.gps.team11.gui.resources.CSSManager;
 import pt.isec.gps.team11.gui.resources.ImageManager;
 import pt.isec.gps.team11.model.CRPCManager;
+
+import java.util.Objects;
 
 
 /**
@@ -68,34 +72,21 @@ public class RootPane extends BorderPane {
     }
 
     private void createViews() {
+        CSSManager.applyCSS(this,"styles.css");
         vBox = new VBox();
-//        CSSManager.applyCSS(this,"styles.css");
-//        CSSManager.applyCSS(this,"tableViewBase.css");
+
 
         MenuTop bp = new MenuTop(crpcManager);
 
 
         vBox.setBackground(new Background(new BackgroundImage(
-                ImageManager.getImage("bg1.jpg"),
+                Objects.requireNonNull(ImageManager.getImage("bg1.jpg")),
                 BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT,
                 BackgroundPosition.CENTER,
                 new BackgroundSize(1,1,true,true,true,false)
         )));
 
 
-        canvas = new Canvas();
-        GraphicsContext gc = canvas.getGraphicsContext2D();
-        gc.setFill(Color.LIGHTCORAL.brighter());
-        gc.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
-        gc.setFont(new Font("Times New Roman", 24));
-        gc.setFill(Color.WHITE);
-        gc.fillText("Advanced Programming", 50, 50);
-        gc.setStroke(Color.BLACK);
-        gc.strokeText("Advanced Programming", 50, 100);
-        gc.fillText("Advanced Programming", 50, 150);
-        gc.strokeText("Advanced Programming", 50, 100);
-
-        gc.drawImage(ImageManager.getImage("logoCRPC.png"),150,150,200,100);
 
         StackPane stackPane;
         stackPane = new StackPane(
@@ -105,12 +96,9 @@ public class RootPane extends BorderPane {
         stackPane.setBackground(new Background(new BackgroundFill(Color.GAINSBORO, CornerRadii.EMPTY, Insets.EMPTY)));
 
 
-
-
-
         HBox hBox = new HBox(bp, stackPane);
 
-        vBox.getChildren().addAll(hBox, canvas);
+        vBox.getChildren().addAll(hBox);
 
 
         this.setCenter(vBox);

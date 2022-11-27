@@ -1,4 +1,4 @@
-module com.example.demo1810 {
+module pt.isec.gps.team11 {
     requires javafx.controls;
     requires javafx.fxml;
     requires javafx.web;

@@ -1,19 +1,10 @@
 package pt.isec.gps.team11.model;
 
-import javafx.collections.ObservableList;
-import javafx.scene.chart.PieChart;
-import javafx.scene.chart.XYChart;
 import pt.isec.gps.team11.gui.MenuOpt;
 import pt.isec.gps.team11.model.fsm.States;
 import pt.isec.gps.team11.model.fsm.StatesContext;
 
-
-import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
 
 /**
  * The type Gpe manager.

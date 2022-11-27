@@ -11,10 +11,8 @@ import javafx.scene.paint.Color;
 
 import javafx.stage.Stage;
 import pt.isec.gps.team11.gui.panes.RootPane;
-import pt.isec.gps.team11.gui.resources.CSSManager;
-import pt.isec.gps.team11.gui.resources.FontManager;
-import pt.isec.gps.team11.gui.resources.ImageManager;
 import pt.isec.gps.team11.model.CRPCManager;
+
 
 import java.io.File;
 
@@ -40,7 +38,6 @@ public class MainApplication extends Application {
     @Override
     public void start(Stage primaryStage) {
         RootPane root = new RootPane(crpcManager);
-        System.err.println("sfdf " + CSSManager.class.getResource("pt/isec/gps/team11/gui/resources/css/styles"));
         root.getChildren().add(new Label("Project GPS"));
         root.getChildren().add(new Label("Car Ride Price Check"));
 
