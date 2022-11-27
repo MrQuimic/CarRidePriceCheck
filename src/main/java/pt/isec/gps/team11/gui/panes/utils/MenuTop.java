@@ -62,7 +62,7 @@ public class MenuTop extends BorderPane {
         });
 
         btnContacts.setOnAction(actionEvent -> {
-            manager.setMenuOpt(MenuOpt.CREDITS);
+            manager.setMenuOpt(MenuOpt.STARTBOOKING);
         });
 
         btnAboutUs.setOnAction(actionEvent -> {
@@ -76,7 +76,7 @@ public class MenuTop extends BorderPane {
         btnHome = new Button("Home");
         btnBooking = new Button("Booking");
         btnOurTeam = new Button("Our Team");
-        btnContacts = new Button("Contacts");
+        btnContacts = new Button("StartBooking/Contacts");
         btnAboutUs = new Button("About us");
         btnAboutUs.setId("button");
 

@@ -89,8 +89,8 @@ public class RootPane extends BorderPane {
         stackPane = new StackPane(
                 new CreditsPane(crpcManager),
                 new BookingPane(crpcManager),
-                new MainPagePane(crpcManager)
-
+                new MainPagePane(crpcManager),
+                new StartBookingPane(crpcManager)
         );
 
         stackPane.setBackground(new Background(new BackgroundImage(
