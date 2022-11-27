@@ -10,6 +10,8 @@ module com.example.demo1810 {
     requires org.kordamp.bootstrapfx.core;
     requires eu.hansolo.tilesfx;
     requires com.almasb.fxgl.all;
+    requires javafx.media;
+    requires java.desktop;
 
     opens pt.isec.gps.team11 to javafx.fxml;
     exports pt.isec.gps.team11;
