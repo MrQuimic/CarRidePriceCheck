@@ -189,7 +189,7 @@ public class BookForm extends BorderPane {
 
         vbOptionsWithTitle.getChildren().addAll(lbOptionsTitle,vbOptions);
 
-        vbAdressesAndOptions.getChildren().addAll(vbAdressesWithTitle,vbOptions);
+        vbAdressesAndOptions.getChildren().addAll(vbAdressesWithTitle,vbOptionsWithTitle);
 
         this.setCenter(vbAdressesAndOptions);
     }
