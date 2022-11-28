@@ -2,11 +2,16 @@ package pt.isec.gps.team11.gui.panes.utils;
 
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import pt.isec.gps.team11.model.CRPCManager;
 
-public class BookForm {
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
+
+public class BookForm extends BorderPane {
+    PropertyChangeSupport pcs;
     CRPCManager crpcManager;
     VBox vbAdressesAndOptions, vbAdresses, vbOptions, vbAdressesWithTitle, vbOptionsWithTitle;
     Label lbAdressesTitle, lbOptionsTitle;
@@ -22,6 +27,7 @@ public class BookForm {
 
     public BookForm(CRPCManager crpcManager){
         this.crpcManager = crpcManager;
+        pcs = new PropertyChangeSupport(this);
 
         createViews();
         registerHandlers();
@@ -35,7 +41,7 @@ public class BookForm {
 
         //Adresses VBox With Title
         vbAdressesWithTitle = new VBox();
-        vbAdresses.setAlignment(Pos.CENTER);
+        vbAdressesWithTitle.setAlignment(Pos.CENTER);
 
         lbAdressesTitle = new Label("Adresses");
 
@@ -72,7 +78,7 @@ public class BookForm {
 
         //Options VBox With Title
         vbOptionsWithTitle = new VBox();
-        vbOptions.setAlignment(Pos.CENTER);
+        vbOptionsWithTitle.setAlignment(Pos.CENTER);
 
         lbOptionsTitle = new Label("Options");
 
@@ -122,7 +128,7 @@ public class BookForm {
         vbSuitcases.setAlignment(Pos.CENTER);
 
         lbSuitcases = new Label("Suitcases");
-        lbSuitcases.setAlignment(Pos.CENTER_LEFT);
+        lbSuitcases.setAlignment(Pos.CENTER_RIGHT);
         cbSuitcases = new ChoiceBox();
         //add items to choiceBox
 
@@ -168,7 +174,7 @@ public class BookForm {
         //parte de colocar a imagem aqui
 
 
-        hbDepartureDateAndImage.getChildren().addAll(vbDepartureTime/*,cena da imagem*/);
+        hbDepartureTimeAndImage.getChildren().addAll(vbDepartureTime/*,cena da imagem*/);
 
         //Tolls
         vbTolls = new VBox();
@@ -184,6 +190,12 @@ public class BookForm {
         vbOptionsWithTitle.getChildren().addAll(lbOptionsTitle,vbOptions);
 
         vbAdressesAndOptions.getChildren().addAll(vbAdressesWithTitle,vbOptions);
+
+        this.setCenter(vbAdressesAndOptions);
+    }
+
+    public void addPropertyChangeListener(PropertyChangeListener listener) {
+        pcs.addPropertyChangeListener(listener);
     }
 
     private void registerHandlers() {

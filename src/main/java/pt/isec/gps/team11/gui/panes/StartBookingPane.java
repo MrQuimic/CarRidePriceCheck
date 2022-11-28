@@ -6,10 +6,12 @@ import javafx.scene.control.Label;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import pt.isec.gps.team11.MyBrowser;
 import pt.isec.gps.team11.gui.MenuOpt;
+import pt.isec.gps.team11.gui.panes.utils.BookForm;
 import pt.isec.gps.team11.gui.panes.utils.MenuTop;
 import pt.isec.gps.team11.model.CRPCManager;
 
@@ -58,7 +60,11 @@ public class StartBookingPane extends BorderPane {
 
 
         scene = new Scene(splitPane);
-        vBox.getChildren().addAll(splitPane);
+
+        BookForm bookForm = new BookForm(crpcManager);
+        HBox hBox = new HBox(bookForm);
+
+        vBox.getChildren().addAll(hBox,splitPane);
 
         this.setCenter(vBox);
 
