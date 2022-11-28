@@ -1,6 +1,7 @@
 package pt.isec.gps.team11.gui.panes.utils;
 
 import javafx.geometry.Pos;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
@@ -23,6 +24,8 @@ import pt.isec.gps.team11.model.CRPCManager;
 import pt.isec.gps.team11.model.fsm.IStates;
 import pt.isec.gps.team11.model.fsm.States;
 
+import java.awt.event.MouseEvent;
+import java.beans.EventHandler;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
@@ -32,6 +35,7 @@ public class MenuTop extends BorderPane {
     private HBox hBox, hBoxLogo;
     Text tMainMenu;
     MenuOpt menuOpt;
+    ImageView authIcon;
     PropertyChangeSupport pcs;
 
     public MenuTop(CRPCManager manager){
@@ -69,6 +73,15 @@ public class MenuTop extends BorderPane {
             manager.setMenuOpt(MenuOpt.CREDITS);
 
         });
+
+        btnAboutUs.setOnAction(actionEvent -> {
+            manager.setMenuOpt(MenuOpt.CREDITS);
+
+        });
+
+        authIcon.setOnMouseClicked(actionEvent -> {
+            manager.setMenuOpt(MenuOpt.AUTHENTICATION);
+        });
     }
 
     private void createViews() {
@@ -84,13 +97,6 @@ public class MenuTop extends BorderPane {
         mSave.setId("mSave");
         mSave.setMinWidth(55);
 
-
-        //style lighting blue
-
-        Lighting lighting = new Lighting(new Light.Distant(45, 90, Color.rgb(51,102,153)));
-        ColorAdjust bright = new ColorAdjust(1, 1, 1, 1);
-        lighting.setContentInput(bright);
-        lighting.setSurfaceScale(0);
 
         //style lighting blue
 
@@ -130,6 +136,17 @@ public class MenuTop extends BorderPane {
         imgView2.setFitHeight(30);
         imgView2.setPreserveRatio(true);
 
+        Image authIconimg = ImageManager.getImage("icons\\icon_user.png");
+
+        //png use of images
+        authIcon = new ImageView(authIconimg);
+        authIcon.setId("authIcon");
+        authIcon.setFitHeight(30);
+        authIcon.setPreserveRatio(true);
+
+        imgView2.setEffect(lightingBlue);
+        imgView2.setFitHeight(30);
+        imgView2.setPreserveRatio(true);
 
         tMainMenu = new Text();
         tMainMenu.setText("⧉Top Menu");
@@ -139,7 +156,7 @@ public class MenuTop extends BorderPane {
         hBoxLogo = new HBox(imgView, imgView2, tMainMenu);
         hBoxLogo.setSpacing(40.0);
         hBox = new HBox(hBoxLogo, btnHome, btnBooking,
-                                        btnOurTeam, btnContacts, btnAboutUs,imgView2, mSave);
+                                        btnOurTeam, btnContacts, btnAboutUs,imgView2, mSave, authIcon);
 
         hBox.setSpacing(5.0);
         hBox.setHgrow(this, Priority.ALWAYS);

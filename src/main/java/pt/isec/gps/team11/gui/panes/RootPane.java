@@ -15,6 +15,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import pt.isec.gps.team11.gui.MenuOpt;
+import pt.isec.gps.team11.gui.panes.utils.LoginForm;
 import pt.isec.gps.team11.gui.panes.utils.MenuTop;
 import pt.isec.gps.team11.gui.resources.CSSManager;
 import pt.isec.gps.team11.gui.resources.ImageManager;
@@ -90,7 +91,8 @@ public class RootPane extends BorderPane {
                 new CreditsPane(crpcManager),
                 new BookingPane(crpcManager),
                 new MainPagePane(crpcManager),
-                new StartBookingPane(crpcManager)
+                new StartBookingPane(crpcManager),
+                new AuthenticationPane(crpcManager)
         );
 
         stackPane.setBackground(new Background(new BackgroundImage(

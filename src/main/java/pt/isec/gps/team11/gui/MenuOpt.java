@@ -14,7 +14,9 @@ public enum MenuOpt {
     MAIN_MENU,//todo temp onl for now
 
     BOOKING,//todo temp onl for now
-    STARTBOOKING
+    STARTBOOKING,
+
+    AUTHENTICATION
 
 
 }

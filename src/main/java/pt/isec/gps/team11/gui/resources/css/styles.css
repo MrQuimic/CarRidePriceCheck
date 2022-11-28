@@ -1,4 +1,6 @@
-
+#authIcon:hover{
+    -fx-cursor: Hand;
+}
 .combo-box{
 
     -fx-background-color: #adb2b6;
