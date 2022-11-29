@@ -8,10 +8,11 @@ public class Driver extends Person {
     private ArrayList<String> tripInfo;
     private int id;
 
-    public Driver(String name, int age, String email, Date birthDate) {
+    public Driver(String name, String email, Date birthDate,ArrayList<String> tripInfo) {
         super(name, email, birthDate);
         this.tripInfo = new ArrayList<>();
         this.id = ++idGlobal;
+        this.tripInfo = tripInfo;
     }
 
     public void receiveInfo(ArrayList<String> tripInfo) {
