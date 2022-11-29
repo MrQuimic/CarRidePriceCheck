@@ -9,12 +9,13 @@ public enum MenuOpt {
 
     CREDITS,
 
+    ABOUTUS,
+
     IN_STATE,
 
     MAIN_MENU,//todo temp onl for now
 
     BOOKING,//todo temp onl for now
-    STARTBOOKING,
 
     AUTHENTICATION
 

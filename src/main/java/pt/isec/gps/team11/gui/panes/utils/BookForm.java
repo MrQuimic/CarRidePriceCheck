@@ -1,10 +1,18 @@
 package pt.isec.gps.team11.gui.panes.utils;
 
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
+import javafx.scene.effect.ColorAdjust;
+import javafx.scene.effect.Light;
+import javafx.scene.effect.Lighting;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import pt.isec.gps.team11.gui.resources.ImageManager;
 import pt.isec.gps.team11.model.CRPCManager;
 
 import java.beans.PropertyChangeListener;
@@ -16,7 +24,7 @@ public class BookForm extends BorderPane {
     VBox vbAdressesAndOptions, vbAdresses, vbOptions, vbAdressesWithTitle, vbOptionsWithTitle;
     Label lbAdressesTitle, lbOptionsTitle;
 
-    VBox vbStartAdress, vbEndAdress, vbDirections, vbExtraWaitTime, vbPassengers, vbSuitcases, vbDepartureDate, vbDepartureTime, vbTolls;
+    VBox vbStartAdress, vbEndAdress, vbDirections, vbExtraWaitTime, vbPassengers, vbSuitcases, vbDepartureDate, vbDepartureTime, vbTolls, vbDepartureTimeImg;
     Label lbStartAdress, lbEndAdress, lbDirections, lbExtraWaitTime, lbPassengers, lbSuitcases, lbDepartureDate, lbDepartureTime, lbTolls;
 
     HBox hbPassengersSuitcases, hbDepartureDateAndImage, hbDepartureTimeAndImage;
@@ -44,7 +52,7 @@ public class BookForm extends BorderPane {
         vbAdressesWithTitle.setAlignment(Pos.CENTER);
 
         lbAdressesTitle = new Label("Adresses");
-
+        lbAdressesTitle.setPadding(new Insets(10,0,0,0));
         //Adresses VBox
         vbAdresses = new VBox();
         vbAdresses.setAlignment(Pos.CENTER);
@@ -81,7 +89,7 @@ public class BookForm extends BorderPane {
         vbOptionsWithTitle.setAlignment(Pos.CENTER);
 
         lbOptionsTitle = new Label("Options");
-
+        lbOptionsTitle.setPadding(new Insets(10,0,0,0));
         //Options VBox
         vbOptions = new VBox();
         vbOptions.setAlignment(Pos.CENTER);
@@ -171,10 +179,25 @@ public class BookForm extends BorderPane {
 
         vbDepartureTime.getChildren().addAll(lbDepartureTime,tfDepartureTime);
 
-        //parte de colocar a imagem aqui
+        Lighting lightingBlue = new Lighting(new Light.Distant(45, 90, Color.rgb(40,69,98)));
+        ColorAdjust brightBlue = new ColorAdjust(1, 1, 1, 1);
+        lightingBlue.setContentInput(brightBlue);
+        lightingBlue.setSurfaceScale(0);
+        Image img2 = ImageManager.getImage("icons\\icon_clock-o.png");
+
+        //png use of images
+        ImageView imgView2 = new ImageView(img2);
+        imgView2.setId("calendar");
+
+        imgView2.setEffect(lightingBlue);
+        imgView2.setFitHeight(22);
+        imgView2.setPreserveRatio(true);
+        vbDepartureTimeImg= new VBox(imgView2);
+        vbDepartureTimeImg.setAlignment(Pos.BOTTOM_CENTER);
 
 
-        hbDepartureTimeAndImage.getChildren().addAll(vbDepartureTime/*,cena da imagem*/);
+        hbDepartureTimeAndImage.getChildren().addAll(vbDepartureTime,vbDepartureTimeImg);
+        hbDepartureTimeAndImage.setSpacing(2);
 
         //Tolls
         vbTolls = new VBox();
@@ -186,7 +209,7 @@ public class BookForm extends BorderPane {
         //add items to choiceBox
 
         vbOptions.getChildren().addAll(vbDirections,vbExtraWaitTime,hbPassengersSuitcases,hbDepartureDateAndImage,hbDepartureTimeAndImage,vbTolls);
-
+        vbOptions.setSpacing(15);
         vbOptionsWithTitle.getChildren().addAll(lbOptionsTitle,vbOptions);
 
         vbAdressesAndOptions.getChildren().addAll(vbAdressesWithTitle,vbOptionsWithTitle);

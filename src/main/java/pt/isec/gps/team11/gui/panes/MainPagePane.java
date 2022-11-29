@@ -105,8 +105,16 @@ public class MainPagePane extends BorderPane {
         img4.setFitHeight(100);
         img4.setPreserveRatio(true);
 
-        vBox.getChildren().addAll(vbFirst, img1, img2, img3, img4);
 
+        HBox hbSecond= new HBox(new Separator(), lbOurServices, new Separator());
+        hbSecond.getChildren().addAll(img1, img2, img3, img4);
+        vBox.getChildren().addAll(vbFirst, hbSecond);
+        vBox.setBackground(new Background(new BackgroundImage(
+                Objects.requireNonNull(ImageManager.getImage("bg1.jpg")),
+                BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT,
+                BackgroundPosition.CENTER,
+                new BackgroundSize(1,1,true,true,true,false)
+        )));
 
         this.setCenter(vBox);
     }

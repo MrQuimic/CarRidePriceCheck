@@ -10,10 +10,7 @@ import javafx.scene.effect.Light;
 import javafx.scene.effect.Lighting;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.Region;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
@@ -31,8 +28,10 @@ import java.beans.PropertyChangeSupport;
 
 public class MenuTop extends BorderPane {
     private CRPCManager manager;
-    private Button btnHome, btnBooking, btnOurTeam, btnContacts, btnAboutUs, mSave;
-    private HBox hBox, hBoxLogo;
+
+    Button[] btns;
+    private HBox hBox, hBoxLogo,hBoxMenuTop, hBoxTextTop, hBoxAuth;
+    VBox vBox;
     Text tMainMenu;
     MenuOpt menuOpt;
     ImageView authIcon;
@@ -49,33 +48,29 @@ public class MenuTop extends BorderPane {
         pcs.addPropertyChangeListener(listener);
     }
     private void registerHandlers() {
-        btnHome.setOnAction(actionEvent -> {
+        btns[0].setOnAction(actionEvent -> {
 
             manager.setMenuOpt(MenuOpt.MAIN_MENU);
 
         });
 
-        btnBooking.setOnAction(actionEvent -> {
+        btns[1].setOnAction(actionEvent -> {
 
             manager.setMenuOpt(MenuOpt.BOOKING);
 
         });
 
-        btnOurTeam.setOnAction(actionEvent -> {
+        btns[2].setOnAction(actionEvent -> {
             manager.setMenuOpt(MenuOpt.CREDITS);
         });
 
-        btnContacts.setOnAction(actionEvent -> {
-            manager.setMenuOpt(MenuOpt.STARTBOOKING);
-        });
-
-        btnAboutUs.setOnAction(actionEvent -> {
-            manager.setMenuOpt(MenuOpt.CREDITS);
+        btns[3].setOnAction(actionEvent -> {
+            manager.setMenuOpt(MenuOpt.ABOUTUS);
 
         });
 
-        btnAboutUs.setOnAction(actionEvent -> {
-            manager.setMenuOpt(MenuOpt.CREDITS);
+        btns[4].setOnAction(actionEvent -> {
+            manager.setMenuOpt(MenuOpt.ABOUTUS);
 
         });
 
@@ -85,18 +80,31 @@ public class MenuTop extends BorderPane {
     }
 
     private void createViews() {
-        CSSManager.applyCSS(this,"styles.css");
-        btnHome = new Button("Home");
-        btnBooking = new Button("Booking");
-        btnOurTeam = new Button("Our Team");
-        btnContacts = new Button("StartBooking/Contacts");
-        btnAboutUs = new Button("About us");
-        btnAboutUs.setId("button");
+        //CSSManager.applyCSS(this,"styles.css");
 
-        mSave = new Button("Save");
-        mSave.setId("mSave");
-        mSave.setMinWidth(55);
+        vBox = new VBox();
+        vBox.setId("vBox");
+        hBoxLogo = new HBox();
+        hBoxLogo.setId("hBoxLogoTop");
+        hBoxTextTop = new HBox();
+        hBoxTextTop.setId("hBoxTextTop");
+        hBoxMenuTop = new HBox();
+        hBoxMenuTop.setId("hBoxMenuTop");
+        hBoxAuth= new HBox();
+        hBoxAuth.setId("hBoxMenuTop");
+        btns = new Button[5];
 
+        btns[0] = new Button(String.format("\uD83C\uDFE0 Home"));
+        btns[1] = new Button(String.format("\uD83D\uDD6E Booking"));
+        btns[2] = new Button(String.format("\uD83D\uDCDE Contacts"));
+        btns[3] = new Button(String.format("✨ About us"));
+        btns[4] = new Button(String.format("\uD83D\uDC65 Our Team"));
+
+        for(int i = 0; i < 5; i++){
+            btns[i].setPrefSize(110,40);
+            btns[i].setId("MenuUIBtn");
+            // btns[i].setStyle("");
+        }
 
         //style lighting blue
 
@@ -104,6 +112,7 @@ public class MenuTop extends BorderPane {
         ColorAdjust brightBlue = new ColorAdjust(1, 1, 1, 1);
         lightingBlue.setContentInput(brightBlue);
         lightingBlue.setSurfaceScale(0);
+
 
         //style lighting Black
 
@@ -119,22 +128,15 @@ public class MenuTop extends BorderPane {
         lightingGray.setContentInput(brightGray);
         lightingGray.setSurfaceScale(0);
 
-        Image img = ImageManager.getImage("logoNoBkg.png");
+        Image img = ImageManager.getImage("logoNoBkgHalf.png");
         ImageView imgView = new ImageView(img);
         //imgView.setEffect(lightingBlack);
-        imgView.setFitHeight(100);
+        imgView.setFitHeight(80);
         imgView.setPreserveRatio(true);
+        imgView.setId("logoMenuTop");
+        imgView.setStyle("-fx-padding: 0 0 0 30;");
 
 
-        Image img2 = ImageManager.getImage("icons\\icon_clock-o.png");
-
-        //png use of images
-        ImageView imgView2 = new ImageView(img2);
-        imgView2.setId("calendar");
-
-        imgView2.setEffect(lightingBlue);
-        imgView2.setFitHeight(30);
-        imgView2.setPreserveRatio(true);
 
         Image authIconimg = ImageManager.getImage("icons\\icon_user.png");
 
@@ -143,25 +145,25 @@ public class MenuTop extends BorderPane {
         authIcon.setId("authIcon");
         authIcon.setFitHeight(30);
         authIcon.setPreserveRatio(true);
+        hBoxAuth.getChildren().add(authIcon);
 
-        imgView2.setEffect(lightingBlue);
-        imgView2.setFitHeight(30);
-        imgView2.setPreserveRatio(true);
+
 
         tMainMenu = new Text();
-        tMainMenu.setText("⧉Top Menu");
-
+        tMainMenu.setText("⧉Top Menu: ");
+        tMainMenu.setId("LabelMenuTop");
         tMainMenu.setFont(new Font("TimesRoman", 20));
+        hBoxTextTop.getChildren().addAll(tMainMenu);
+        hBoxMenuTop.getChildren().addAll(btns);
 
-        hBoxLogo = new HBox(imgView, imgView2, tMainMenu);
-        hBoxLogo.setSpacing(40.0);
-        hBox = new HBox(hBoxLogo, btnHome, btnBooking,
-                                        btnOurTeam, btnContacts, btnAboutUs,imgView2, mSave, authIcon);
+        hBoxLogo.getChildren().addAll(imgView);
+        hBoxLogo.setSpacing(20.0);
+        hBox = new HBox(hBoxLogo, hBoxTextTop, hBoxMenuTop, hBoxAuth);
 
         hBox.setSpacing(5.0);
         hBox.setHgrow(this, Priority.ALWAYS);
-        hBox.setAlignment(Pos.TOP_LEFT);
 
+        hBox.setId("hBoxMenuT");
         this.setCenter(hBox);
 
     }

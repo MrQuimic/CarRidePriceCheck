@@ -1,19 +1,15 @@
 package pt.isec.gps.team11.gui.panes;
 
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import pt.isec.gps.team11.gui.MenuOpt;
-import pt.isec.gps.team11.gui.panes.utils.MenuTop;
-import pt.isec.gps.team11.gui.resources.SoundManager;
 import pt.isec.gps.team11.model.CRPCManager;
-import pt.isec.gps.team11.model.fsm.States;
 
-public class CreditsPane extends BorderPane {
+public class AboutUs extends BorderPane {
     StackPane stackPane;
     CRPCManager crpcManager;
 
@@ -59,7 +55,7 @@ public class CreditsPane extends BorderPane {
 
 
 
-    public CreditsPane(CRPCManager crpcManager){
+    public AboutUs(CRPCManager crpcManager){
         this.crpcManager = crpcManager;
         createViews();
         registerHandlers();
@@ -94,7 +90,7 @@ public class CreditsPane extends BorderPane {
 
 
 
-        if(crpcManager.getMenuOpt()==MenuOpt.CREDITS) {
+        if(crpcManager.getMenuOpt()==MenuOpt.ABOUTUS) {
             this.setVisible(true);
             //SoundManager.play("637996__davejf__melody-loop-110-bpm.mp3");
 
@@ -107,22 +103,16 @@ public class CreditsPane extends BorderPane {
 
 
 
-        if (nrMeta1 == 20 || nrMeta2 == 20 || nrCustom == 20) {
-            lbStatus2.setText(String.format("\n\n" +
-                    "\uD83D\uDC96" +
-                    "\n\n\n ✎ Authors:\n" +
-                    " Carlos Santos  {Email: a2003035578@isec.pt}\n" +
-                    " Carlos Santos  {Email: a2003035578@isec.pt}\n" +
-                    " Carlos Santos  {Email: a2003035578@isec.pt}\n" +
-                    " Carlos Santos  {Email: a2003035578@isec.pt}\n" +
-                    " Leonardo Sousa {Email: a2019129243@isec.pt}\n\n"));
-        } else {
 
-            lbStatus2.setText(String.format("\n ⚑ Application Car Ride Price Check\n"+
-                    " ⌛ Date 2022/11/27\n\n" +
-                    " ⚑ This pratical assignment was carried out in an academic context \nfor the subject of GPS at ISEC!"));
+            lbStatus2.setText(String.format("" +
+                    "\n\n ✎ Authors:\n" +
+                    " Carlos Santos  {Email: a2003035578@isec.pt}\n" +
+                    " Hugo Ferreira  {Email: a2020128305@isec.pt}\n" +
+                    " Leonardo Sousa {Email: a2019129243@isec.pt }\n" +
+                    " Luís Cruz  {Email: a2020142846@isec.pt}\n" +
+                    " Rafael Gil {Email: a2020136741@isec.pt}\n\n"));
 
-        }
+
 
     }
 
