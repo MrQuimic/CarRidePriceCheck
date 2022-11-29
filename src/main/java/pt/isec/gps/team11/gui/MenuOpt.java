@@ -6,10 +6,11 @@ public enum MenuOpt {
     STARTMENU,
 
     INFO,
-
-    CREDITS,
-
     ABOUTUS,
+
+    OURTEAM,
+
+    CONTACTS,
 
     IN_STATE,
 

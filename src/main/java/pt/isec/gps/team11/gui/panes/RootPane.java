@@ -88,7 +88,8 @@ public class RootPane extends BorderPane {
 
         StackPane stackPane;
         stackPane = new StackPane(
-                new CreditsPane(crpcManager),
+                new OurTeam(crpcManager),
+                new Contacts(crpcManager),
                 new AboutUs(crpcManager),
                 new BookingPane(crpcManager),
                 new MainPagePane(crpcManager),

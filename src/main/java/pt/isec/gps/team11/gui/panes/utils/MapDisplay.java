@@ -65,6 +65,7 @@ public class MapDisplay extends BorderPane {
 
 
 
+
         this.setCenter(vBox2);
     }
 

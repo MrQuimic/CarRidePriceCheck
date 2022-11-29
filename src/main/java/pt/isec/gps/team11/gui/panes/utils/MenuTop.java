@@ -1,11 +1,7 @@
 package pt.isec.gps.team11.gui.panes.utils;
 
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.MenuItem;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.effect.Light;
 import javafx.scene.effect.Lighting;
@@ -16,14 +12,9 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import pt.isec.gps.team11.gui.MenuOpt;
-import pt.isec.gps.team11.gui.resources.CSSManager;
 import pt.isec.gps.team11.gui.resources.ImageManager;
 import pt.isec.gps.team11.model.CRPCManager;
-import pt.isec.gps.team11.model.fsm.IStates;
-import pt.isec.gps.team11.model.fsm.States;
 
-import java.awt.event.MouseEvent;
-import java.beans.EventHandler;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
@@ -43,42 +34,10 @@ public class MenuTop extends BorderPane {
         pcs = new PropertyChangeSupport(this);
         createViews();
         registerHandlers();
+        update();
+
     }
 
-    public void addPropertyChangeListener(PropertyChangeListener listener) {
-        pcs.addPropertyChangeListener(listener);
-    }
-    private void registerHandlers() {
-        btns[0].setOnAction(actionEvent -> {
-
-            manager.setMenuOpt(MenuOpt.MAIN_MENU);
-
-        });
-
-        btns[1].setOnAction(actionEvent -> {
-
-            manager.setMenuOpt(MenuOpt.BOOKING);
-
-        });
-
-        btns[2].setOnAction(actionEvent -> {
-            manager.setMenuOpt(MenuOpt.CREDITS);
-        });
-
-        btns[3].setOnAction(actionEvent -> {
-            manager.setMenuOpt(MenuOpt.ABOUTUS);
-
-        });
-
-        btns[4].setOnAction(actionEvent -> {
-            manager.setMenuOpt(MenuOpt.ABOUTUS);
-
-        });
-
-        authIcon.setOnMouseClicked(actionEvent -> {
-            manager.setMenuOpt(MenuOpt.AUTHENTICATION);
-        });
-    }
 
     private void createViews() {
         //CSSManager.applyCSS(this,"mystyle.css");
@@ -96,7 +55,7 @@ public class MenuTop extends BorderPane {
         btns = new Button[5];
 
         btns[0] = new Button(String.format("\uD83C\uDFE0 Home"));
-        btns[1] = new Button(String.format("\uD83D\uDD6E Booking"));
+        btns[1] = new Button(String.format("\uD83D\uDCD5 Booking"));
         btns[2] = new Button(String.format("\uD83D\uDCDE Contacts"));
         btns[3] = new Button(String.format("✨ About us"));
         btns[4] = new Button(String.format("\uD83D\uDC65 Our Team"));
@@ -168,5 +127,131 @@ public class MenuTop extends BorderPane {
         hBox.setId("hBoxMenuT");
         this.setCenter(hBox);
 
+    }
+
+    public void addPropertyChangeListener(PropertyChangeListener listener) {
+        pcs.addPropertyChangeListener(listener);
+    }
+
+    private void registerHandlers() {
+        btns[0].setOnAction(actionEvent -> {
+
+            manager.setMenuOpt(MenuOpt.MAIN_MENU);
+
+        });
+
+        btns[1].setOnAction(actionEvent -> {
+
+            manager.setMenuOpt(MenuOpt.BOOKING);
+
+        });
+
+        btns[2].setOnAction(actionEvent -> {
+            manager.setMenuOpt(MenuOpt.CONTACTS);
+        });
+
+        btns[3].setOnAction(actionEvent -> {
+            manager.setMenuOpt(MenuOpt.ABOUTUS);
+
+        });
+
+        btns[4].setOnAction(actionEvent -> {
+            manager.setMenuOpt(MenuOpt.OURTEAM);
+
+        });
+
+        authIcon.setOnMouseClicked(actionEvent -> {
+            manager.setMenuOpt(MenuOpt.AUTHENTICATION);
+
+        });
+
+        manager.addPropertyChangeListener(evt -> {
+            update();
+        });
+    }
+
+    private void update(){
+        if(manager.getMenuOpt()==MenuOpt.MAIN_MENU) {
+            btns[0].setOpacity(0.8);
+            btns[1].setOpacity(1);
+            btns[2].setOpacity(1);
+            btns[3].setOpacity(1);
+            btns[4].setOpacity(1);
+            authIcon.setOpacity(1);
+            btns[0].setStyle("-fx-font-weight: 700");
+            btns[1].setStyle("-fx-font-weight: 600");
+            btns[2].setStyle("-fx-font-weight: 600");
+            btns[3].setStyle("-fx-font-weight: 600");
+            btns[4].setStyle("-fx-font-weight: 600");
+        }
+        else if(manager.getMenuOpt()==MenuOpt.BOOKING){
+            btns[0].setOpacity(1);
+            btns[1].setOpacity(0.8);
+            btns[2].setOpacity(1);
+            btns[3].setOpacity(1);
+            btns[4].setOpacity(1);
+            authIcon.setOpacity(1);
+            btns[0].setStyle("-fx-font-weight: 600");
+            btns[1].setStyle("-fx-font-weight: 700");
+            btns[2].setStyle("-fx-font-weight: 600");
+            btns[3].setStyle("-fx-font-weight: 600");
+            btns[4].setStyle("-fx-font-weight: 600");
+        }
+        else if(manager.getMenuOpt()==MenuOpt.CONTACTS){
+            btns[0].setOpacity(1);
+            btns[1].setOpacity(1);
+            btns[2].setOpacity(0.8);
+            btns[3].setOpacity(1);
+            btns[4].setOpacity(1);
+            authIcon.setOpacity(1);
+            btns[0].setStyle("-fx-font-weight: 600");
+            btns[1].setStyle("-fx-font-weight: 600");
+            btns[2].setStyle("-fx-font-weight: 700");
+            btns[3].setStyle("-fx-font-weight: 600");
+            btns[4].setStyle("-fx-font-weight: 600");
+        }
+
+        else if(manager.getMenuOpt()==MenuOpt.ABOUTUS){
+            btns[0].setOpacity(1);
+            btns[1].setOpacity(1);
+            btns[2].setOpacity(1);
+            btns[3].setOpacity(0.8);
+            btns[4].setOpacity(1);
+            authIcon.setOpacity(1);
+            btns[0].setStyle("-fx-font-weight: 600");
+            btns[1].setStyle("-fx-font-weight: 600");
+            btns[2].setStyle("-fx-font-weight: 600");
+            btns[3].setStyle("-fx-font-weight: 700");
+            btns[4].setStyle("-fx-font-weight: 600");
+        }
+
+        else if(manager.getMenuOpt()==MenuOpt.OURTEAM){
+            btns[0].setOpacity(1);
+            btns[1].setOpacity(1);
+            btns[2].setOpacity(1);
+            btns[3].setOpacity(1);
+            btns[4].setOpacity(0.8);
+
+            authIcon.setOpacity(1);
+            btns[0].setStyle("-fx-font-weight: 600");
+            btns[1].setStyle("-fx-font-weight: 600");
+            btns[2].setStyle("-fx-font-weight: 600");
+            btns[3].setStyle("-fx-font-weight: 600");
+            btns[4].setStyle("-fx-font-weight: 700");
+        }
+
+        else if(manager.getMenuOpt()==MenuOpt.AUTHENTICATION){
+            btns[0].setOpacity(1);
+            btns[1].setOpacity(1);
+            btns[2].setOpacity(1);
+            btns[3].setOpacity(1);
+            btns[4].setOpacity(1);
+            authIcon.setOpacity(0.65);
+            btns[0].setStyle("-fx-font-weight: 600");
+            btns[1].setStyle("-fx-font-weight: 600");
+            btns[2].setStyle("-fx-font-weight: 600");
+            btns[3].setStyle("-fx-font-weight: 600");
+            btns[4].setStyle("-fx-font-weight: 600");
+        }
     }
 }
