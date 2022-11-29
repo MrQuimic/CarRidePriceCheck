@@ -16,9 +16,10 @@ public class Trip {
     private boolean highway;
     private String arrival;
     private int price;
+    private ArrayList<String> carsIds;
     private ArrayList<Car> cars;
 
-    public Trip(String origin, String destination, boolean oneway, Date date, int extraWaitingTime, int numberOfPassengers, int numberOfLuggage, Date departureTime, boolean highway, String arrival, int price) {
+    public Trip(String origin, String destination, boolean oneway, Date date, int extraWaitingTime, int numberOfPassengers, int numberOfLuggage, Date departureTime, boolean highway, String arrival, int price,ArrayList<String> carsIds) {
         this.id=++idGlobal;
         this.origin = origin;
         this.destination = destination;
@@ -31,7 +32,7 @@ public class Trip {
         this.highway = highway;
         this.arrival = arrival;
         this.price = price;
-        this.cars = new ArrayList<>();
+        this.carsIds = carsIds;
     }
 
     private int numberOfPassengers;
@@ -77,6 +78,13 @@ public class Trip {
         return extraWaitingTime;
     }
 
+    public ArrayList<String> getCarsIds() {
+        return carsIds;
+    }
+
+    public void setCarsIds(ArrayList<String> carsIds) {
+        this.carsIds = carsIds;
+    }
 
     public int getNumberOfPassengers() {
         return numberOfPassengers;
