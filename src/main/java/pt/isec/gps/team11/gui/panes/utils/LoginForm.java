@@ -7,6 +7,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import pt.isec.gps.team11.model.CRPCManager;
 
 public class LoginForm extends BorderPane {
@@ -29,13 +30,14 @@ public class LoginForm extends BorderPane {
     }
 
     private void createViews() {
-        Font timesNewRoman = new Font("TimesRoman", 20);
+        Font timesNewRoman = Font.font("TimesRoman", FontWeight.BOLD, 20);
         Label loginLabel = new Label("Login into your account:");
         loginLabel.setFont(timesNewRoman);
         loginLabel.setTextFill(Color.BLACK);
 
         btnLogin = new Button("Login and Book");
         btnLogin.setFont(timesNewRoman);
+        btnLogin.setId("btnRegLogin");
         email = new TextField("Enter your email");
         email.setMaxWidth(200);
         password = new TextField("Enter your password");

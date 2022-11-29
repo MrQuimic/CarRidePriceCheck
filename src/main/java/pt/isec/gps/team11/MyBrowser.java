@@ -5,31 +5,42 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.ScrollEvent;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
+import pt.isec.gps.team11.model.CRPCManager;
 
 
+import java.beans.PropertyChangeSupport;
 import java.net.URL;
 
 public class MyBrowser extends Region {
-
-    HBox toolbar;
     TextField tf_origin = new TextField();
     TextField tf_destination = new TextField();
-
+    PropertyChangeSupport pcs;
+    CRPCManager crpcManager;
     Button btnSubmit = new Button("Submit");
 
     Button btnReset = new Button("Reset");
     WebView webView = new WebView();
     WebEngine webEngine = webView.getEngine();
 
-    public MyBrowser() {
 
+    public MyBrowser(CRPCManager crpcManager) {
+
+            this.crpcManager = crpcManager;
+            pcs = new PropertyChangeSupport(this);
+
+            createViews();
+            registerHandlers();
+            update();
+        }
+
+
+
+    private void createViews() {
         tf_origin.getText();
         final URL urlGoogleMaps = getClass().getResource("googlemaps.html");
-        ;
         webEngine.load(urlGoogleMaps.toExternalForm());
         webEngine.setJavaScriptEnabled(true);
 
@@ -50,7 +61,7 @@ public class MyBrowser extends Region {
             webView.getEngine().load(null);
             webEngine.load(urlGoogleMaps.toExternalForm());
 
-            // System.out.println(tf_origin.getText());
+            System.out.println(tf_origin.getText());
             // System.out.println(tf_destination.getText());
             //webEngine.executeScript("ExibirGoogleMaps()");
 
@@ -87,6 +98,9 @@ public class MyBrowser extends Region {
         //webEngine.executeScript("myFunction()"); //to execute function
         //String returnValue = (String) webEngine.executeScript("myFunction()"); //get values to use from javascript
 
+
     }
+    private void registerHandlers() {}
+    private void update() {}
 
 }

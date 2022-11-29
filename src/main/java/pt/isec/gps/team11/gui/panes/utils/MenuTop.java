@@ -1,5 +1,6 @@
 package pt.isec.gps.team11.gui.panes.utils;
 
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -80,7 +81,7 @@ public class MenuTop extends BorderPane {
     }
 
     private void createViews() {
-        //CSSManager.applyCSS(this,"styles.css");
+        //CSSManager.applyCSS(this,"mystyle.css");
 
         vBox = new VBox();
         vBox.setId("vBox");
@@ -158,6 +159,7 @@ public class MenuTop extends BorderPane {
 
         hBoxLogo.getChildren().addAll(imgView);
         hBoxLogo.setSpacing(20.0);
+        hBoxLogo.setPadding(new Insets(0,0,0,30));
         hBox = new HBox(hBoxLogo, hBoxTextTop, hBoxMenuTop, hBoxAuth);
 
         hBox.setSpacing(5.0);

@@ -34,7 +34,7 @@ public class CSSManager {
         String s = currentRelativePath.toAbsolutePath().toString();
         URL url = null;
         try {
-            url = new File(s+"\\src\\main\\java\\pt\\isec\\gps\\team11\\gui\\resources\\css\\styles.css").toURI().toURL();
+            url = new File(s+"\\src\\main\\java\\pt\\isec\\gps\\team11\\gui\\resources\\css\\mystyle.css").toURI().toURL();
         } catch (MalformedURLException e) {
             throw new RuntimeException(e);
         }

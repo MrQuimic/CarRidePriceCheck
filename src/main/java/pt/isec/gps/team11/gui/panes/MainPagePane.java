@@ -69,7 +69,7 @@ public class MainPagePane extends BorderPane {
     }
 
     private void createViews() {
-        CSSManager.applyCSS(this,"styles.css");
+        CSSManager.applyCSS(this,"mystyle.css");
         vBox = new VBox();
 
 
@@ -96,18 +96,19 @@ public class MainPagePane extends BorderPane {
         Image imgFourth = ImageManager.getImage("cars/Tesla_Y.png");
         ImageView img4 = new ImageView(imgFourth);
 
-        img1.setFitHeight(100);
+        img1.setFitHeight(150);
         img1.setPreserveRatio(true);
         img2.setFitHeight(100);
         img2.setPreserveRatio(true);
         img3.setFitHeight(100);
         img3.setPreserveRatio(true);
-        img4.setFitHeight(100);
+        img4.setFitHeight(150);
         img4.setPreserveRatio(true);
 
 
-        HBox hbSecond= new HBox(new Separator(), lbOurServices, new Separator());
+        HBox hbSecond= new HBox(new Separator(), new Separator());
         hbSecond.getChildren().addAll(img1, img2, img3, img4);
+        hbSecond.setSpacing(35);
         vBox.getChildren().addAll(vbFirst, hbSecond);
         vBox.setBackground(new Background(new BackgroundImage(
                 Objects.requireNonNull(ImageManager.getImage("bg1.jpg")),
