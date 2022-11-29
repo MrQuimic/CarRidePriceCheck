@@ -3,8 +3,6 @@ package pt.isec.gps.team11.model.data;
 import javafx.scene.image.Image;
 
 public class Car {
-    private static int idGlobal = 0;
-    private int id;
     private int lotation;
     private int bagageCapacity;
     private String brand;
@@ -13,8 +11,7 @@ public class Car {
     private boolean luxury;
     private Image image;
 
-    public Car(int lotation, int bagageCapacity, String brand, String model, String licensePlate, boolean luxury, Image image) {
-        this.id=++idGlobal;
+    public Car(String licensePlate,int lotation, int bagageCapacity, String brand, String model, boolean luxury, Image image) {
         this.lotation = lotation;
         this.bagageCapacity = bagageCapacity;
         this.brand = brand;
@@ -73,10 +70,6 @@ public class Car {
         return image;
     }
 
-    public int getId(){
-        return id;
-    }
-
     @Override
     public boolean equals(Object obj) {
         if(this == obj)
@@ -92,7 +85,7 @@ public class Car {
 
     @Override
     public int hashCode() {
-        return getId();
+        return getLicensePlate().hashCode();
     }
 
 }
