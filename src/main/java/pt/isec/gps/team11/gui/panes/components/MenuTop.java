@@ -144,13 +144,11 @@ public class MenuTop extends BorderPane {
 
     private void registerHandlers() {
         btnsMenu[0].setOnAction(actionEvent -> {
-
             manager.setMenuOpt(MenuOpt.MAIN_MENU);
 
         });
 
         btnsMenu[1].setOnAction(actionEvent -> {
-
             manager.setMenuOpt(MenuOpt.BOOKING);
 
         });
@@ -170,14 +168,12 @@ public class MenuTop extends BorderPane {
         });
 
         logout.setOnAction(actionEvent -> {
-            manager.setMenuOpt(MenuOpt.LOGOUT);
             manager.logout();
-
+            manager.setMenuOpt(MenuOpt.BOOKING);
         });
 
         authIcon.setOnMouseClicked(actionEvent -> {
             manager.setMenuOpt(MenuOpt.AUTHENTICATION);
-
         });
 
         manager.addPropertyChangeListener(evt -> {
@@ -190,6 +186,10 @@ public class MenuTop extends BorderPane {
         if(manager.isLogged()){
             authIcon.setVisible(false);
             logout.setVisible(true);
+        }
+        else{
+            authIcon.setVisible(true);
+            logout.setVisible(false);
         }
         if(manager.getMenuOpt()==MenuOpt.MAIN_MENU) {
             btnsMenu[0].setOpacity(0.8);

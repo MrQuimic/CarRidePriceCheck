@@ -98,7 +98,6 @@ public class RegistrationForm extends BorderPane {
     }
 
     private void update() {
-        if(crpcManager.isLogged())
-            this.setVisible(false);
+        this.setVisible(!crpcManager.isLogged());
     }
 }
