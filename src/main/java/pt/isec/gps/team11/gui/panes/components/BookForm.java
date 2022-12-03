@@ -128,7 +128,6 @@ public class BookForm extends BorderPane {
         lbDirections.setFont(fontSmall);
         lbDirections.setAlignment(Pos.CENTER_LEFT);
         cbDirections = new ChoiceBox();
-        //add items to choiceBox
         cbDirections.getItems().addAll("One Way", "Return");
         cbDirections.setValue("One Way");
 
@@ -160,7 +159,6 @@ public class BookForm extends BorderPane {
         lbPassengers.setPadding(new Insets(0,0,5,0));
         lbPassengers.setFont(fontSmall);
         cbPassengers = new ChoiceBox();
-        //add items to choiceBox
         cbPassengers.getItems().addAll("1", "2", "3", "4","5", "6", "7");
         cbPassengers.setValue("1");
         vbPassengers.getChildren().addAll(lbPassengers,cbPassengers);
@@ -174,8 +172,6 @@ public class BookForm extends BorderPane {
         lbSuitcases.setPadding(new Insets(0,0,5,0));
         lbSuitcases.setFont(fontSmall);
         cbSuitcases = new ChoiceBox();
-
-        //add items to choiceBox
         cbSuitcases.getItems().addAll("0", "1", "2", "3", "4","5", "6", "7");
         cbSuitcases.setValue("0");
         vbSuitcases.getChildren().addAll(lbSuitcases,cbSuitcases);
@@ -252,7 +248,7 @@ public class BookForm extends BorderPane {
         lbTolls = new Label("Tolls:");
         lbTolls.setAlignment(Pos.CENTER_LEFT);
         cbTolls = new ChoiceBox();
-        //add items to choiceBox
+        cbTolls.getItems().addAll("Yes","No");
 
         vbOptions.getChildren().addAll(vbDirections,vbExtraWaitTime,hbPassengersSuitcases,hbDepartureDateAndImage,hbDepartureTimeAndImage,vbTolls);
         vbOptions.setSpacing(15);
@@ -300,6 +296,70 @@ public class BookForm extends BorderPane {
         });
 
         btnSubmit.setOnAction(actionEvent -> {
+            int extraWaitTime;
+            Date departureTime = new Date();
+            Date departureDate = new Date();
+            boolean directions;
+            int nrPassengers = 1;
+            int nrSuitcases = 0;
+            boolean tolls;
+            boolean flag = true;
+
+            SimpleDateFormat formatter = new SimpleDateFormat("HH:mm");
+            Date systemDate = new Date();
+
+
+            if(tfExtraWaitTime.getText().isBlank()) {
+                extraWaitTime = 0;
+            } else {
+                extraWaitTime = Integer.parseInt(tfExtraWaitTime.getText());
+            }
+
+            if(tfDepartureTime.getText().isBlank() /*|| formatter.format(tfDepartureTime.getText()).isBefore(formatter.format(systemDate))*/) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Alert");
+                alert.setHeaderText(null);
+                alert.setContentText("The departure time is invalid");
+                alert.showAndWait();
+                flag = false;
+                return;
+            }
+            //departureTime = tfDepartureTime.getValue();
+
+            /*if(dpDepartureDate.getValue().isBefore( (ChronoLocalDate) systemDate)) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Alert");
+                alert.setHeaderText(null);
+                alert.setContentText("The departure time is invalid");
+                alert.showAndWait();
+                flag = false;
+                return;
+            }*/
+            //departureDate = dpDepartureDate.getValue();
+
+            if(cbDirections.getValue().equals("One Way")) {
+                directions = true;
+            }else
+                directions = false;//return trip
+
+            if(cbPassengers.getValue() != null) {
+                String s = cbPassengers.getValue().toString();
+                nrPassengers = Integer.parseInt(s);
+            }
+
+            if(cbSuitcases.getValue() != null) {
+                String s = cbSuitcases.getValue().toString();
+                nrSuitcases = Integer.parseInt(s);
+            }
+
+            if(cbTolls.getValue().equals("Yes"))
+                tolls = true;
+            else
+                tolls = false;
+/*
+            if(flag) {
+                crpcManager.book(directions,departureDate,extraWaitTime,nrSuitcases, nrPassengers,departureTime,tolls);
+            }*/
 
             crpcManager.setMenuOpt(MenuOpt.MAIN_MENU);
 
@@ -308,12 +368,10 @@ public class BookForm extends BorderPane {
 
 
 
+
         crpcManager.addPropertyChangeListener(evt -> {
             update();
         });
-    }
-
-    private void configAdapter() {
     }
 
     private void update() {
