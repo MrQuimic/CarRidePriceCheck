@@ -18,7 +18,9 @@ public enum MenuOpt {
 
     BOOKING,//todo temp onl for now
 
-    AUTHENTICATION
+    AUTHENTICATION,
+
+    LOGOUT,
 
 
 }

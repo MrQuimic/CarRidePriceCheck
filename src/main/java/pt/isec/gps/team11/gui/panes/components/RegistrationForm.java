@@ -51,17 +51,23 @@ public class RegistrationForm extends BorderPane {
         btnRegister = new Button("Register and book");
         btnRegister.setId("btnRegLogin");
 
-        email = new TextField("Your email here...");
-        phoneNumber = new TextField("+351 000 000 000");
+        email = new TextField();
+        email.setPromptText("Your email here...");
+        phoneNumber = new TextField();
+        phoneNumber.setPromptText("+351 000 000 000");
         hbox1 = new HBox(email, phoneNumber);
         hbox1.setSpacing(10);
-        firstName = new TextField("Insert first name...");
-        lastName = new TextField("Insert last name...");
+        firstName = new TextField();
+        firstName.setPromptText("Insert first name...");
+        lastName = new TextField();
+        lastName.setPromptText("Insert last name...");
         hBox2 = new HBox(firstName, lastName);
         hBox2.setSpacing(10);
 
-        address = new TextField("Insert your address...");
-        nif = new TextField("Insert your nif...");
+        address = new TextField();
+        address.setPromptText("Insert your address...");
+        nif = new TextField();
+        nif.setPromptText("Insert your nif...");
         hBox3 = new HBox(address, nif);
         hBox3.setSpacing(10);
 

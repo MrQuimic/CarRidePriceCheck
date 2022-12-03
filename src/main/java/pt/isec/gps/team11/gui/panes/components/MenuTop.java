@@ -28,9 +28,12 @@ public class MenuTop extends BorderPane {
     MenuOpt menuOpt;
     ImageView authIcon;
     PropertyChangeSupport pcs;
+    Text usernameDisplay;
+    String username;
 
-    public MenuTop(CRPCManager manager){
+    public MenuTop(CRPCManager manager, String username){
         this.manager = manager;
+        //this.username = username;
         pcs = new PropertyChangeSupport(this);
         createViews();
         registerHandlers();
@@ -41,7 +44,7 @@ public class MenuTop extends BorderPane {
 
     private void createViews() {
         //CSSManager.applyCSS(this,"mystyle.css");
-
+        usernameDisplay = new Text("");
         vBox = new VBox();
         vBox.setId("vBox");
         hBoxLogo = new HBox();
@@ -117,8 +120,9 @@ public class MenuTop extends BorderPane {
         hBoxMenuTop.getChildren().addAll(btns);
 
         hBoxLogo.getChildren().addAll(imgView);
-        hBoxLogo.setSpacing(20.0);
-        hBoxLogo.setPadding(new Insets(0,0,0,30));
+        hBoxLogo.setSpacing(5.0);
+        //hBoxLogo.setPadding(new Insets(0,0,0,30));
+        hBoxLogo.setPadding(new Insets(0,50,0,0));
         hBox = new HBox(hBoxLogo, hBoxTextTop, hBoxMenuTop, hBoxAuth);
 
         hBox.setSpacing(5.0);

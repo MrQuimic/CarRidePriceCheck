@@ -22,7 +22,9 @@ import pt.isec.gps.team11.gui.resources.ImageManager;
 import pt.isec.gps.team11.model.CRPCManager;
 import pt.isec.gps.team11.model.fsm.States;
 
-import java.util.Objects;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 
 
 /**
@@ -47,7 +49,7 @@ public class RootPane extends BorderPane {
     Text tMainMenu;
     /**
      * The Btns.
-     */
+     */    String username;
     Button[] btns;
     private static final int NRB = 7;
     private static final int BW = 7;
@@ -72,6 +74,7 @@ public class RootPane extends BorderPane {
 
     public RootPane(CRPCManager crpcManager){
         this.crpcManager = crpcManager;
+        this.username = new String("");
         createViews();
         registerHandler();
         update();
@@ -83,7 +86,8 @@ public class RootPane extends BorderPane {
         vBox = new VBox();
 
 
-        MenuTop bp = new MenuTop(crpcManager);
+
+        MenuTop bp = new MenuTop(crpcManager, username);
 
 
         StackPane stackPane;
@@ -127,8 +131,6 @@ public class RootPane extends BorderPane {
     }
 
     private void update() {
-
-
 
     }
 
