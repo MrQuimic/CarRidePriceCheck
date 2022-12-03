@@ -42,13 +42,16 @@ public class MainApplication extends Application {
         root.getChildren().add(new Label("Project GPS"));
         root.getChildren().add(new Label("Car Ride Price Check"));
 
-        Scene scene = new Scene(root, 1150, 750, Color.INDIGO);
+        Scene scene = new Scene(root, 1100, 700, Color.INDIGO);
         primaryStage.setScene(scene);
 
         primaryStage.setTitle("DEIS-ISEC");
-        primaryStage.setMinWidth(900);
-        primaryStage.setMinHeight(500);
-
+        primaryStage.setMinWidth(300);
+        primaryStage.setMinHeight(600);
+        primaryStage.setMaxHeight(900);
+        primaryStage.setMaxWidth(1600);
+        primaryStage.setResizable(true);
+        primaryStage.setMaximized(true);
         primaryStage.setMaximized(false);
         primaryStage.show();
 

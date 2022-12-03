@@ -100,15 +100,7 @@
     -fx-border-width: 1px 1px 1px 1px;
     -fx-border-radius: 2px 2px 2px 2px;
 }
-#hBoxMenuT {
-    -fx-text-alignment: center;
-    -fx-alignment: center;
-    -fx-padding: 0 0 0 23;
-    -fx-spacing: 0;
-    -fx-background-radius: 2px 2px 2px 2px;
-    -fx-border-width: 1px 1px 1px 1px;
-    -fx-border-radius: 2px 2px 2px 2px;
-}
+
 
 #authIcon:hover{
     -fx-cursor: Hand;
@@ -117,6 +109,30 @@
 
 
 #mbtnSubmit{
+    -fx-background-color: rgba(120, 168, 194, 0.75);
+    -fx-border-color: rgb(190, 206, 238);
+
+    -fx-font-weight: 600;
+    -fx-text-fill: #2a2d34;
+    -fx-background-radius: 10px 10px 10px 10px;
+    -fx-border-width: 1px 1px 1px 1px;
+    -fx-border-radius: 10px 10px 10px 10px;
+
+
+}
+#OriginA{
+
+    -fx-background-color: rgba(120, 168, 194, 0.75);
+    -fx-border-color: rgb(190, 206, 238);
+
+    -fx-font-weight: 600;
+    -fx-text-fill: #2a2d34;
+    -fx-background-radius: 10px 10px 10px 10px;
+    -fx-border-width: 1px 1px 1px 1px;
+    -fx-border-radius: 10px 10px 10px 10px
+
+}
+#DestinA{
     -fx-background-color: rgba(120, 168, 194, 0.75);
     -fx-border-color: rgb(190, 206, 238);
 
@@ -167,8 +183,6 @@
     -fx-background-radius: 10px 10px 10px 10px;
     -fx-border-width: 1px 1px 1px 1px;
     -fx-border-radius: 10px 10px 10px 10px;
-
-
 }
 
 #btnRegLogin:hover {
@@ -178,6 +192,40 @@
     -fx-cursor: Hand;
 
 }
+
+#splitPaneTop {
+    -fx-border-color:  #BBBBBB transparent -fx-box-border transparent;
+    -fx-background-color: transparent, -fx-inner-border;
+    -fx-border-radius: 5px 5px 5px 5px;
+    -fx-background-insets: 0, 1 0 1 0;
+    -fx-padding: 0 ;
+
+}
+
+#splitPaneTop .split-pane-divider {
+    -fx-padding: 0 1 0 1 ;
+    -fx-background-color: gray ;
+    -fx-background-insets: 0;
+    -fx-cursor: pointer;
+}
+
+#splitPaneContent .split-pane-divider {
+    -fx-padding: 0 1 0 1 ;
+    -fx-background-color: transparent ;
+    -fx-background-insets: 0;
+    -fx-cursor: pointer;
+}
+
+.choice-box:hover{
+    -fx-cursor: Hand;
+    -fx-background-color: #b6b5b5;
+}
+
+.choice-box .context-menu{
+    -fx-cursor: Hand;
+}
+
+
 
 .Text{
     -fx-text-fill: #404040;

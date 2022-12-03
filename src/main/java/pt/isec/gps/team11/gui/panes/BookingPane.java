@@ -1,5 +1,6 @@
 package pt.isec.gps.team11.gui.panes;
 
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -60,12 +61,16 @@ public class BookingPane extends BorderPane {
         hBox.setSpacing(50);
 
 
-
+        hBox.setAlignment(Pos.CENTER);
+        hBoxMap.setAlignment(Pos.CENTER);
 
         splitPane.getItems().addAll(hBox, hBoxMap);
         splitPane.setDividerPositions(0.25f, 0.75f); //Important for zoom
+        splitPane.getDividers().get(0).positionProperty().addListener((observable,oldValue,newValue) -> {
+            splitPane.setDividerPositions(0.25f, 0.75f);
+        });
 
-
+        splitPane.setId("splitPaneContent");
         scene = new Scene(splitPane);
         vBox.getChildren().addAll(splitPane);
 

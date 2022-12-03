@@ -55,7 +55,7 @@ public class RegistrationForm extends BorderPane {
         email = new TextField();
         email.setPromptText("Your email here...");
         phoneNumber = new TextField();
-        phoneNumber.setPromptText("+351 000 000 000");
+        phoneNumber.setPromptText("+351 00 000 000");
         hbox1 = new HBox(email, phoneNumber);
         hbox1.setSpacing(10);
         firstName = new TextField();

@@ -1,7 +1,10 @@
 package pt.isec.gps.team11.gui.panes.components;
 
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.ListView;
+import javafx.scene.control.SplitPane;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.effect.Light;
 import javafx.scene.effect.Lighting;
@@ -23,7 +26,7 @@ public class MenuTop extends BorderPane {
 
     Button[] btnsMenu;
     Button logout;
-    private HBox hBox, hBoxLogo,hBoxMenuTop, hBoxTextTop, hBoxAuth;
+    private HBox hBox, hBoxLogo,hBoxMenuTop, hBoxTextTop, hBoxAuth, hBoxMenuT;
     VBox vBox;
     Text tMainMenu;
     MenuOpt menuOpt;
@@ -127,15 +130,33 @@ public class MenuTop extends BorderPane {
         hBoxLogo.getChildren().addAll(imgView);
         hBoxLogo.setSpacing(5.0);
         //hBoxLogo.setPadding(new Insets(0,0,0,30));
-        hBoxLogo.setPadding(new Insets(0,50,0,0));
-        hBox = new HBox(hBoxLogo, hBoxTextTop, hBoxMenuTop, hBoxAuth);
+        hBoxLogo.setPadding(new Insets(0,0,0,0));
 
-        hBox.setSpacing(5.0);
-        hBox.setHgrow(this, Priority.ALWAYS);
+        AnchorPane anchorPane = new AnchorPane();
+        // List should stretch as anchorPane is resized
+        AnchorPane.setTopAnchor(hBoxLogo, 10.0);
+        AnchorPane.setLeftAnchor(hBoxLogo, 10.0);
+        hBoxMenuT = new HBox(hBoxTextTop, hBoxMenuTop, hBoxAuth);
+        hBoxMenuT.setSpacing(5.0);
+        hBoxMenuT.setHgrow(this, Priority.ALWAYS);
 
-        hBox.setId("hBoxMenuT");
-        this.setCenter(hBox);
+        this.setLeft(hBoxLogo);
+        hBoxMenuT.setId("hBoxMenuT");
 
+        hBoxLogo.setAlignment(Pos.CENTER);
+        hBoxMenuT.setAlignment(Pos.CENTER);
+
+        SplitPane splitPane = new SplitPane();
+        splitPane.getItems().addAll(hBoxLogo, hBoxMenuT);
+        splitPane.setDividerPositions(0.25f, 0.75f); //Important for zoom
+
+
+        splitPane.getDividers().get(0).positionProperty().addListener((observable,oldValue,newValue) -> {
+            splitPane.setDividerPositions(0.25f, 0.75f);
+        });
+        splitPane.setId("splitPaneTop");
+
+        this.setCenter(splitPane);
     }
 
     public void addPropertyChangeListener(PropertyChangeListener listener) {

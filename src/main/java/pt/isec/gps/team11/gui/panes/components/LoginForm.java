@@ -6,6 +6,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 import pt.isec.gps.team11.gui.MenuOpt;
 import pt.isec.gps.team11.model.CRPCManager;
 
@@ -13,7 +14,7 @@ import java.beans.PropertyChangeSupport;
 
 public class LoginForm extends BorderPane {
     CRPCManager crpcManager;
-    VBox vBox;
+    VBox vBox,vBox2;
     TextField email;
     PasswordField password;
     Button btnLogin;
@@ -52,6 +53,7 @@ public class LoginForm extends BorderPane {
     private void createViews() {
         Font timesNewRoman = Font.font("TimesRoman", FontWeight.BOLD, 20);
         Label loginLabel = new Label("Login into your account:");
+        Text loginUsers = new Text("Admin user: admin@gps \nClient user: client@gps\n");
         loginLabel.setFont(timesNewRoman);
         loginLabel.setTextFill(Color.BLACK);
         loginAlert = new Alert(Alert.AlertType.ERROR);
@@ -69,7 +71,9 @@ public class LoginForm extends BorderPane {
         password.setMaxWidth(200);
         vBox = new VBox(loginLabel, email, password, btnLogin);
         vBox.setSpacing(10);
-        this.setCenter(vBox);
+        vBox2 = new VBox(vBox, loginUsers);
+        vBox2.setSpacing(50);
+        this.setCenter(vBox2);
     }
 
     private void update(){

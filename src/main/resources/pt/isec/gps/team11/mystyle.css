@@ -1,5 +1,6 @@
 body{
-
+    font-family: "Lucida Console", "Courier New", monospace;
+    font-size: 14px;
     text-align: center;
     background-color: rgba(243, 243, 243, 0.91);
     /*border-radius: 10px 10px 10px 10px;
@@ -38,13 +39,13 @@ body{
 }
 
 #autocomplete, #autocomplete2{
-    background-color: rgb(245, 245, 245);
+    background-color: rgb(253, 252, 252);
     //border-color: rgb(113, 132, 175);
-    font-weight: 600;
+    font-weight: 700;
     color: #1d1f26;
     padding: 10px;
     border-radius: 10px 10px 10px 10px;
-    border-width: 1px 1px 1px 1px;
+    border-width: 2px 2px 2px 2px;
 }
 
 #autocomplete:focus, #autocomplete2:focus{
@@ -52,10 +53,13 @@ body{
 
 
 }
+#autocomplete:hover, #autocomplete2:hover{
+    cursor: auto;
+
+}
 
 #submit:hover {
     background-color: #709481;
     border-color: rgb(120, 127, 143);
     cursor: pointer;
-
 }
