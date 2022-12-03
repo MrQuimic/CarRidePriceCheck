@@ -7,7 +7,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import pt.isec.gps.team11.gui.MenuOpt;
-import pt.isec.gps.team11.gui.resources.ImageManager;
+import pt.isec.gps.team11.gui.panes.utils.ImageManager;
 import pt.isec.gps.team11.model.CRPCManager;
 import pt.isec.gps.team11.model.fsm.States;
 

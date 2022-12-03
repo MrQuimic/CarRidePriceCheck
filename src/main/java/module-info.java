@@ -12,6 +12,7 @@ module pt.isec.gps.team11 {
     requires com.almasb.fxgl.all;
     requires javafx.media;
     requires java.desktop;
+    requires org.junit.jupiter.api;
 
     opens pt.isec.gps.team11 to javafx.fxml;
     exports pt.isec.gps.team11;

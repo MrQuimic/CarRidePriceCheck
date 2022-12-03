@@ -1,5 +1,8 @@
 package pt.isec.gps.team11;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.concurrent.Worker;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
@@ -98,10 +101,32 @@ public class MyBrowser extends Region {
         getChildren().add(webView);
 
 
+
+
+        //String returnValue = (String) webEngine.executeScript("myFunction()");
+
         //https://jenkov.com/tutorials/javafx/webview.html
 
         //webEngine.executeScript("myFunction()"); //to execute function
-        //String returnValue = (String) webEngine.executeScript("myFunction()"); //get values to use from javascript
+       //String returnValue = (String) webEngine.executeScript("myFunction()"); //get values to use from javascript
+       //https://www.tabnine.com/code/java/methods/javafx.scene.web.WebEngine/getLoadWorker
+       /* webEngine.getLoadWorker().stateProperty().addListener(
+                new ChangeListener() {
+                    @Override
+                    public void changed(ObservableValue observable, Object oldValue, Object newValue) {
+                        System.out.println("oldValue: " + oldValue);
+                        System.out.println("newValue: " + newValue);
+
+                        if (newValue == Worker.State.SUCCEEDED) {
+                            //document finished loading
+                        }
+                    }
+                }
+        );
+        */
+
+
+
 
 
     }

@@ -1,4 +1,4 @@
-package pt.isec.gps.team11.gui.panes.utils;
+package pt.isec.gps.team11.gui.panes.components;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -11,6 +11,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import pt.isec.gps.team11.model.CRPCManager;
+
+import java.beans.PropertyChangeSupport;
 
 public class RegistrationForm extends BorderPane {
     CRPCManager crpcManager;
@@ -27,20 +29,19 @@ public class RegistrationForm extends BorderPane {
     TextField nif;
     PasswordField password;
 
+    PropertyChangeSupport pcs;
     PasswordField confirmPassword;
     Button btnRegister;
 
     public RegistrationForm(CRPCManager crpcManager){
         this.crpcManager = crpcManager;
+        pcs = new PropertyChangeSupport(this);
         createViews();
         registerHandlers();
+        update();
     }
 
-    private void registerHandlers() {
-        btnRegister.setOnAction(actionEvent -> {
 
-        });
-    }
 
     private void createViews() {
         Font timesNewRoman = Font.font("TimesRoman", FontWeight.BOLD, 20);
@@ -85,4 +86,19 @@ public class RegistrationForm extends BorderPane {
         this.setCenter(vbox);
     }
 
+    private void registerHandlers() {
+
+        btnRegister.setOnAction(actionEvent -> {
+
+        });
+
+        crpcManager.addPropertyChangeListener(evt -> {
+            update();
+        });
+    }
+
+    private void update() {
+        if(crpcManager.isLogged())
+            this.setVisible(false);
+    }
 }

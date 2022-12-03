@@ -1,4 +1,4 @@
-package pt.isec.gps.team11.gui.panes.utils;
+package pt.isec.gps.team11.gui.panes.components;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -13,19 +13,18 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import pt.isec.gps.team11.gui.MenuOpt;
-import pt.isec.gps.team11.gui.resources.CSSManager;
-import pt.isec.gps.team11.gui.resources.ImageManager;
+import pt.isec.gps.team11.gui.panes.utils.CSSManager;
+import pt.isec.gps.team11.gui.panes.utils.ImageManager;
 import pt.isec.gps.team11.model.CRPCManager;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.chrono.ChronoLocalDate;
 import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoField;
 import java.util.Date;
 
 public class BookForm extends BorderPane {

@@ -1,6 +1,5 @@
 package pt.isec.gps.team11.gui.panes;
 
-import javafx.geometry.Insets;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -12,11 +11,9 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import pt.isec.gps.team11.gui.MenuOpt;
-import pt.isec.gps.team11.gui.panes.utils.MenuTop;
-import pt.isec.gps.team11.gui.resources.CSSManager;
-import pt.isec.gps.team11.gui.resources.ImageManager;
+import pt.isec.gps.team11.gui.panes.utils.CSSManager;
+import pt.isec.gps.team11.gui.panes.utils.ImageManager;
 import pt.isec.gps.team11.model.CRPCManager;
-import pt.isec.gps.team11.model.fsm.States;
 
 import java.util.Objects;
 

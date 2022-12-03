@@ -28,6 +28,35 @@
 }
 
 
+#logoutbtn {
+    -fx-font-weight: 600;
+    -fx-font-size: 10;
+    -fx-border-width: 1px 1px 1px 1px;
+    -fx-background-radius: 2px 2px 2px 2px;
+    -fx-border-width: 1px 1px 1px 1px;
+    -fx-border-radius: 2px 2px 2px 2px;
+    -fx-border-color: #717686;
+    -fx-background-color: linear-gradient(#fafdfe, #e8f5fc),
+    linear-gradient(rgba(159, 154, 154, 0.37) 0%, rgba(133, 140, 152, 0.49) 49%, rgba(120, 121, 122, 0.47) 50%, rgba(104, 115, 128, 0.6) 100%);
+}
+
+
+#logoutbtn:hover {
+    /*-fx-rotate: -1;*/
+    -fx-background-radius: 2px 2px 2px 2px;
+    -fx-border-width: 1px 1px 1px 1px;
+    -fx-border-radius: 2px 2px 2px 2px;
+    -fx-border-color: #AAAAAA;
+    -fx-text-fill: #000000;
+    -fx-cursor: Hand;
+    -fx-focus-outline: none;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: #cfd5d7;
+    -fx-background-color: linear-gradient(#fafdfe, #e8f5fc),
+    linear-gradient(rgba(72, 132, 189, 0.63) 0%, rgba(71, 139, 196, 0.79) 49%, rgba(76, 141, 203, 0.77) 50%, rgba(76, 121, 171, 0.92) 100%);
+}
+
+
 #MenuUIBtn {
     -fx-font-weight: 600;
     -fx-font-size: 14;
@@ -72,6 +101,8 @@
     -fx-border-radius: 2px 2px 2px 2px;
 }
 #hBoxMenuT {
+    -fx-text-alignment: center;
+    -fx-alignment: center;
     -fx-padding: 0 0 0 23;
     -fx-spacing: 0;
     -fx-background-radius: 2px 2px 2px 2px;

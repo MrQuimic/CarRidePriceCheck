@@ -2,18 +2,11 @@ package pt.isec.gps.team11.gui.panes;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.SplitPane;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import pt.isec.gps.team11.MyBrowser;
 import pt.isec.gps.team11.gui.MenuOpt;
-import pt.isec.gps.team11.gui.panes.utils.LoginForm;
-import pt.isec.gps.team11.gui.panes.utils.MenuTop;
-import pt.isec.gps.team11.gui.panes.utils.RegistrationForm;
+import pt.isec.gps.team11.gui.panes.components.LoginForm;
+import pt.isec.gps.team11.gui.panes.components.RegistrationForm;
 import pt.isec.gps.team11.model.CRPCManager;
 
 public class AuthenticationPane extends BorderPane {

@@ -1,4 +1,4 @@
-package pt.isec.gps.team11.gui.panes.utils;
+package pt.isec.gps.team11.gui.panes.components;
 
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
@@ -12,7 +12,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import pt.isec.gps.team11.gui.MenuOpt;
-import pt.isec.gps.team11.gui.resources.ImageManager;
+import pt.isec.gps.team11.gui.panes.utils.ImageManager;
 import pt.isec.gps.team11.model.CRPCManager;
 
 import java.beans.PropertyChangeListener;
@@ -21,7 +21,8 @@ import java.beans.PropertyChangeSupport;
 public class MenuTop extends BorderPane {
     private CRPCManager manager;
 
-    Button[] btns;
+    Button[] btnsMenu;
+    Button logout;
     private HBox hBox, hBoxLogo,hBoxMenuTop, hBoxTextTop, hBoxAuth;
     VBox vBox;
     Text tMainMenu;
@@ -55,17 +56,20 @@ public class MenuTop extends BorderPane {
         hBoxMenuTop.setId("hBoxMenuTop");
         hBoxAuth= new HBox();
         hBoxAuth.setId("hBoxMenuTop");
-        btns = new Button[5];
+        btnsMenu = new Button[5];
 
-        btns[0] = new Button(String.format("\uD83C\uDFE0 Home"));
-        btns[1] = new Button(String.format("\uD83D\uDCD5 Booking"));
-        btns[2] = new Button(String.format("\uD83D\uDCDE Contacts"));
-        btns[3] = new Button(String.format("✨ About us"));
-        btns[4] = new Button(String.format("\uD83D\uDC65 Our Team"));
+        btnsMenu[0] = new Button(String.format("\uD83C\uDFE0 Home"));
+        btnsMenu[1] = new Button(String.format("\uD83D\uDCD5 Booking"));
+        btnsMenu[2] = new Button(String.format("\uD83D\uDCDE Contacts"));
+        btnsMenu[3] = new Button(String.format("✨ About us"));
+        btnsMenu[4] = new Button(String.format("\uD83D\uDC65 Our Team"));
+        logout = new Button(String.format("⏏ Logout"));
+        logout.setId("logoutbtn");
+        logout.setVisible(false);
 
         for(int i = 0; i < 5; i++){
-            btns[i].setPrefSize(110,40);
-            btns[i].setId("MenuUIBtn");
+            btnsMenu[i].setPrefSize(110,40);
+            btnsMenu[i].setId("MenuUIBtn");
             // btns[i].setStyle("");
         }
 
@@ -97,7 +101,7 @@ public class MenuTop extends BorderPane {
         imgView.setFitHeight(80);
         imgView.setPreserveRatio(true);
         imgView.setId("logoMenuTop");
-        imgView.setStyle("-fx-padding: 0 0 0 30;");
+        imgView.setStyle("-fx-padding: 0 0 0 10;");
 
 
 
@@ -108,7 +112,8 @@ public class MenuTop extends BorderPane {
         authIcon.setId("authIcon");
         authIcon.setFitHeight(30);
         authIcon.setPreserveRatio(true);
-        hBoxAuth.getChildren().add(authIcon);
+
+        hBoxAuth.getChildren().addAll(authIcon, logout);
 
 
 
@@ -117,7 +122,7 @@ public class MenuTop extends BorderPane {
         tMainMenu.setId("LabelMenuTop");
         tMainMenu.setFont(new Font("TimesRoman", 20));
         hBoxTextTop.getChildren().addAll(tMainMenu);
-        hBoxMenuTop.getChildren().addAll(btns);
+        hBoxMenuTop.getChildren().addAll(btnsMenu);
 
         hBoxLogo.getChildren().addAll(imgView);
         hBoxLogo.setSpacing(5.0);
@@ -138,29 +143,35 @@ public class MenuTop extends BorderPane {
     }
 
     private void registerHandlers() {
-        btns[0].setOnAction(actionEvent -> {
+        btnsMenu[0].setOnAction(actionEvent -> {
 
             manager.setMenuOpt(MenuOpt.MAIN_MENU);
 
         });
 
-        btns[1].setOnAction(actionEvent -> {
+        btnsMenu[1].setOnAction(actionEvent -> {
 
             manager.setMenuOpt(MenuOpt.BOOKING);
 
         });
 
-        btns[2].setOnAction(actionEvent -> {
+        btnsMenu[2].setOnAction(actionEvent -> {
             manager.setMenuOpt(MenuOpt.CONTACTS);
         });
 
-        btns[3].setOnAction(actionEvent -> {
+        btnsMenu[3].setOnAction(actionEvent -> {
             manager.setMenuOpt(MenuOpt.ABOUTUS);
 
         });
 
-        btns[4].setOnAction(actionEvent -> {
+        btnsMenu[4].setOnAction(actionEvent -> {
             manager.setMenuOpt(MenuOpt.OURTEAM);
+
+        });
+
+        logout.setOnAction(actionEvent -> {
+            manager.setMenuOpt(MenuOpt.LOGOUT);
+            manager.logout();
 
         });
 
@@ -175,87 +186,104 @@ public class MenuTop extends BorderPane {
     }
 
     private void update(){
+        logout.setText("⏏Logout: \n" + manager.getUsername());
+        if(manager.isLogged()){
+            authIcon.setVisible(false);
+            logout.setVisible(true);
+        }
         if(manager.getMenuOpt()==MenuOpt.MAIN_MENU) {
-            btns[0].setOpacity(0.8);
-            btns[1].setOpacity(1);
-            btns[2].setOpacity(1);
-            btns[3].setOpacity(1);
-            btns[4].setOpacity(1);
+            btnsMenu[0].setOpacity(0.8);
+            btnsMenu[1].setOpacity(1);
+            btnsMenu[2].setOpacity(1);
+            btnsMenu[3].setOpacity(1);
+            btnsMenu[4].setOpacity(1);
+            logout.setOpacity(1);
             authIcon.setOpacity(1);
-            btns[0].setStyle("-fx-font-weight: 700");
-            btns[1].setStyle("-fx-font-weight: 600");
-            btns[2].setStyle("-fx-font-weight: 600");
-            btns[3].setStyle("-fx-font-weight: 600");
-            btns[4].setStyle("-fx-font-weight: 600");
+            btnsMenu[0].setStyle("-fx-font-weight: 700");
+            btnsMenu[1].setStyle("-fx-font-weight: 600");
+            btnsMenu[2].setStyle("-fx-font-weight: 600");
+            btnsMenu[3].setStyle("-fx-font-weight: 600");
+            btnsMenu[4].setStyle("-fx-font-weight: 600");
+            logout.setStyle("-fx-font-weight: 600");
         }
         else if(manager.getMenuOpt()==MenuOpt.BOOKING){
-            btns[0].setOpacity(1);
-            btns[1].setOpacity(0.8);
-            btns[2].setOpacity(1);
-            btns[3].setOpacity(1);
-            btns[4].setOpacity(1);
+            btnsMenu[0].setOpacity(1);
+            btnsMenu[1].setOpacity(0.8);
+            btnsMenu[2].setOpacity(1);
+            btnsMenu[3].setOpacity(1);
+            btnsMenu[4].setOpacity(1);
+            logout.setOpacity(1);
             authIcon.setOpacity(1);
-            btns[0].setStyle("-fx-font-weight: 600");
-            btns[1].setStyle("-fx-font-weight: 700");
-            btns[2].setStyle("-fx-font-weight: 600");
-            btns[3].setStyle("-fx-font-weight: 600");
-            btns[4].setStyle("-fx-font-weight: 600");
+            btnsMenu[0].setStyle("-fx-font-weight: 600");
+            btnsMenu[1].setStyle("-fx-font-weight: 700");
+            btnsMenu[2].setStyle("-fx-font-weight: 600");
+            btnsMenu[3].setStyle("-fx-font-weight: 600");
+            btnsMenu[4].setStyle("-fx-font-weight: 600");
+            logout.setStyle("-fx-font-weight: 600");
         }
         else if(manager.getMenuOpt()==MenuOpt.CONTACTS){
-            btns[0].setOpacity(1);
-            btns[1].setOpacity(1);
-            btns[2].setOpacity(0.8);
-            btns[3].setOpacity(1);
-            btns[4].setOpacity(1);
+            btnsMenu[0].setOpacity(1);
+            btnsMenu[1].setOpacity(1);
+            btnsMenu[2].setOpacity(0.8);
+            btnsMenu[3].setOpacity(1);
+            btnsMenu[4].setOpacity(1);
+            logout.setOpacity(1);
             authIcon.setOpacity(1);
-            btns[0].setStyle("-fx-font-weight: 600");
-            btns[1].setStyle("-fx-font-weight: 600");
-            btns[2].setStyle("-fx-font-weight: 700");
-            btns[3].setStyle("-fx-font-weight: 600");
-            btns[4].setStyle("-fx-font-weight: 600");
+            btnsMenu[0].setStyle("-fx-font-weight: 600");
+            btnsMenu[1].setStyle("-fx-font-weight: 600");
+            btnsMenu[2].setStyle("-fx-font-weight: 700");
+            btnsMenu[3].setStyle("-fx-font-weight: 600");
+            btnsMenu[4].setStyle("-fx-font-weight: 600");
+            logout.setStyle("-fx-font-weight: 600");
         }
 
         else if(manager.getMenuOpt()==MenuOpt.ABOUTUS){
-            btns[0].setOpacity(1);
-            btns[1].setOpacity(1);
-            btns[2].setOpacity(1);
-            btns[3].setOpacity(0.8);
-            btns[4].setOpacity(1);
+            btnsMenu[0].setOpacity(1);
+            btnsMenu[1].setOpacity(1);
+            btnsMenu[2].setOpacity(1);
+            btnsMenu[3].setOpacity(0.8);
+            btnsMenu[4].setOpacity(1);
+            logout.setOpacity(1);
             authIcon.setOpacity(1);
-            btns[0].setStyle("-fx-font-weight: 600");
-            btns[1].setStyle("-fx-font-weight: 600");
-            btns[2].setStyle("-fx-font-weight: 600");
-            btns[3].setStyle("-fx-font-weight: 700");
-            btns[4].setStyle("-fx-font-weight: 600");
+            btnsMenu[0].setStyle("-fx-font-weight: 600");
+            btnsMenu[1].setStyle("-fx-font-weight: 600");
+            btnsMenu[2].setStyle("-fx-font-weight: 600");
+            btnsMenu[3].setStyle("-fx-font-weight: 700");
+            btnsMenu[4].setStyle("-fx-font-weight: 600");
+            logout.setStyle("-fx-font-weight: 600");
         }
 
         else if(manager.getMenuOpt()==MenuOpt.OURTEAM){
-            btns[0].setOpacity(1);
-            btns[1].setOpacity(1);
-            btns[2].setOpacity(1);
-            btns[3].setOpacity(1);
-            btns[4].setOpacity(0.8);
+            btnsMenu[0].setOpacity(1);
+            btnsMenu[1].setOpacity(1);
+            btnsMenu[2].setOpacity(1);
+            btnsMenu[3].setOpacity(1);
+            btnsMenu[4].setOpacity(0.8);
+            logout.setOpacity(1);
 
             authIcon.setOpacity(1);
-            btns[0].setStyle("-fx-font-weight: 600");
-            btns[1].setStyle("-fx-font-weight: 600");
-            btns[2].setStyle("-fx-font-weight: 600");
-            btns[3].setStyle("-fx-font-weight: 600");
-            btns[4].setStyle("-fx-font-weight: 700");
+            btnsMenu[0].setStyle("-fx-font-weight: 600");
+            btnsMenu[1].setStyle("-fx-font-weight: 600");
+            btnsMenu[2].setStyle("-fx-font-weight: 600");
+            btnsMenu[3].setStyle("-fx-font-weight: 600");
+            btnsMenu[4].setStyle("-fx-font-weight: 700");
+            logout.setStyle("-fx-font-weight: 600");
         }
 
-        else if(manager.getMenuOpt()==MenuOpt.AUTHENTICATION){
-            btns[0].setOpacity(1);
-            btns[1].setOpacity(1);
-            btns[2].setOpacity(1);
-            btns[3].setOpacity(1);
-            btns[4].setOpacity(1);
+        else if(manager.getMenuOpt()==MenuOpt.LOGOUT){
+            btnsMenu[0].setOpacity(1);
+            btnsMenu[1].setOpacity(1);
+            btnsMenu[2].setOpacity(1);
+            btnsMenu[3].setOpacity(1);
+            btnsMenu[4].setOpacity(1);
+            logout.setOpacity(0.8);
             authIcon.setOpacity(0.65);
-            btns[0].setStyle("-fx-font-weight: 600");
-            btns[1].setStyle("-fx-font-weight: 600");
-            btns[2].setStyle("-fx-font-weight: 600");
-            btns[3].setStyle("-fx-font-weight: 600");
-            btns[4].setStyle("-fx-font-weight: 600");
+            btnsMenu[0].setStyle("-fx-font-weight: 600");
+            btnsMenu[1].setStyle("-fx-font-weight: 600");
+            btnsMenu[2].setStyle("-fx-font-weight: 600");
+            btnsMenu[3].setStyle("-fx-font-weight: 600");
+            btnsMenu[4].setStyle("-fx-font-weight: 600");
+            logout.setStyle("-fx-font-weight: 700");
         }
     }
 }

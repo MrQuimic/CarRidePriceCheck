@@ -1,4 +1,4 @@
-package pt.isec.gps.team11.gui.resources;
+package pt.isec.gps.team11.gui.panes.utils;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;

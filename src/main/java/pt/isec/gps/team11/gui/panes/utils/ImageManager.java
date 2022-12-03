@@ -1,11 +1,9 @@
-package pt.isec.gps.team11.gui.resources;
+package pt.isec.gps.team11.gui.panes.utils;
 
 
 
 import javafx.scene.image.Image;
 
-import java.io.File;
-import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Path;
 import java.nio.file.Paths;

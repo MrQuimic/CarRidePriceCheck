@@ -1,26 +1,16 @@
 package pt.isec.gps.team11.gui.panes;
 
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.Separator;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import pt.isec.gps.team11.gui.MenuOpt;
-import pt.isec.gps.team11.gui.panes.utils.LoginForm;
-import pt.isec.gps.team11.gui.panes.utils.MenuTop;
-import pt.isec.gps.team11.gui.resources.CSSManager;
-import pt.isec.gps.team11.gui.resources.ImageManager;
+import pt.isec.gps.team11.gui.panes.components.MenuTop;
+import pt.isec.gps.team11.gui.panes.utils.CSSManager;
 import pt.isec.gps.team11.model.CRPCManager;
-import pt.isec.gps.team11.model.fsm.States;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;

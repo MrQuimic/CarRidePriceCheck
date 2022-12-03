@@ -1,4 +1,4 @@
-package pt.isec.gps.team11.gui.panes.utils;
+package pt.isec.gps.team11.gui.panes.components;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;

@@ -18,7 +18,7 @@ public class CRPCManager {
     PropertyChangeSupport pcs;
 
     MenuOpt menuOpt;
-
+    private String username;
 
 
     /**

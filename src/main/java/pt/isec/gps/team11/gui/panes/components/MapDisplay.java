@@ -1,25 +1,13 @@
-package pt.isec.gps.team11.gui.panes.utils;
+package pt.isec.gps.team11.gui.panes.components;
 
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.effect.ColorAdjust;
-import javafx.scene.effect.Light;
-import javafx.scene.effect.Lighting;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import pt.isec.gps.team11.MyBrowser;
-import pt.isec.gps.team11.gui.resources.ImageManager;
 import pt.isec.gps.team11.model.CRPCManager;
-
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
 
 public class MapDisplay extends BorderPane {
 

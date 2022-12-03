@@ -11,8 +11,10 @@
 
 <body onload="initMap()">
 <div id="locationField">
-    <input id="autocomplete" placeholder="start autoComplete" onFocus="geolocate()" type="text"></input>
-    <input id="autocomplete2" placeholder="end autoComplete" onFocus="geolocate()" type="text"></input>
+    <label class="titles">Start Address:</label>
+    <input id="autocomplete" placeholder="Start point" onFocus="geolocate()" type="text"></input>
+    <label class="titles">End Address:</label>
+    <input id="autocomplete2" placeholder="End point" onFocus="geolocate()" type="text"></input>
     <input id="submit" type="submit" onclick="initMapjs()" value="go"></input>
     <!--<input id="reset" type="reset" onclick="ExibirGoogleMaps()" value="reset"></input>
      ##Only works in the browser##
@@ -64,7 +66,6 @@
             output.innerHTML = "Unable to retrieve your location";
         };
 
-        //output.innerHTML = "<p>Locating…</p>";
 
         navigator.geolocation.getCurrentPosition(success, error);
     };
@@ -85,117 +86,62 @@
 
 
     }
-/*
-    function initMapjs() {
-        initialize();
-
-        source = document.getElementById("autocomplete").value;
-        destination = document.getElementById("autocomplete2").value;
-
-        var directionsService = new google.maps.DirectionsService();
-        var directionsRenderer = new google.maps.DirectionsRenderer();
-        //var pointA = "Coimbra, Portugal",
-        var pointA = source,
-            pointB = destination,
-            myOptions = {
-                center: pointA,
-                zoom: 15,
-                minZoom: 1,
-                mapTypeControl: false,
-                mapTypeId: google.maps.MapTypeId.ROADMAP,
-                unitSystem: google.maps.UnitSystem.METRIC,
-                streetViewControl: false,
-                avoidHighways: false,
-                disableDefaultUI: false,
-                avoidTolls: false
-
-            },
-            map = new google.maps.Map(document.getElementById('macDiv'), myOptions);
-        directionsRenderer.setMap(map);
-
-        directionsService = new google.maps.DirectionsService,
-            directionsDisplay = new google.maps.DirectionsRenderer({
-                draggable: true,
-                travelMode: google.maps.TravelMode.DRIVING,
-                map,
-                panel: document.getElementById("panel"),
-            }),
-
-            markerA = new google.maps.Marker({
-                position: pointA,
-                title: "point A",
-                label: "A",
-                map: map
-            }),
-            markerB = new google.maps.Marker({
-                position: pointB,
-                title: "point B",
-                label: "B",
-                map: map
-            });
-
-        directionsService.route(request, function (response, status) {
-            if (status == google.maps.DirectionsStatus.OK) {
-                directionsDisplay.setDirections(response);
-            }
-        });
-
-        source = pointA;
-        destination = pointB;
-
-        var request = {
-            origin: source,
-            destination: destination,
-            travelMode: google.maps.TravelMode.DRIVING
-        };
-        directionsService.route(request, function (response, status) {
-            if (status == google.maps.DirectionsStatus.OK) {
-                directionsDisplay.setDirections(response);
-            }
-        });
-
-        // *********DISTANCE AND DURATION********************** //
-        var service = new google.maps.DistanceMatrixService();
-        service.getDistanceMatrix({
-            origins: [source],
-            destinations: [destination],
-            travelMode: google.maps.TravelMode.DRIVING,
-            unitSystem: google.maps.UnitSystem.METRIC,
-            avoidHighways: false,
-            avoidTolls: false
-        }, function (response, status) {
-            if (status == google.maps.DistanceMatrixStatus.OK && response.rows[0].elements[0].status != "ZERO_RESULTS") {
-                var distance = response.rows[0].elements[0].distance.text;
-                var duration = response.rows[0].elements[0].duration.text;
-                var dvDistance = document.getElementById("dvDistance");
-                var dist =  distance.slice(0, -3).replaceAll(',','');
-                var price = dist*1.5;
-                dvDistance.innerHTML = "";
-                dvDistance.innerHTML += "Distance: " + distance + " | ";
-                dvDistance.innerHTML += "Duration:" + duration + "<br />";
-                dvDistance.innerHTML += "Price:" + price + " \u20AC";
-
-            } else {
-                alert("Unable to find the distance via road.");
-            }
-        });
-
-        // get route from A to B
-        calculateAndDisplayRoute(directionsService, directionsDisplay, pointA, pointB);
-
-        google.maps.event.clearListeners(map);
-
-    }
-*/
 
 function initMapjs(){
         JSmap="on";
         initMap();
-}
+
+    }
 
 
+/*
+    function download(strData, strFileName, strMimeType) {
+        var D = document,
+            A = arguments,
+            a = D.createElement("a"),
+            d = A[0],
+            n = A[1],
+            t = A[2] || "text/plain";
+
+        //build download link:
+        a.href = "data:" + strMimeType + "charset=utf-8," + escape(strData);
+
+
+        if (window.MSBlobBuilder) { // IE10
+            var bb = new MSBlobBuilder();
+            bb.append(strData);
+            return navigator.msSaveBlob(bb, strFileName);
+        } /* end if(window.MSBlobBuilder)
+
+
+
+        if ('download' in a) { //FF20, CH19
+            a.setAttribute("download", n);
+            a.innerHTML = "downloading...";
+            D.body.appendChild(a);
+            setTimeout(function() {
+                var e = D.createEvent("MouseEvents");
+                e.initMouseEvent("click", true, false, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
+                a.dispatchEvent(e);
+                D.body.removeChild(a);
+            }, 66);
+            return true;
+        }; /* end if('download' in a) * /
+
+
+
+        //do iframe dataURL download: (older W3)
+        var f = D.createElement("iframe");
+        D.body.appendChild(f);
+        f.src = "data:" + (A[2] ? A[2] : "application/octet-stream") + (window.btoa ? ";base64" : "") + "," + (window.btoa ? window.btoa : escape)(strData);
+        setTimeout(function() {
+            D.body.removeChild(f);
+        }, 333);
+        return true;
+    }
+*/
     function initMap() {
-
+        //download('the content of the file', 'filename.txt', 'text/plain');
         //Cria opções ou um conjunto de recursos no Google Map
         let resumeinfo;
         if(!params.has("origin") && JSmap !== "on"){
@@ -356,8 +302,8 @@ function initMapjs(){
                 window.alert('Directions request failed due to ' + status);
             }
         });
-
     }
+
 
     function addYourLocationButton (map, marker) {
         var controlDiv = document.createElement('div');
