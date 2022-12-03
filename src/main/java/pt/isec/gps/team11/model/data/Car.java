@@ -21,6 +21,15 @@ public class Car {
         this.image = image;
     }
 
+    public Car(Car anotherCar){
+        this.lotation = anotherCar.getLotation();
+        this.bagageCapacity = anotherCar.getBagageCapacity();
+        this.brand = anotherCar.getBrand();
+        this.model = anotherCar.getModel();
+        this.licensePlate = anotherCar.licensePlate;
+        this.luxury = anotherCar.getLuxury();
+        this.image = anotherCar.getImage();
+    }
 
     public void setLotation(int lotation) {
         this.lotation = lotation;
@@ -68,6 +77,10 @@ public class Car {
 
     public Image getImage() {
         return image;
+    }
+
+    public boolean getLuxury(){
+        return this.luxury;
     }
 
     @Override

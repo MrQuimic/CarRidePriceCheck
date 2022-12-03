@@ -5,6 +5,8 @@ import pt.isec.gps.team11.model.fsm.StateAdapter;
 import pt.isec.gps.team11.model.fsm.States;
 import pt.isec.gps.team11.model.fsm.StatesContext;
 
+import java.util.ArrayList;
+
 public class ConfirmBookingState extends StateAdapter {
     public ConfirmBookingState(StatesContext context, Data data){
         super(context, data);
@@ -30,5 +32,11 @@ public class ConfirmBookingState extends StateAdapter {
     public boolean goMainMenu() {
         setState(States.MAIN_MENU);
         return true;
+    }
+
+    @Override
+    public boolean book(boolean oneWay, String date, int extraWaitingTime,
+                        int numberOfLuggage, int numberOfPassengers, String departureTime, boolean highway) {
+        return false;
     }
 }
