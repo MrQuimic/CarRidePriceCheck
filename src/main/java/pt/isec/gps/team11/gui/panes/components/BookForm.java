@@ -270,7 +270,7 @@ public class BookForm extends BorderPane {
         lbTolls.setAlignment(Pos.CENTER_LEFT);
         cbTolls = new ChoiceBox();
         cbTolls.getItems().addAll("Yes","No");
-
+        cbTolls.setValue("Yes");
         vbTolls.getChildren().addAll(lbTolls,cbTolls);
 
         vbOptions.getChildren().addAll(vbDirections,vbExtraWaitTime,hbPassengersSuitcases,hbDepartureDateAndImage,hbDepartureTimeAndImage,vbTolls);
@@ -461,6 +461,10 @@ public class BookForm extends BorderPane {
                             if (newValue != Worker.State.SUCCEEDED) { return; }
 
                             String returnValue = (String) myBrowser.webEngine.executeScript("results()");
+
+                            crpcManager.setGoogleReturn(returnValue);
+                            //System.out.println(returnValue);
+                            crpcManager.setMenuOpt(MenuOpt.CONFIRMBOOKING);
                         }
                     }
 

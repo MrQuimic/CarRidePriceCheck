@@ -7,9 +7,11 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="CarRidePriceCheck" />
+        <module name="carridepricecheck" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="carridepricecheck" target="17" />
       <module name="CarRidePriceCheck" target="17" />
     </bytecodeTargetLevel>
   </component>

@@ -20,6 +20,8 @@ public class CRPCManager {
     MenuOpt menuOpt;
     private String username;
 
+    private String googleReturnValue;
+
 
     /**
      * Instantiates a new Gpe manager.
@@ -139,5 +141,13 @@ public class CRPCManager {
 
     public void saveTripResults(String result){
 
+    }
+
+    public void setGoogleReturn(String googleReturnValue) {
+        this.googleReturnValue = googleReturnValue;
+    }
+
+    public String getGoogleReturn() {
+        return googleReturnValue;
     }
 }

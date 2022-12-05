@@ -24,7 +24,7 @@
     <div id="out"></div>
     <button onclick="geoFindMe()">Show my location</button>-->
 </div>
-<div id="dvDistance">
+<div id="dvDistance" style="display: none">
 </div>
 <div id="macDiv"> </div>
 
@@ -32,7 +32,7 @@
     document.getElementById("locationField").style.display = "none";
     function results() {
 
-        return " " + document.getElementById("dvDistance").innerHTML;
+        return document.getElementById("dvDistance").innerHTML;
     }
 
     function origin() {
@@ -245,9 +245,9 @@ function initMapjs(){
                     var dist = distance.slice(0, -3).replaceAll(',', '');
                     var price = dist * 1.5;
                     dvDistance.innerHTML = "";
-                    dvDistance.innerHTML += "Distance: " + distance + " | ";
-                    dvDistance.innerHTML += "Duration:" + duration + "<br />";
-                    dvDistance.innerHTML += "Price:" + price + " \u20AC";
+                    dvDistance.innerHTML += distance + "|";
+                    dvDistance.innerHTML += duration + "|";
+                    dvDistance.innerHTML += price + " \u20AC";
 
                 } else {
                     alert("Unable to find the distance via road.");
