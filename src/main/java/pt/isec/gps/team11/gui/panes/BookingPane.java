@@ -20,7 +20,6 @@ public class BookingPane extends BorderPane {
     CRPCManager crpcManager;
 
     private Scene scene;
-    MyBrowser myBrowser;
     TextField tf_origin = new TextField();
     TextField tf_destination = new TextField();
     Button btnSubmit = new Button("Submit");
@@ -31,9 +30,12 @@ public class BookingPane extends BorderPane {
     MenuTop bp;
 
     MenuOpt menuOpt;
+
+    MyBrowser myBrowser;
     public BookingPane(CRPCManager crpcManager){
         this.crpcManager = crpcManager;
         this.menuOpt = menuOpt;
+        this.myBrowser = new MyBrowser(crpcManager);
         createViews();
         registerHandlers();
         update();
@@ -41,8 +43,6 @@ public class BookingPane extends BorderPane {
 
     private void createViews() {
 
-
-        //myBrowser = new MyBrowser(crpcManager);
         VBox vBox= new VBox();
         VBox vBox2= new VBox();
         submitBtns= new HBox();
@@ -50,12 +50,12 @@ public class BookingPane extends BorderPane {
 
 
 
-        BookForm bookForm = new BookForm(crpcManager);
+        BookForm bookForm = new BookForm(crpcManager, myBrowser);
         HBox hBox = new HBox(bookForm);
         hBox.setAlignment(Pos.CENTER);
         hBox.setSpacing(50);
 
-        MapDisplay mapDisplay = new MapDisplay(crpcManager);
+        MapDisplay mapDisplay = new MapDisplay(crpcManager, myBrowser);
         HBox hBoxMap = new HBox(mapDisplay);
         hBox.setAlignment(Pos.CENTER);
         hBox.setSpacing(50);

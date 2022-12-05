@@ -23,8 +23,9 @@ public class MapDisplay extends BorderPane {
     HBox submitBtns;
     MenuTop bp;
 
-    public MapDisplay(CRPCManager crpcManager){
+    public MapDisplay(CRPCManager crpcManager, MyBrowser myBrowser){
         this.crpcManager = crpcManager;
+        this.myBrowser = myBrowser;
 
         createViews();
         registerHandlers();
@@ -43,9 +44,6 @@ public class MapDisplay extends BorderPane {
         origin = new Label("Origin");
         destination = new Label("Destination");
 
-
-
-        myBrowser = new MyBrowser(crpcManager);
 
         rightControl = new VBox(new Label(" "), myBrowser);
         vBox2.getChildren().addAll(rightControl);

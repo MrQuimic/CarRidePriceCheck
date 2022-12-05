@@ -1,5 +1,12 @@
 package pt.isec.gps.team11.gui.panes.components;
 
+import com.google.maps.model.AddressComponentType;
+import com.google.maps.model.PlaceDetails;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.concurrent.Worker;
+import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
@@ -14,10 +21,13 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import org.apache.commons.lang3.StringUtils;
+import pt.isec.gps.team11.MyBrowser;
 import pt.isec.gps.team11.gui.MenuOpt;
 import pt.isec.gps.team11.gui.panes.utils.CSSManager;
 import pt.isec.gps.team11.gui.panes.utils.ImageManager;
 import pt.isec.gps.team11.model.CRPCManager;
+import pt.isec.gps.team11.utils.AutoCompleteAddressField;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -37,12 +47,20 @@ public class BookForm extends BorderPane {
     Label lbStartAdress, lbEndAdress, lbDirections, lbExtraWaitTime, lbPassengers, lbSuitcases, lbDepartureDate, lbDepartureTime, lbTolls, lbAdressesTitle, lbOptionsTitle;
     HBox hbPassengersSuitcases, hbDepartureDateAndImage, hbDepartureTimeAndImage, submitBtns;
     Button btnSubmit, btnReset;
-    TextField tfStartAdress, tfEndAdress, tfExtraWaitTime, tfDepartureTime;
+    TextField tfExtraWaitTime, tfDepartureTime;
     ChoiceBox cbDirections, cbPassengers, cbSuitcases, cbTolls;
     DatePicker dpDepartureDate;
 
-    public BookForm(CRPCManager crpcManager){
+    AutoCompleteAddressField originA = new AutoCompleteAddressField();
+    AutoCompleteAddressField destinA = new AutoCompleteAddressField();
+    TextField Destin1 = new TextField();
+    TextField Origin1 = new TextField();
+
+    MyBrowser myBrowser;
+
+    public BookForm(CRPCManager crpcManager, MyBrowser myBrowser){
         this.crpcManager = crpcManager;
+        this.myBrowser = myBrowser;
         pcs = new PropertyChangeSupport(this);
 
         createViews();
@@ -78,11 +96,21 @@ public class BookForm extends BorderPane {
         lbStartAdress.setPadding(new Insets(10,0,5,0));
         lbStartAdress.setFont(fontSmall);
 
-        tfStartAdress = new TextField();
-        tfStartAdress.setPromptText("Introduce start address");
 
+        originA.setId("originA");
+        destinA.setId("destinA");
+        originA.setMaxWidth(250);
+        destinA.setMaxWidth(250);
 
-        vbStartAdress.getChildren().addAll(lbStartAdress,tfStartAdress);
+        Origin1.setPromptText("Origin1");
+        Destin1.setPromptText("Destin1");
+
+        if (originA.getText().equals("")){
+            originA.setText("Coimbra, Portugal");
+            destinA.setText("Porto, Portugal");
+        }
+
+        vbStartAdress.getChildren().addAll(lbStartAdress,originA);
 
         //End Adress
         vbEndAdress = new VBox();
@@ -93,13 +121,7 @@ public class BookForm extends BorderPane {
         lbEndAdress.setPadding(new Insets(10,0,5,0));
         lbEndAdress.setFont(fontSmall);
 
-        tfEndAdress = new TextField();
-        tfEndAdress.setPromptText("Introduce end address");
-
-        vbEndAdress.getChildren().addAll(lbEndAdress,tfEndAdress);
-
-        tfStartAdress.setText("Coimbra, Portugal");
-        tfEndAdress.setText("Porto, Portugal");
+        vbEndAdress.getChildren().addAll(lbEndAdress,destinA);
 
         vbAdresses.getChildren().addAll(vbStartAdress, vbEndAdress);
 
@@ -365,7 +387,80 @@ public class BookForm extends BorderPane {
         });
 
 
+        originA.getEntryMenu().setOnAction((ActionEvent e) ->
+        {
+            ((MenuItem) e.getTarget()).addEventHandler(Event.ANY, (Event event) ->
+            {
+                if (originA.getLastSelectedObject() != null)
+                {
+                    originA.setText(originA.getLastSelectedObject().toString());
+                    PlaceDetails place = AutoCompleteAddressField.getPlace((AutoCompleteAddressField.AddressPrediction) originA.getLastSelectedObject());
+                    if (place != null)
+                    {
+                        StringUtils StringUtils = null;
+                        Destin1.setText(
+                                StringUtils.join(
+                                        AutoCompleteAddressField.getComponentLongName(place.addressComponents, AddressComponentType.STREET_NUMBER),
+                                        " ",
+                                        AutoCompleteAddressField.getComponentLongName(place.addressComponents, AddressComponentType.ROUTE))
+                        );
 
+                    } else
+                    {
+                        Destin1.clear();
+
+                    }
+                }
+            });
+        });
+
+        destinA.getEntryMenu().setOnAction((ActionEvent e) ->
+        {
+            ((MenuItem) e.getTarget()).addEventHandler(Event.ANY, (Event event) ->
+            {
+                if (destinA.getLastSelectedObject() != null)
+                {
+                    destinA.setText(destinA.getLastSelectedObject().toString());
+                    PlaceDetails place = AutoCompleteAddressField.getPlace((AutoCompleteAddressField.AddressPrediction) destinA.getLastSelectedObject());
+                    if (place != null)
+                    {
+                        StringUtils StringUtils = null;
+                        Origin1.setText(
+                                StringUtils.join(
+                                        AutoCompleteAddressField.getComponentLongName(place.addressComponents, AddressComponentType.STREET_NUMBER),
+                                        " ",
+                                        AutoCompleteAddressField.getComponentLongName(place.addressComponents, AddressComponentType.ROUTE))
+                        );
+
+                    } else
+                    {
+                        Origin1.clear();
+
+                    }
+                }
+            });
+        });
+
+        btnSubmit.setOnAction(actionEvent -> {
+            myBrowser.webEngine.load(myBrowser.urlGoogleMaps.toExternalForm() + "?origin=" + originA.getText() + "&destin=" + destinA.getText());
+            //String returnValue = (String) webEngine.executeScript("getRectArea()");
+            myBrowser.webEngine.getLoadWorker().stateProperty().addListener(
+                    new ChangeListener() {
+                        @Override
+                        public void changed(ObservableValue observable, Object oldValue, Object newValue) {
+                            if (newValue != Worker.State.SUCCEEDED) { return; }
+
+                            String returnValue = (String) myBrowser.webEngine.executeScript("results()");
+                        }
+                    }
+
+            );
+        });
+
+
+        btnReset.setOnAction(actionEvent -> {
+            myBrowser.webEngine.load(myBrowser.urlGoogleMaps.toExternalForm());
+        });
 
 
         crpcManager.addPropertyChangeListener(evt -> {

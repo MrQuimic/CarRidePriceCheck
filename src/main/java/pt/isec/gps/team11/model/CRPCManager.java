@@ -142,4 +142,8 @@ public class CRPCManager {
         pcs.firePropertyChange(null, null, null);
         fsm.logout();
     }
+
+    public void saveTripResults(String result){
+
+    }
 }
