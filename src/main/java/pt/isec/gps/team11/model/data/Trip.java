@@ -8,7 +8,7 @@ public class Trip {
     private int id;
     private String origin;
     private String destination;
-    private boolean oneway;
+    private boolean oneWay;
     private Date date;
     private int extraWaitingTime;
     private int numberOfLuggage;
@@ -23,7 +23,7 @@ public class Trip {
         this.id=++idGlobal;
         this.origin = origin;
         this.destination = destination;
-        this.oneway = oneway;
+        this.oneWay = oneway;
         this.date = date;
         this.extraWaitingTime = extraWaitingTime;
         this.numberOfPassengers = numberOfPassengers;
@@ -33,6 +33,17 @@ public class Trip {
         this.arrival = arrival;
         this.price = price;
         this.carsIds = carsIds;
+    }
+
+    public Trip (boolean oneWay, String date, int extraWaitingTime,int numberOfLuggage, int numberOfPassengers, String departureTime, boolean highway) {
+        this.id=++idGlobal;
+        this.oneWay = oneWay;
+        //this.date = date; transform into date
+        this.extraWaitingTime = extraWaitingTime;
+        this.numberOfPassengers = numberOfPassengers;
+        this.numberOfLuggage = numberOfLuggage;
+        //this.departureTime = departureTime; transform into date
+        this.highway = highway;
     }
 
     private int numberOfPassengers;
@@ -54,12 +65,12 @@ public class Trip {
     }
 
 
-    public void setOneway(boolean oneway) {
-        this.oneway = oneway;
+    public void setOneWay(boolean oneWay) {
+        this.oneWay = oneWay;
     }
 
-    public boolean isOneway() {
-        return oneway;
+    public boolean isOneWay() {
+        return oneWay;
     }
 
     public void setDate(Date date) {

@@ -207,7 +207,7 @@ public class Files{
 
         //for each trip write one line with all the data required
         for(Trip trip : personList){
-            pWriter.print(trip.getOrigin()+';'+trip.getDestination()+';'+trip.isOneway()+ ';'+
+            pWriter.print(trip.getOrigin()+';'+trip.getDestination()+';'+trip.isOneWay()+ ';'+
                     trip.getDate().getYear()+';'+trip.getDate().getMonth()+';'+
                     trip.getDate().getDay()+';'+trip.getExtraWaitingTime()+';' +trip.getNumberOfPassengers()+';'+
                     trip.getNumberOfLuggage()+';'+trip.getDepartureTime().getYear()+';'+trip.getDepartureTime().getMonth()+

@@ -77,11 +77,18 @@ public class Data {
         return trips;
     }
 
-    public boolean confirmTrip(boolean oneWay, String date, int extraWaitingTime,
-                               int numberOfLuggage, int numberOfPassengers, String departureTime, boolean highway){
+    public boolean confirmTrip(boolean oneWay, String date, int extraWaitingTime,int numberOfLuggage, int numberOfPassengers, String departureTime, boolean highway){
+        Trip trip = new Trip(oneWay, date, extraWaitingTime, numberOfLuggage, numberOfPassengers, departureTime, highway);
 
+        //trip.setOrigin();
+        //trip.setDestination();
+        //trip.setArrival();
+        //trip.setCarsIds();
+        //trip.setPrice();
 
-        return false;
+        trips.add(trip);
+
+        return true;
     }
 
     public void logout(){

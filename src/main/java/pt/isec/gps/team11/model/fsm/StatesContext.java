@@ -55,9 +55,8 @@ public class StatesContext {
         return this.data.getIsLogged();
     }
 
-    public boolean book(boolean oneWay, String date, int extraWaitingTime,
-                        int numberOfLuggage, int numberOfPassengers, String departureTime, boolean highway){
-        return false;
+    public boolean book(boolean oneWay, String date, int extraWaitingTime,int numberOfLuggage, int numberOfPassengers, String departureTime, boolean highway){
+        return data.confirmTrip(oneWay,date,extraWaitingTime,numberOfLuggage,numberOfPassengers,departureTime,highway);
     }
 
     public void logout(){

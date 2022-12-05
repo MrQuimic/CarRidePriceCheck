@@ -242,12 +242,14 @@ public class BookForm extends BorderPane {
 
         //Tolls
         vbTolls = new VBox();
-        vbTolls.setAlignment(Pos.CENTER);
+        vbTolls.setAlignment(Pos.CENTER_LEFT);
 
         lbTolls = new Label("Tolls:");
         lbTolls.setAlignment(Pos.CENTER_LEFT);
         cbTolls = new ChoiceBox();
         cbTolls.getItems().addAll("Yes","No");
+
+        vbTolls.getChildren().addAll(lbTolls,cbTolls);
 
         vbOptions.getChildren().addAll(vbDirections,vbExtraWaitTime,hbPassengersSuitcases,hbDepartureDateAndImage,hbDepartureTimeAndImage,vbTolls);
         vbOptions.setSpacing(15);
@@ -296,17 +298,23 @@ public class BookForm extends BorderPane {
 
         btnSubmit.setOnAction(actionEvent -> {
             int extraWaitTime;
-            Date departureTime = new Date();
-            Date departureDate = new Date();
+            String departureTime;
+            String departureDate;
             boolean directions;
             int nrPassengers = 1;
             int nrSuitcases = 0;
             boolean tolls;
             boolean flag = true;
-
-            SimpleDateFormat formatter = new SimpleDateFormat("HH:mm");
-            Date systemDate = new Date();
-
+            SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+            SimpleDateFormat sdfMonthYear = new SimpleDateFormat("dd-MM-yyyy");
+            /*
+            Calendar cal = Calendar.getInstance();
+            ServerTime st = new ServerTime(
+                    cal.get(Calendar.HOUR_OF_DAY),
+                    cal.get(Calendar.MINUTE),
+                    cal.get(Calendar.SECOND)
+            );
+*/
 
             if(tfExtraWaitTime.getText().isBlank()) {
                 extraWaitTime = 0;
@@ -314,27 +322,29 @@ public class BookForm extends BorderPane {
                 extraWaitTime = Integer.parseInt(tfExtraWaitTime.getText());
             }
 
-            if(tfDepartureTime.getText().isBlank() /*|| formatter.format(tfDepartureTime.getText()).isBefore(formatter.format(systemDate))*/) {
+            if(tfDepartureTime.getText().isBlank()/* || sdf.format(tfDepartureTime.getText()). curTime*/) {
                 Alert alert = new Alert(Alert.AlertType.WARNING);
                 alert.setTitle("Alert");
                 alert.setHeaderText(null);
                 alert.setContentText("The departure time is invalid");
                 alert.showAndWait();
                 flag = false;
+                clearForm();
                 return;
             }
-            //departureTime = tfDepartureTime.getValue();
+            departureTime = /*sdf.format(*/tfDepartureTime.getText()/*)*/;
 
-            /*if(dpDepartureDate.getValue().isBefore( (ChronoLocalDate) systemDate)) {
+            /*if(sdfMonthYear.format(dpDepartureDate.getValue()) < sdfMonthYear.format(System.date())) {
                 Alert alert = new Alert(Alert.AlertType.WARNING);
                 alert.setTitle("Alert");
                 alert.setHeaderText(null);
                 alert.setContentText("The departure time is invalid");
                 alert.showAndWait();
                 flag = false;
+                clearForm();
                 return;
             }*/
-            //departureDate = dpDepartureDate.getValue();
+            departureDate = dpDepartureDate.getValue().toString();
 
             if(cbDirections.getValue().equals("One Way")) {
                 directions = true;
@@ -355,11 +365,11 @@ public class BookForm extends BorderPane {
                 tolls = true;
             else
                 tolls = false;
-/*
+
             if(flag) {
                 crpcManager.book(directions,departureDate,extraWaitTime,nrSuitcases, nrPassengers,departureTime,tolls);
-            }*/
-
+            }
+            clearForm();
             crpcManager.setMenuOpt(MenuOpt.MAIN_MENU);
 
         });
@@ -371,6 +381,16 @@ public class BookForm extends BorderPane {
         crpcManager.addPropertyChangeListener(evt -> {
             update();
         });
+    }
+
+    void clearForm(){
+        cbDirections.setValue("One way");
+        tfExtraWaitTime.setText("0");
+        cbPassengers.setValue(1);
+        cbDirections.setValue(0);
+        dpDepartureDate.setValue(null);
+        tfDepartureTime.setText("Time");
+        cbTolls.setValue("Yes");
     }
 
     private void update() {

@@ -128,14 +128,8 @@ public class CRPCManager {
         pcs.firePropertyChange(null, null, null);
     }
 
-    public boolean book(boolean oneWay, String date, int extraWaitingTime,
-                     int numberOfLuggage, int numberOfPassengers, String departureTime, boolean highway){
-/*
-        if(fsm.confi){
-
-        }*/
-
-        return false;
+    public boolean book(boolean oneWay, String date, int extraWaitingTime, int numberOfLuggage, int numberOfPassengers, String departureTime, boolean highway){
+        return fsm.book(oneWay, date, extraWaitingTime, numberOfLuggage, numberOfPassengers, departureTime, highway);
     }
 
     public void logout(){
