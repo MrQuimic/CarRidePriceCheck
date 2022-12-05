@@ -38,13 +38,12 @@ public class MyBrowser extends Region {
     TextField tf_destination = new TextField();
     PropertyChangeSupport pcs;
     CRPCManager crpcManager;
-    Button btnSubmit = new Button("Submit");
-
-    Button btnReset = new Button("Reset");
-    WebView webView = new WebView();
-    WebEngine webEngine = webView.getEngine();
+    public WebView webView = new WebView();
+    public WebEngine webEngine = webView.getEngine();
 
     String initiate, returnValue, origin, destin;
+
+    public final URL urlGoogleMaps = getClass().getResource("googlemaps.html");
 
     public MyBrowser(CRPCManager crpcManager) {
 
@@ -54,130 +53,12 @@ public class MyBrowser extends Region {
             createViews();
             registerHandlers();
             update();
-        }
-
-
+    }
 
     private void createViews() {
         tf_origin.getText();
-        final URL urlGoogleMaps = getClass().getResource("googlemaps.html");
         webEngine.load(urlGoogleMaps.toExternalForm());
         webEngine.setJavaScriptEnabled(true);
-
-        AutoCompleteAddressField originA = new AutoCompleteAddressField();
-        AutoCompleteAddressField destinA = new AutoCompleteAddressField();
-        originA.setId("originA");
-        destinA.setId("destinA");
-        originA.setMaxWidth(250);
-        destinA.setMaxWidth(250);
-        TextField tf_origin = new TextField();
-        TextField tf_destination = new TextField();
-        btnSubmit = new Button("Submit");
-        btnReset = new Button("Reset");
-        btnSubmit.setId("mbtnSubmit");
-        btnReset.setId("mbtnReset");
-        //webEngine.executeScript("ExibirGoogleMaps()");
-        Label Origin = new Label("Origin:");
-        Label Destination = new Label("Destination:");
-
-        TextField Origin1 = new TextField();
-        Origin1.setPromptText("Origin1");
-        TextField Destin1 = new TextField();
-        Destin1.setPromptText("Destin1");
-        if (originA.getText() == ""){
-            originA.setText("Coimbra, Portugal");
-            destinA.setText("Porto, Portugal");
-        }
-
-
-
-
-        originA.getEntryMenu().setOnAction((ActionEvent e) ->
-        {
-            ((MenuItem) e.getTarget()).addEventHandler(Event.ANY, (Event event) ->
-            {
-                if (originA.getLastSelectedObject() != null)
-                {
-                    originA.setText(originA.getLastSelectedObject().toString());
-                    PlaceDetails place = AutoCompleteAddressField.getPlace((AutoCompleteAddressField.AddressPrediction) originA.getLastSelectedObject());
-                    if (place != null)
-                    {
-                        StringUtils StringUtils = null;
-                        Destin1.setText(
-                                StringUtils.join(
-                                        AutoCompleteAddressField.getComponentLongName(place.addressComponents, AddressComponentType.STREET_NUMBER),
-                                        " ",
-                                        AutoCompleteAddressField.getComponentLongName(place.addressComponents, AddressComponentType.ROUTE))
-                        );
-
-                    } else
-                    {
-                        Destin1.clear();
-
-                    }
-                }
-            });
-        });
-
-
-        destinA.getEntryMenu().setOnAction((ActionEvent e) ->
-        {
-            ((MenuItem) e.getTarget()).addEventHandler(Event.ANY, (Event event) ->
-            {
-                if (destinA.getLastSelectedObject() != null)
-                {
-                    destinA.setText(destinA.getLastSelectedObject().toString());
-                    PlaceDetails place = AutoCompleteAddressField.getPlace((AutoCompleteAddressField.AddressPrediction) destinA.getLastSelectedObject());
-                    if (place != null)
-                    {
-                        StringUtils StringUtils = null;
-                        Origin1.setText(
-                                StringUtils.join(
-                                        AutoCompleteAddressField.getComponentLongName(place.addressComponents, AddressComponentType.STREET_NUMBER),
-                                        " ",
-                                        AutoCompleteAddressField.getComponentLongName(place.addressComponents, AddressComponentType.ROUTE))
-                        );
-
-                    } else
-                    {
-                        Origin1.clear();
-
-                    }
-                }
-            });
-        });
-
-
-        //scene = new Scene(myBrowser, 640, 480);
-        HBox hControl  = new HBox(new Label("--"), btnSubmit, btnReset);
-        hControl.setSpacing(10);
-
-        btnSubmit.setOnAction(actionEvent -> {
-            //webView.getEngine().load(null);
-
-            webEngine.load(urlGoogleMaps.toExternalForm() + "?origin=" + originA.getText() + "&destin=" + destinA.getText());
-            //String returnValue = (String) webEngine.executeScript("getRectArea()");
-            webEngine.getLoadWorker().stateProperty().addListener(
-                    new ChangeListener() {
-                        @Override
-                        public void changed(ObservableValue observable, Object oldValue, Object newValue) {
-                            if (newValue != Worker.State.SUCCEEDED) { return; }
-
-                            String returnValue = (String) webEngine.executeScript("results()");
-                            System.out.println(" " + originA.getText()  + "  --  " + destinA.getText() + "\n");
-                            System.out.println(returnValue);
-                            //webEngine.executeScript("setdata()");
-
-                        }
-                    }
-
-            );
-
-        });
-
-        btnReset.setOnAction(actionEvent -> {
-            webEngine.load(urlGoogleMaps.toExternalForm());
-        });
 
 
         webView.addEventFilter(KeyEvent.KEY_RELEASED, (KeyEvent e) -> {
@@ -201,9 +82,8 @@ public class MyBrowser extends Region {
                 e.consume();
             }
         });
-        HBox hboxInputs = new HBox(originA,destinA, hControl);
-        hboxInputs.setSpacing(20);
-        VBox vboxAll = new VBox(hboxInputs, webView);
+
+        VBox vboxAll = new VBox( webView);
         getChildren().addAll(vboxAll);
 
 

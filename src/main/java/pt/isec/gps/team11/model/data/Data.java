@@ -21,6 +21,10 @@ public class Data {
     private ArrayList<Car> cars;
     private ArrayList<Trip> trips;
 
+    private String distanceOfTrip;
+    private String timeOfTrip;
+    private String costOfTrip;
+
     public Data(){
         this.isLogged = false;
         this.cars = new ArrayList<>();
@@ -93,5 +97,12 @@ public class Data {
 
     public void logout(){
         isLogged = false;
+    }
+
+    public void saveTripsResult(String result){
+        String[] s = result.split("\\|");
+        this.distanceOfTrip = s[0];
+        this.timeOfTrip = s[1];
+        this.costOfTrip = s[2];
     }
 }
