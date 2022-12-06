@@ -1,6 +1,7 @@
 package pt.isec.gps.team11.model;
 
 import pt.isec.gps.team11.gui.MenuOpt;
+import pt.isec.gps.team11.model.data.Trip;
 import pt.isec.gps.team11.model.fsm.IStates;
 import pt.isec.gps.team11.model.fsm.States;
 import pt.isec.gps.team11.model.fsm.StatesContext;
@@ -22,6 +23,7 @@ public class CRPCManager {
 
     private String googleReturnValue;
 
+    public static final String TRIP = "trip";
 
     /**
      * Instantiates a new Gpe manager.
@@ -57,6 +59,9 @@ public class CRPCManager {
      */
     public void addPropertyChangeListener(PropertyChangeListener listener) {
         pcs.addPropertyChangeListener(listener);
+    }
+    public void addPropertyChangeListener(String property, PropertyChangeListener listener){
+        pcs.addPropertyChangeListener(property, listener);
     }
     public void setMenuOpt(MenuOpt menuOpt) {
         this.menuOpt = menuOpt;
@@ -134,13 +139,45 @@ public class CRPCManager {
         return fsm.book(oneWay, date, extraWaitingTime, numberOfLuggage, numberOfPassengers, departureTime, highway);
     }
 
+    public Trip getCurrentTrip(){
+        return fsm.getCurrentTrip();
+    }
+
     public void logout(){
         pcs.firePropertyChange(null, null, null);
         fsm.logout();
     }
 
     public void saveTripResults(String result){
+        fsm.saveTripResult(result);
+    }
 
+    public String getCostOfTrip() {
+        return fsm.getCostOfTrip();
+    }
+
+    public String getTimeOfTrip() {
+        return fsm.getTimeOfTrip();
+    }
+
+    public String getDistanceOfTrip() {
+        return fsm.getDistanceOfTrip();
+    }
+
+    public void setTripOrigin(String tripOrigin) {
+        fsm.setTripOrigin(tripOrigin);
+    }
+
+    public void setTripDestination(String tripDestination) {
+        fsm.setTripDestination(tripDestination);
+    }
+
+    public String getTripDestination() {
+        return fsm.getTripDestination();
+    }
+
+    public String getTripOrigin() {
+        return fsm.getTripOrigin();
     }
 
     public void setGoogleReturn(String googleReturnValue) {

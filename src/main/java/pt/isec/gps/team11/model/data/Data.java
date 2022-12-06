@@ -24,6 +24,9 @@ public class Data {
     private String distanceOfTrip;
     private String timeOfTrip;
     private String costOfTrip;
+    private String tripOrigin;
+    private String tripDestination;
+    private Trip currentTrip;
 
     public Data(){
         this.isLogged = false;
@@ -52,7 +55,7 @@ public class Data {
         String filePath = currentRelativePath.toAbsolutePath().toString()
                     + "\\src\\main\\resources\\dbCar";
 
-        cars = (ArrayList<Car>) Files.dbReadCars(filePath);
+        //cars = (ArrayList<Car>) Files.dbReadCars(filePath);
     }
 
     public ArrayList<Car> getSuitableCars(int lotation, int baggage){
@@ -82,7 +85,7 @@ public class Data {
     }
 
     public boolean confirmTrip(boolean oneWay, String date, int extraWaitingTime,int numberOfLuggage, int numberOfPassengers, String departureTime, boolean highway){
-        Trip trip = new Trip(oneWay, date, extraWaitingTime, numberOfLuggage, numberOfPassengers, departureTime, highway);
+        currentTrip = new Trip(oneWay, date, extraWaitingTime, numberOfLuggage, numberOfPassengers, departureTime, highway);
 
         //trip.setOrigin();
         //trip.setDestination();
@@ -90,9 +93,15 @@ public class Data {
         //trip.setCarsIds();
         //trip.setPrice();
 
-        trips.add(trip);
+        trips.add(currentTrip);
+
+
 
         return true;
+    }
+
+    public Trip getCurrentTrip(){
+        return this.currentTrip;
     }
 
     public void logout(){
@@ -104,5 +113,33 @@ public class Data {
         this.distanceOfTrip = s[0];
         this.timeOfTrip = s[1];
         this.costOfTrip = s[2];
+    }
+
+    public String getCostOfTrip() {
+        return costOfTrip;
+    }
+
+    public String getTimeOfTrip() {
+        return timeOfTrip;
+    }
+
+    public String getDistanceOfTrip() {
+        return distanceOfTrip;
+    }
+
+    public void setTripOrigin(String tripOrigin) {
+        this.tripOrigin = tripOrigin;
+    }
+
+    public void setTripDestination(String tripDestination) {
+        this.tripDestination = tripDestination;
+    }
+
+    public String getTripDestination() {
+        return tripDestination;
+    }
+
+    public String getTripOrigin() {
+        return tripOrigin;
     }
 }

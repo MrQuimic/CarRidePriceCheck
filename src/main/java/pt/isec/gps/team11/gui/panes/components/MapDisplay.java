@@ -33,24 +33,14 @@ public class MapDisplay extends BorderPane {
     }
 
     private void createViews() {
-
-
-        VBox vBox= new VBox();
         VBox vBox2= new VBox();
-
-        SplitPane splitPane = new SplitPane();
-
 
         origin = new Label("Origin");
         destination = new Label("Destination");
 
-
         rightControl = new VBox(new Label(" "), myBrowser);
         vBox2.getChildren().addAll(rightControl);
         vBox2.setAlignment(Pos.TOP_CENTER);
-
-
-
 
         this.setCenter(vBox2);
     }

@@ -287,9 +287,6 @@ public class BookInfos extends BorderPane {
 
         });
 
-
-
-
         btnReset.setOnAction(actionEvent -> {
             myBrowser.webEngine.load(myBrowser.urlGoogleMaps.toExternalForm());
         });
@@ -304,11 +301,12 @@ public class BookInfos extends BorderPane {
         tfExtraWaitTime.setText("0");
         dpDepartureDate.setValue(null);
         tfDepartureTime.setText("Time");
-
     }
 
     private void update() {
         if (crpcManager.getMenuOpt() == MenuOpt.CONFIRMBOOKING) {
+            myBrowser.webEngine.load(myBrowser.urlGoogleMaps.toExternalForm() + "?origin="
+                    + crpcManager.getTripOrigin() + "&destin=" + crpcManager.getTripDestination());
             this.returnGoogleStr = crpcManager.getGoogleReturn();
             labelResultGoogle.setText(this.returnGoogleStr);
             System.out.println("Results: " + crpcManager.getGoogleReturn());

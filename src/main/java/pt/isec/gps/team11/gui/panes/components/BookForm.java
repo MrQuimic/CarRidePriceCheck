@@ -10,22 +10,15 @@ import javafx.event.Event;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
-import javafx.scene.effect.ColorAdjust;
-import javafx.scene.effect.Light;
-import javafx.scene.effect.Lighting;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import org.apache.commons.lang3.StringUtils;
 import pt.isec.gps.team11.MyBrowser;
 import pt.isec.gps.team11.gui.MenuOpt;
 import pt.isec.gps.team11.gui.panes.utils.CSSManager;
-import pt.isec.gps.team11.gui.panes.utils.ImageManager;
 import pt.isec.gps.team11.model.CRPCManager;
 import pt.isec.gps.team11.utils.AutoCompleteAddressField;
 
@@ -33,7 +26,6 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.chrono.ChronoLocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
@@ -354,7 +346,7 @@ public class BookForm extends BorderPane {
                 clearForm();
                 return;
             }
-            departureTime = /*sdf.format(*/tfDepartureTime.getText()/*)*/;
+            departureDate = dpDepartureDate.getValue().toString();
 
             /*if(sdfMonthYear.format(dpDepartureDate.getValue()) < sdfMonthYear.format(System.date())) {
                 Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -462,21 +454,22 @@ public class BookForm extends BorderPane {
 
                             String returnValue = (String) myBrowser.webEngine.executeScript("results()");
 
+                            crpcManager.saveTripResults(returnValue);
+                            crpcManager.setTripOrigin(originA.getText());
+                            crpcManager.setTripDestination(destinA.getText());
+//                            crpcManager.book(
                             crpcManager.setGoogleReturn(returnValue);
                             //System.out.println(returnValue);
                             crpcManager.setMenuOpt(MenuOpt.CONFIRMBOOKING);
                         }
                     }
-
             );
         });
-
 
         btnReset.setOnAction(actionEvent -> {
             myBrowser.webEngine.load(myBrowser.urlGoogleMaps.toExternalForm());
         });
-
-
+        
         crpcManager.addPropertyChangeListener(evt -> {
             update();
         });

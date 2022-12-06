@@ -33,9 +33,9 @@ public class ConfirmPane extends BorderPane {
     MenuOpt menuOpt;
 
     MyBrowser myBrowser;
-    public ConfirmPane(CRPCManager crpcManager){
+    public ConfirmPane(CRPCManager crpcManager, MyBrowser myBrowser){
         this.crpcManager = crpcManager;
-
+        this.myBrowser = myBrowser;
         this.myBrowser = new MyBrowser(crpcManager);
         createViews();
         registerHandlers();

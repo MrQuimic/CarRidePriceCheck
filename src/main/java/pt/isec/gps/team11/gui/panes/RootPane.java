@@ -7,6 +7,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+import pt.isec.gps.team11.MyBrowser;
 import pt.isec.gps.team11.gui.MenuOpt;
 import pt.isec.gps.team11.gui.panes.components.MenuTop;
 import pt.isec.gps.team11.gui.panes.utils.CSSManager;
@@ -59,7 +60,7 @@ public class RootPane extends BorderPane {
      */
     ScrollPane canvasPane;
 
-
+    private MyBrowser myBrowser;
 
 
     public RootPane(CRPCManager crpcManager){
@@ -78,17 +79,17 @@ public class RootPane extends BorderPane {
 
 
         MenuTop bp = new MenuTop(crpcManager, username);
-
+        this.myBrowser = new MyBrowser(crpcManager);
 
         StackPane stackPane;
         stackPane = new StackPane(
                 new OurTeam(crpcManager),
                 new Contacts(crpcManager),
                 new AboutUs(crpcManager),
-                new BookingPane(crpcManager),
+                new BookingPane(crpcManager, myBrowser),
                 new MainPagePane(crpcManager),
                 new AuthenticationPane(crpcManager),
-                new ConfirmPane(crpcManager),
+                new ConfirmPane(crpcManager, myBrowser),
                 new ChooseCarPane(crpcManager)
         );
 
