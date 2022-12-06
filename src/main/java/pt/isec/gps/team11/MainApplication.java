@@ -18,8 +18,13 @@ import pt.isec.gps.team11.utils.MailSending;
 import java.io.File;
 
 /**
- * @web http://java-buddy.blogspot.com/
+ * Google MAPS API KEYS: AIzaSyDP1feUTnivFyTntFVr722y7SwOxsit7VQ
+ *
+ * Google MAPS Second API (backup key): AIzaSyBhp6LYSLWg_iX3W2st1zv85KTbghrl04g
+ *
+ * Google MAPS Third API backup key (backup key):  AIzaSyDEL0TWQ57CRpo64I7p-RjlXsuBqG_tGBw
  */
+
 public class MainApplication extends Application {
 
     CRPCManager crpcManager;
