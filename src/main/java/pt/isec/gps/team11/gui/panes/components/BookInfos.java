@@ -26,7 +26,7 @@ public class BookInfos extends BorderPane {
     VBox vbAdressesAndOptions, vbAdresses, vbOptions, vbAdressesWithTitle, vbOptionsWithTitle;
 
     String returnGoogleStr = "";
-    VBox vbStartAdress, vbEndAdress, vbDirections, vbExtraWaitTime, vbPassengers, vbSuitcases, vbDepartureDate, vbDepartureTime, vbTolls, vbDepartureTimeImg;
+    VBox vbStartAdress, vbEndAdress, vbDirections, vbExtraWaitTime, vbPassengers, vbSuitcases, vbDepartureDate, vbDepartureTime, vbTolls;
     Label lbStartAdress,  tfExtraWaitTime, tfDepartureTime, lbEndAdress, lbDirections, lbExtraWaitTime, lbPassengers, lbSuitcases, lbDepartureDate, lbDepartureTime, lbTolls, lbAdressesTitle, lbOptionsTitle, lbInfoLabel;
     HBox hbPassengersSuitcases, hbDepartureDateAndImage, hbDepartureTimeAndImage, submitBtns;
     Button btnConfirm, btnReset;

@@ -15,6 +15,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import javafx.util.Callback;
 import org.apache.commons.lang3.StringUtils;
 import pt.isec.gps.team11.MyBrowser;
 import pt.isec.gps.team11.gui.MenuOpt;
@@ -35,9 +36,9 @@ public class BookForm extends BorderPane {
     VBox vbAdressesAndOptions, vbAdresses, vbOptions, vbAdressesWithTitle, vbOptionsWithTitle;
 
 
-    VBox vbStartAdress, vbEndAdress, vbDirections, vbExtraWaitTime, vbPassengers, vbSuitcases, vbDepartureDate, vbDepartureTime, vbTolls, vbDepartureTimeImg;
-    Label lbStartAdress, lbEndAdress, lbDirections, lbExtraWaitTime, lbPassengers, lbSuitcases, lbDepartureDate, lbDepartureTime, lbTolls, lbAdressesTitle, lbOptionsTitle;
-    HBox hbPassengersSuitcases, hbDepartureDateAndImage, hbDepartureTimeAndImage, submitBtns;
+    VBox vbStartAdress, vbEndAdress, vbDirections, vbExtraWaitTime, vbPassengers, vbSuitcases, vbDepartureDate, vbDepartureTime, vbTolls, vbDepartureTimeHour, vbDepartureTimeMinute;
+    Label lbStartAdress, lbEndAdress, lbDirections, lbExtraWaitTime, lbPassengers, lbSuitcases, lbDepartureDate, lbDepartureTime, lbTolls, lbAdressesTitle, lbOptionsTitle, lbHour, lbMinute;
+    HBox hbPassengersSuitcases, hbDepartureDateAndImage, hbDepartureTimeHourMinutes, submitBtns;
     Button btnSubmit, btnReset;
     TextField tfExtraWaitTime, tfDepartureTime;
     ChoiceBox cbDirections, cbPassengers, cbSuitcases, cbTolls;
@@ -196,7 +197,66 @@ public class BookForm extends BorderPane {
         hbDepartureDateAndImage = new HBox();
         hbDepartureDateAndImage.setAlignment(Pos.CENTER_LEFT);
 
+        //HBox for DepartureDateHour and DepartureDateMinutes
+        hbPassengersSuitcases = new HBox();
+        hbPassengersSuitcases.setAlignment(Pos.CENTER_LEFT);
+
+        //Passengers
+        vbPassengers = new VBox();
+        vbPassengers.setAlignment(Pos.CENTER);
+
+        lbPassengers = new Label("Passengers");
+        lbPassengers.setAlignment(Pos.CENTER_LEFT);
+        lbPassengers.setPadding(new Insets(0,0,5,0));
+        lbPassengers.setFont(fontSmall);
+        cbPassengers = new ChoiceBox();
+        cbPassengers.getItems().addAll("1", "2", "3", "4","5", "6", "7");
+        cbPassengers.setValue("1");
+        vbPassengers.getChildren().addAll(lbPassengers,cbPassengers);
+
+        //Suitcases
+        vbSuitcases = new VBox();
+        vbSuitcases.setAlignment(Pos.CENTER);
+
+        lbSuitcases = new Label("Suitcases");
+        lbSuitcases.setAlignment(Pos.CENTER_RIGHT);
+        lbSuitcases.setPadding(new Insets(0,0,5,0));
+        lbSuitcases.setFont(fontSmall);
+        cbSuitcases = new ChoiceBox();
+        cbSuitcases.getItems().addAll("0", "1", "2", "3", "4","5", "6", "7");
+        cbSuitcases.setValue("0");
+        vbSuitcases.getChildren().addAll(lbSuitcases,cbSuitcases);
+
+
         //Departure Date
+
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        dpDepartureDate = new DatePicker();
+        DatePicker checkInDatePicker = new DatePicker();
+        checkInDatePicker.setValue(LocalDate.now());
+        final Callback<DatePicker, DateCell> dayCellFactory =
+            new Callback<DatePicker, DateCell>() {
+                @Override
+                public DateCell call(final DatePicker datePicker) {
+                    return new DateCell() {
+                        @Override
+                        public void updateItem(LocalDate item, boolean empty) {
+                            super.updateItem(item, empty);
+
+                            if (item.isBefore(checkInDatePicker.getValue().plusDays(1))) {
+                                setDisable(true);
+                                setStyle("-fx-background-color: #ffc0cb;");
+                            }
+                        }
+                    };
+                }
+            };
+        dpDepartureDate.setDayCellFactory(dayCellFactory);
+        dpDepartureDate.setValue(checkInDatePicker.getValue().plusDays(1));
+
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        hbPassengersSuitcases.getChildren().addAll(vbPassengers,vbSuitcases);
+        hbPassengersSuitcases.setSpacing(10);
         vbDepartureDate = new VBox();
         vbDepartureDate.setAlignment(Pos.CENTER);
 
@@ -204,11 +264,6 @@ public class BookForm extends BorderPane {
         lbDepartureDate.setAlignment(Pos.CENTER_LEFT);
         lbDepartureDate.setPadding(new Insets(0,0,5,0));
         lbDepartureDate.setFont(fontSmall);
-
-        dpDepartureDate = new DatePicker();
-
-
-        dpDepartureDate.setValue(LOCAL_DATE());
 
         vbDepartureDate.getChildren().addAll(lbDepartureDate,dpDepartureDate);
 
@@ -218,10 +273,11 @@ public class BookForm extends BorderPane {
         hbDepartureDateAndImage.getChildren().addAll(vbDepartureDate/*,cena da imagem*/);
 
         //HBox for Departure Time and Image
-        hbDepartureTimeAndImage = new HBox();
-        hbDepartureTimeAndImage.setAlignment(Pos.CENTER_LEFT);
+        hbDepartureTimeHourMinutes = new HBox();
+        hbDepartureTimeHourMinutes.setAlignment(Pos.CENTER_LEFT);
 
         //Departure Time
+
         vbDepartureTime = new VBox();
         vbDepartureTime.setAlignment(Pos.CENTER);
 
@@ -229,30 +285,45 @@ public class BookForm extends BorderPane {
         lbDepartureTime.setAlignment(Pos.CENTER_LEFT);
         lbDepartureTime.setPadding(new Insets(0,0,5,0));
         lbDepartureTime.setFont(fontSmall);
-        tfDepartureTime = new TextField();
-        tfDepartureTime.setPromptText("Time");
 
-        vbDepartureTime.getChildren().addAll(lbDepartureTime,tfDepartureTime);
+        //HBox for DepartureDateHour and DepartureDateMinutes
+        hbDepartureTimeHourMinutes = new HBox();
+        hbDepartureTimeHourMinutes.setAlignment(Pos.CENTER_LEFT);
+        lbDepartureDate = new Label("Departure time");
 
-        Lighting lightingBlue = new Lighting(new Light.Distant(45, 90, Color.rgb(40,69,98)));
-        ColorAdjust brightBlue = new ColorAdjust(1, 1, 1, 1);
-        lightingBlue.setContentInput(brightBlue);
-        lightingBlue.setSurfaceScale(0);
-        Image img2 = ImageManager.getImage("icons\\icon_clock-o.png");
+        //Hour
+        vbDepartureTimeHour = new VBox();
+        vbDepartureTimeHour.setAlignment(Pos.CENTER);
 
-        //png use of images
-        ImageView imgView2 = new ImageView(img2);
-        imgView2.setId("calendar");
+        lbHour = new Label("Hour");
+        lbHour.setAlignment(Pos.CENTER_LEFT);
+        lbHour.setPadding(new Insets(0,0,5,0));
+        lbHour.setFont(fontSmall);
+        cbHour = new ComboBox();
+        for(int i = 0 ; i < 24 ; i++)
+            cbHour.getItems().add(String.valueOf(i));
+        cbHour.setValue("0");
+        vbDepartureTimeHour.getChildren().addAll(lbHour,cbHour);
 
-        imgView2.setEffect(lightingBlue);
-        imgView2.setFitHeight(22);
-        imgView2.setPreserveRatio(true);
-        vbDepartureTimeImg= new VBox(imgView2);
-        vbDepartureTimeImg.setAlignment(Pos.BOTTOM_CENTER);
+        //Minutes
+        vbDepartureTimeMinute = new VBox();
+        vbDepartureTimeMinute.setAlignment(Pos.CENTER);
 
+        lbMinute = new Label("Minutes");
+        lbMinute.setAlignment(Pos.CENTER_RIGHT);
+        lbMinute.setPadding(new Insets(0,0,5,0));
+        lbMinute.setFont(fontSmall);
+        cbMinute = new ComboBox();
+        for(int i = 0 ; i < 59 ; i++)
+            cbMinute.getItems().add(String.valueOf(i));
 
-        hbDepartureTimeAndImage.getChildren().addAll(vbDepartureTime,vbDepartureTimeImg);
-        hbDepartureTimeAndImage.setSpacing(2);
+        cbMinute.setValue("0");
+        vbDepartureTimeMinute.getChildren().addAll(lbMinute,cbMinute);
+
+        hbDepartureTimeHourMinutes.getChildren().addAll(vbDepartureTimeHour,vbDepartureTimeMinute);
+        hbDepartureTimeHourMinutes.setSpacing(10);
+
+        vbDepartureTime.getChildren().addAll(lbDepartureTime,hbDepartureTimeHourMinutes);
 
         //Tolls
         vbTolls = new VBox();
@@ -265,7 +336,7 @@ public class BookForm extends BorderPane {
         cbTolls.setValue("Yes");
         vbTolls.getChildren().addAll(lbTolls,cbTolls);
 
-        vbOptions.getChildren().addAll(vbDirections,vbExtraWaitTime,hbPassengersSuitcases,hbDepartureDateAndImage,hbDepartureTimeAndImage,vbTolls);
+        vbOptions.getChildren().addAll(vbDirections,vbExtraWaitTime,hbPassengersSuitcases,hbDepartureDateAndImage,vbDepartureTime,vbTolls);
         vbOptions.setSpacing(15);
 
         vbOptionsWithTitle.getChildren().addAll(lbOptionsTitle,vbOptions);
@@ -297,7 +368,6 @@ public class BookForm extends BorderPane {
         return localDate;
     }
 
-
     public void addPropertyChangeListener(PropertyChangeListener listener) {
         pcs.addPropertyChangeListener(listener);
     }
@@ -312,23 +382,15 @@ public class BookForm extends BorderPane {
 
         btnSubmit.setOnAction(actionEvent -> {
             int extraWaitTime;
-            String departureTime;
+            String departureTime = null;
             String departureDate;
             boolean directions;
             int nrPassengers = 1;
             int nrSuitcases = 0;
             boolean tolls;
             boolean flag = true;
-            SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
-            SimpleDateFormat sdfMonthYear = new SimpleDateFormat("dd-MM-yyyy");
-            /*
-            Calendar cal = Calendar.getInstance();
-            ServerTime st = new ServerTime(
-                    cal.get(Calendar.HOUR_OF_DAY),
-                    cal.get(Calendar.MINUTE),
-                    cal.get(Calendar.SECOND)
-            );
-*/
+            String hour;
+            String minute;
 
             if(tfExtraWaitTime.getText().isBlank()) {
                 extraWaitTime = 0;
@@ -336,7 +398,7 @@ public class BookForm extends BorderPane {
                 extraWaitTime = Integer.parseInt(tfExtraWaitTime.getText());
             }
 
-            if(tfDepartureTime.getText().isBlank()/* || sdf.format(tfDepartureTime.getText()). curTime*/) {
+            if(dpDepartureDate.getValue() != null) {
                 Alert alert = new Alert(Alert.AlertType.WARNING);
                 alert.setTitle("Alert");
                 alert.setHeaderText(null);
@@ -348,17 +410,35 @@ public class BookForm extends BorderPane {
             }
             departureDate = dpDepartureDate.getValue().toString();
 
-            /*if(sdfMonthYear.format(dpDepartureDate.getValue()) < sdfMonthYear.format(System.date())) {
-                Alert alert = new Alert(Alert.AlertType.WARNING);
-                alert.setTitle("Alert");
-                alert.setHeaderText(null);
-                alert.setContentText("The departure time is invalid");
-                alert.showAndWait();
+            if(cbHour.getValue() != null) {
+                 hour = cbHour.getValue().toString();
+                 if(cbMinute.getValue() != null) {
+                     minute = cbMinute.getValue().toString();
+
+                     if(!departureDate.equals(LOCAL_DATE().toString())) {
+                         departureTime = hour + ":" + minute;
+                     }
+                     SimpleDateFormat formatterHour= new SimpleDateFormat("HH");
+                     SimpleDateFormat formatterMinute= new SimpleDateFormat("mm");
+                     Date date = new Date(System.currentTimeMillis());
+
+                     String dataHour = formatterHour.format(date);
+                     String dataMinute = formatterMinute.format(date);
+
+                     if(Integer.parseInt(dataHour)==Integer.parseInt(hour)) {
+                         if(Integer.parseInt(dataMinute) >= Integer.parseInt(minute))
+                             flag = false;
+                         else
+                             departureTime = hour + ":" + minute;
+                     } else if(Integer.parseInt(dataHour)<Integer.parseInt(hour)) {
+                         departureTime = hour + ":" + minute;
+                     }else
+                         flag = false;
+                 }else
+                     flag = false;
+            }else
                 flag = false;
-                clearForm();
-                return;
-            }*/
-            departureDate = dpDepartureDate.getValue().toString();
+
 
             if(cbDirections.getValue().equals("One Way")) {
                 directions = true;
