@@ -77,6 +77,11 @@ public class CRPCManager {
         }
         return false;
     }
+    
+    public void setIsLogged(){
+        this.fsm.setIsLogged();
+        pcs.firePropertyChange(null, null, null);
+    }
 
     public boolean goBooking(){
         if(this.fsm.goBooking()){

@@ -46,6 +46,10 @@ public class Data {
         return false;
     }
 
+    public void setIsLogged(){
+        this.isLogged = true;
+    }
+
     public boolean getIsLogged(){
         return this.isLogged;
     }

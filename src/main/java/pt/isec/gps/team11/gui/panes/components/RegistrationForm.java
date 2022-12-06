@@ -1,15 +1,13 @@
 package pt.isec.gps.team11.gui.panes.components;
 
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import pt.isec.gps.team11.gui.MenuOpt;
 import pt.isec.gps.team11.model.CRPCManager;
 
 import java.beans.PropertyChangeSupport;
@@ -28,7 +26,7 @@ public class RegistrationForm extends BorderPane {
     TextField address;
     TextField nif;
     PasswordField password;
-
+    Alert registerAlert;
     PropertyChangeSupport pcs;
     PasswordField confirmPassword;
     Button btnRegister;
@@ -51,6 +49,10 @@ public class RegistrationForm extends BorderPane {
 
         btnRegister = new Button("Register and book");
         btnRegister.setId("btnRegLogin");
+
+        registerAlert = new Alert(Alert.AlertType.ERROR);
+        registerAlert.setTitle("Register error");
+        registerAlert.setContentText("Please fulfill all the parameters.");
 
         email = new TextField();
         email.setPromptText("Your email here...");
@@ -89,7 +91,23 @@ public class RegistrationForm extends BorderPane {
     private void registerHandlers() {
 
         btnRegister.setOnAction(actionEvent -> {
-
+            if(email.getText().trim().isEmpty() ||
+                phoneNumber.getText().trim().isEmpty() ||
+                firstName.getText().trim().isEmpty() ||
+                lastName.getText().trim().isEmpty() ||
+                address.getText().trim().isEmpty() ||
+                nif.getText().trim().isEmpty() ||
+                password.getText().trim().isEmpty())
+            {
+                registerAlert.show();
+            }
+            else
+            {
+                String emailAux = email.getText();
+                crpcManager.setLogin(emailAux);
+                crpcManager.setMenuOpt(MenuOpt.BOOKING);
+                crpcManager.setIsLogged();
+            }
         });
 
         crpcManager.addPropertyChangeListener(evt -> {
