@@ -64,8 +64,8 @@ public class ChooseCarPane extends BorderPane {
         chooseCarLabel.setTextFill(Color.BLACK);
 
         carChoosen = new Label();
-        chooseCarLabel.setFont(timesNewRoman);
-        chooseCarLabel.setTextFill(Color.BLACK);
+        carChoosen.setFont(timesNewRoman);
+        carChoosen.setTextFill(Color.BLACK);
 
         CSSManager.applyCSS(this,"mystyle.css");
 
