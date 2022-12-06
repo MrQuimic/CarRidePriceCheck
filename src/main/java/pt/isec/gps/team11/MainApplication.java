@@ -12,6 +12,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import pt.isec.gps.team11.gui.panes.RootPane;
 import pt.isec.gps.team11.model.CRPCManager;
+import pt.isec.gps.team11.utils.MailSending;
 
 
 import java.io.File;
@@ -55,6 +56,13 @@ public class MainApplication extends Application {
         primaryStage.setMaximized(true);
         primaryStage.setMaximized(false);
         primaryStage.show();
+
+        try {
+            MailSending.sendVoucher();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
 
         primaryStage.setOnCloseRequest(evt -> {
             Platform.exit();

@@ -5,10 +5,7 @@ import pt.isec.gps.team11.model.data.*;
 import pt.isec.gps.team11.model.data.Person;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 public class Files{
     public static List<List<String>> openFile(String pathFile) {
@@ -28,10 +25,10 @@ public class Files{
         return fileTokens;
     }
 
-    public static List<Car> dbReadCars(String dbLocation){
+    public static HashMap<String,Car> dbReadCars(String dbLocation){
         //location = Resources/dbCar.txt
         List<List<String>> list = openFile(dbLocation);
-        List<Car> carsList = new ArrayList<>();
+        HashMap<String,Car> carsList = new HashMap<>();
 
 
         //Requirements : String licensePlate,int lotation, int bagageCapacity, String brand,
@@ -40,12 +37,15 @@ public class Files{
         //roam all the db file
         for(List<String> tempList : list){
             try {
+
                 //if dont have the expected size
-                if(tempList.size() != 7)
+                if(tempList.size() != 7) {
                     throw new Exception("Abnormal line in DB");
-                carsList.add(new Car(tempList.get(0),Integer.parseInt(tempList.get(1)), Integer.parseInt(tempList.get(2)), tempList.get(3), tempList.get(4), Boolean.parseBoolean(tempList.get(5)) ,new Image(tempList.get(6))));
+                }
+                System.out.println(tempList);
+                carsList.put(tempList.get(0),new Car(tempList.get(0),Integer.parseInt(tempList.get(1)), Integer.parseInt(tempList.get(2)), tempList.get(3), tempList.get(4), Boolean.parseBoolean(tempList.get(5)) ,tempList.get(6)));
             }catch (Exception e){
-                System.err.println("Line: " + tempList + " with error");
+                //System.err.println("Line: " + tempList + " with error" + e);
             }
         }
         return carsList;
@@ -103,42 +103,48 @@ public class Files{
         return personsList;
     }
 
-    public static List<Company> dbReadCompany(String dbLocation){
-        //location = Resources/dbCompany.txt
+    public static HashMap<String,Company> dbReadCompany(String dbLocation,HashMap<Integer,Trip> availableTrips){
+        //location = Resources/dbCompany.txt.txt
 
 
         List<List<String>> list = openFile(dbLocation);
-        List<Company> companyList = new ArrayList<>();
-
+        HashMap<String,Company> companyList = new HashMap<>();
+        List<Trip> tripList;
 
         //handle all file
         for(List<String> tempList : list){
             try {
                 //if dont have the expected size
-                if(tempList.size() != 1)
+                if(tempList.size() < 2)
                     throw new Exception("Abnormal line in DB");
-                companyList.add(new Company(tempList.get(0)));
+
+                tripList = new ArrayList<>();
+
+                //getting all the cars associated to the trip
+                for(int i = 1; i < tempList.size();i++) {
+                    tripList.add(availableTrips.get(Integer.parseInt(tempList.get(i))));
+                }
+                companyList.put(tempList.get(0), new Company(tempList.get(0),tripList));
             }catch (Exception e){
-                System.err.println("Line: " + tempList + " with error");
+                System.err.println("Line: " + tempList + " with error" );
             }
         }
         return companyList;
     }
 
-    public static List<Trip> dbReadTrip(String dbLocation){
+    public static HashMap<Integer,Trip> dbReadTrip(String dbLocation,HashMap<String,Car> availableCars){
         //location = Resources/dbTrip.txt
-
 
         //read db
         List<List<String>> list = openFile(dbLocation);
 
 
         //the list that will be sent
-        List<Trip> tripList = new ArrayList<>();
+        HashMap<Integer,Trip> tripList = new HashMap<>();
 
 
         //list of cars associated to one trip
-        ArrayList<String> carIds;
+        ArrayList<Car> cars;
 
 
         //roam all the db entities
@@ -149,16 +155,16 @@ public class Files{
                 if(tempList.size() < 18)
                     throw new Exception("Abnormal line in DB");
 
-                carIds = new ArrayList<>();
+                cars = new ArrayList<>();
 
                 //getting all the cars associated to the trip
                 for(int i = 17; i < tempList.size();i++)
-                    carIds.add(tempList.get(i));
+                    cars.add(availableCars.get(tempList.get(i)));
 
                 //add to the trip list
-                tripList.add(new Trip(tempList.get(0),tempList.get(1),Boolean.getBoolean(tempList.get(2)), new Date( Integer.parseInt(tempList.get(3)) ,Integer.parseInt(tempList.get(4)) ,Integer.parseInt(tempList.get(5)) ),Integer.parseInt(tempList.get(6)),
-                Integer.parseInt(tempList.get(7)),Integer.parseInt(tempList.get(8)) ,new Date( Integer.parseInt(tempList.get(9)) ,Integer.parseInt(tempList.get(10)) ,Integer.parseInt(tempList.get(11)),Integer.parseInt(tempList.get(12)),Integer.parseInt(tempList.get(13)) ),Boolean.getBoolean(tempList.get(14)),tempList.get(15),
-                Integer.parseInt(tempList.get(16)),carIds));
+                tripList.put(Trip.getNextId(),new Trip(tempList.get(0),tempList.get(1),Boolean.getBoolean(tempList.get(2)), new Date( Integer.parseInt(tempList.get(3)) ,Integer.parseInt(tempList.get(4)) ,Integer.parseInt(tempList.get(5)) ),Integer.parseInt(tempList.get(6)),
+                        Integer.parseInt(tempList.get(7)),Integer.parseInt(tempList.get(8)) ,new Date( Integer.parseInt(tempList.get(9)) ,Integer.parseInt(tempList.get(10)) ,Integer.parseInt(tempList.get(11)),Integer.parseInt(tempList.get(12)),Integer.parseInt(tempList.get(13)) ),Boolean.getBoolean(tempList.get(14)),tempList.get(15),
+                        Integer.parseInt(tempList.get(16)),cars));
 
 
             }catch (Exception e){

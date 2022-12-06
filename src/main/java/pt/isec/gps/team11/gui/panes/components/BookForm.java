@@ -44,6 +44,9 @@ public class BookForm extends BorderPane {
     ChoiceBox cbDirections, cbPassengers, cbSuitcases, cbTolls;
     DatePicker dpDepartureDate;
 
+    ComboBox cbHour, cbMinute;
+
+
     AutoCompleteAddressField originA = new AutoCompleteAddressField();
     AutoCompleteAddressField destinA = new AutoCompleteAddressField();
     TextField Destin1 = new TextField();

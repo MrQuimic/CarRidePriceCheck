@@ -1,14 +1,16 @@
 package pt.isec.gps.team11.model.data;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class Company {
-    private ArrayList<Trip> trips;
+    private List<Trip> trips;
     private String name;
 
-    public Company(String name){
+    public Company(String name, List<Trip> trips){
         this.name = name;
+        this.trips = trips;
     }
 
     public void setName(String name) {
@@ -33,7 +35,7 @@ public class Company {
         return true;
     }
 
-    public ArrayList<Trip> getTrips() {
+    public List<Trip> getTrips() {
         return trips;
     }
 

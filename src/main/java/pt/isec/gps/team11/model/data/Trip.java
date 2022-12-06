@@ -19,7 +19,7 @@ public class Trip {
     private ArrayList<String> carsIds;
     private ArrayList<Car> cars;
 
-    public Trip(String origin, String destination, boolean oneway, Date date, int extraWaitingTime, int numberOfPassengers, int numberOfLuggage, Date departureTime, boolean highway, String arrival, int price,ArrayList<String> carsIds) {
+    public Trip(String origin, String destination, boolean oneway, Date date, int extraWaitingTime, int numberOfPassengers, int numberOfLuggage, Date departureTime, boolean highway, String arrival, int price,ArrayList<Car> cars) {
         this.id=++idGlobal;
         this.origin = origin;
         this.destination = destination;
@@ -32,7 +32,7 @@ public class Trip {
         this.highway = highway;
         this.arrival = arrival;
         this.price = price;
-        this.carsIds = carsIds;
+        this.cars = cars;
     }
 
     public Trip (boolean oneWay, String date, int extraWaitingTime,int numberOfLuggage, int numberOfPassengers, String departureTime, boolean highway) {
@@ -190,8 +190,32 @@ public class Trip {
         return true;
     }
 
+    @Override
+    public String toString() {
+        return "Trip{" +
+                "id=" + id +
+                ", origin='" + origin + '\'' +
+                ", destination='" + destination + '\'' +
+                ", oneWay=" + oneWay +
+                ", date=" + date +
+                ", extraWaitingTime=" + extraWaitingTime +
+                ", numberOfLuggage=" + numberOfLuggage +
+                ", departureTime=" + departureTime +
+                ", highway=" + highway +
+                ", arrival='" + arrival + '\'' +
+                ", price=" + price +
+                ", carsIds=" + carsIds +
+                ", cars=" + cars +
+                ", numberOfPassengers=" + numberOfPassengers +
+                '}';
+    }
 
+    public static int getNextId(){
+        return idGlobal+1;
+    }
 
-
+    public static void resetId(){
+        idGlobal = 0;
+    }
 
 }

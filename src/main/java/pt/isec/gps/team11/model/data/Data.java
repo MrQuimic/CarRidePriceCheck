@@ -77,7 +77,7 @@ public class Data {
         String filePath = currentRelativePath.toAbsolutePath().toString()
                 + "\\src\\main\\resources\\dbCar";
 
-        trips = (ArrayList<Trip>) Files.dbReadTrip(filePath);
+        //trips = (ArrayList<Trip>) Files.dbReadTrip(filePath);
     }
 
     public ArrayList<Trip> getTrips() {

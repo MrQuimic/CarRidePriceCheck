@@ -16,6 +16,7 @@ module pt.isec.gps.team11 {
     requires google.maps.services;
     requires java.logging;
     requires org.apache.commons.lang3;
+    requires mail;
 
     opens pt.isec.gps.team11 to javafx.fxml;
     exports pt.isec.gps.team11;

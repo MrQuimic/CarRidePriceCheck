@@ -2,6 +2,8 @@ package pt.isec.gps.team11.model.data;
 
 import javafx.scene.image.Image;
 
+import javafx.scene.image.Image;
+
 /**
  * The type Car.
  */
@@ -12,7 +14,7 @@ public class Car {
     private String model;
     private String licensePlate;
     private boolean luxury;
-    private Image image;
+    private String imagePath;
 
     /**
      * Instantiates a new Car.
@@ -23,27 +25,28 @@ public class Car {
      * @param brand          the brand
      * @param model          the model
      * @param luxury         the luxury
-     * @param image          the image
+     * @param imagePath          the image
      */
-    public Car(String licensePlate,int lotation, int bagageCapacity, String brand, String model, boolean luxury, Image image) {
+    public Car(String licensePlate,int lotation, int bagageCapacity, String brand, String model, boolean luxury, String imagePath) {
         this.lotation = lotation;
         this.bagageCapacity = bagageCapacity;
         this.brand = brand;
         this.model = model;
         this.licensePlate = licensePlate;
         this.luxury = luxury;
-        this.image = image;
+        this.imagePath = imagePath;
     }
 
-    public Car(Car anotherCar){
-        this.lotation = anotherCar.getLotation();
-        this.bagageCapacity = anotherCar.getBagageCapacity();
-        this.brand = anotherCar.getBrand();
-        this.model = anotherCar.getModel();
-        this.licensePlate = anotherCar.licensePlate;
-        this.luxury = anotherCar.getLuxury();
-        this.image = anotherCar.getImage();
+    public Car(Car other){
+        this.lotation = other.lotation;
+        this.bagageCapacity = other.bagageCapacity;
+        this.brand = other.brand;
+        this.model = other.model;
+        this.licensePlate = other.licensePlate;
+        this.luxury = other.luxury;
+        this.imagePath = other.imagePath;
     }
+
 
     /**
      * Sets lotation.
@@ -140,12 +143,12 @@ public class Car {
      *
      * @param image the image
      */
-    public void setImage(Image image) {
-        this.image = image;
+    public void setImage(String image) {
+        this.imagePath = image;
     }
 
-    public Image getImage() {
-        return image;
+    public String getImage() {
+        return imagePath;
     }
 
     public boolean getLuxury(){
@@ -170,4 +173,17 @@ public class Car {
         return getLicensePlate().hashCode();
     }
 
+    @Override
+    public String toString() {
+        return "Car{" +
+                "lotation=" + lotation +
+                ", bagageCapacity=" + bagageCapacity +
+                ", brand='" + brand + '\'' +
+                ", model='" + model + '\'' +
+                ", licensePlate='" + licensePlate + '\'' +
+                ", luxury=" + luxury +
+                ", imagePath='" + imagePath + '\'' +
+                '}';
+    }
 }
+
