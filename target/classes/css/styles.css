@@ -107,6 +107,11 @@
     -fx-opacity: 0.7;
 }
 
+#carView:hover{
+    -fx-cursor: Hand;
+    -fx-opacity: 0.7;
+}
+
 
 #mbtnSubmit{
     -fx-background-color: rgba(120, 168, 194, 0.75);
