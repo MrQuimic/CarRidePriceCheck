@@ -378,15 +378,17 @@ public class BookForm extends BorderPane {
     private void registerHandlers() {
 
         btnReset.setOnAction(actionEvent -> {
+            myBrowser.webEngine.load(myBrowser.urlGoogleMaps.toExternalForm());
 
-            crpcManager.setMenuOpt(MenuOpt.MAIN_MENU);
+            crpcManager.resetTripResults();
 
+            crpcManager.goMainMenu();
         });
 
         btnSubmit.setOnAction(actionEvent -> {
             int extraWaitTime;
             String departureTime = null;
-            String departureDate;
+            String departureDate = null;
             boolean directions;
             int nrPassengers = 1;
             int nrSuitcases = 0;
@@ -401,7 +403,7 @@ public class BookForm extends BorderPane {
                 extraWaitTime = Integer.parseInt(tfExtraWaitTime.getText());
             }
 
-            if(dpDepartureDate.getValue() != null) {
+            if(dpDepartureDate.getValue() == null) {
                 Alert alert = new Alert(Alert.AlertType.WARNING);
                 alert.setTitle("Alert");
                 alert.setHeaderText(null);
@@ -413,7 +415,7 @@ public class BookForm extends BorderPane {
             }
             departureDate = dpDepartureDate.getValue().toString();
 
-            if(cbHour.getValue() != null) {
+/*            if(cbHour.getValue() != null) {
                  hour = cbHour.getValue().toString();
                  if(cbMinute.getValue() != null) {
                      minute = cbMinute.getValue().toString();
@@ -440,7 +442,7 @@ public class BookForm extends BorderPane {
                  }else
                      flag = false;
             }else
-                flag = false;
+                flag = false;*/
 
 
             if(cbDirections.getValue().equals("One Way")) {
@@ -465,10 +467,31 @@ public class BookForm extends BorderPane {
 
             if(flag) {
                 crpcManager.book(directions,departureDate,extraWaitTime,nrSuitcases, nrPassengers,departureTime,tolls);
-            }
-            clearForm();
-            crpcManager.setMenuOpt(MenuOpt.MAIN_MENU);
 
+                myBrowser.webEngine.load(myBrowser.urlGoogleMaps.toExternalForm() + "?origin=" + originA.getText() + "&destin=" + destinA.getText());
+                //String returnValue = (String) webEngine.executeScript("getRectArea()");
+                myBrowser.webEngine.getLoadWorker().stateProperty().addListener(
+                        new ChangeListener() {
+                            @Override
+                            public void changed(ObservableValue observable, Object oldValue, Object newValue) {
+                                if (newValue != Worker.State.SUCCEEDED) { return; }
+
+                                String returnValue = (String) myBrowser.webEngine.executeScript("results()");
+
+                                crpcManager.saveTripResults(returnValue);
+
+                                crpcManager.setTripOrigin(originA.getText());
+                                crpcManager.setTripDestination(destinA.getText());
+
+                                crpcManager.setGoogleReturn(returnValue);
+
+                                crpcManager.goChooseCAr();
+                            }
+                        }
+                );
+            }
+
+            clearForm();
         });
 
 
@@ -525,33 +548,6 @@ public class BookForm extends BorderPane {
                 }
             });
         });
-
-        btnSubmit.setOnAction(actionEvent -> {
-            myBrowser.webEngine.load(myBrowser.urlGoogleMaps.toExternalForm() + "?origin=" + originA.getText() + "&destin=" + destinA.getText());
-            //String returnValue = (String) webEngine.executeScript("getRectArea()");
-            myBrowser.webEngine.getLoadWorker().stateProperty().addListener(
-                    new ChangeListener() {
-                        @Override
-                        public void changed(ObservableValue observable, Object oldValue, Object newValue) {
-                            if (newValue != Worker.State.SUCCEEDED) { return; }
-
-                            String returnValue = (String) myBrowser.webEngine.executeScript("results()");
-
-                            crpcManager.saveTripResults(returnValue);
-                            crpcManager.setTripOrigin(originA.getText());
-                            crpcManager.setTripDestination(destinA.getText());
-//                            crpcManager.book(
-                            crpcManager.setGoogleReturn(returnValue);
-                            //System.out.println(returnValue);
-                            crpcManager.setMenuOpt(MenuOpt.CONFIRMBOOKING);
-                        }
-                    }
-            );
-        });
-
-        btnReset.setOnAction(actionEvent -> {
-            myBrowser.webEngine.load(myBrowser.urlGoogleMaps.toExternalForm());
-        });
         
         crpcManager.addPropertyChangeListener(evt -> {
             update();
@@ -564,7 +560,7 @@ public class BookForm extends BorderPane {
         cbPassengers.setValue(1);
         cbDirections.setValue(0);
         dpDepartureDate.setValue(null);
-        tfDepartureTime.setText("Time");
+        //tfDepartureTime.setText("Time");
         cbTolls.setValue("Yes");
     }
 

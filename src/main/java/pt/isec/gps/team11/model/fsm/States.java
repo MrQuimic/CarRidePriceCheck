@@ -4,12 +4,14 @@ import pt.isec.gps.team11.model.data.Data;
 import pt.isec.gps.team11.model.fsm.implementation.*;
 
 public enum States {
+    IDLE,
     MAIN_MENU,
     LIST_TRIPS,
     BOOKING, CHOOSE_CAR, CONFIRM_BOOKING, TRIP_DETAILS;
 
     public IStates createState(StatesContext context, Data data){
         return switch(this){
+            case IDLE -> new IdleState(context, data);
             case MAIN_MENU -> new MainMenuState(context, data);
             case LIST_TRIPS -> new ListTripsState(context, data);
             case BOOKING -> new BookingState(context, data);

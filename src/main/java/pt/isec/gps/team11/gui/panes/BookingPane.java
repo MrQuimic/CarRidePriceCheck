@@ -14,6 +14,7 @@ import pt.isec.gps.team11.gui.panes.components.MenuTop;
 import pt.isec.gps.team11.model.CRPCManager;
 import javafx.scene.control.SplitPane;
 import javafx.scene.layout.*;
+import pt.isec.gps.team11.model.fsm.States;
 
 public class BookingPane extends BorderPane {
 
@@ -80,7 +81,7 @@ public class BookingPane extends BorderPane {
     private void update() {
 
 
-        if (crpcManager.getMenuOpt() == MenuOpt.BOOKING) {
+        if (crpcManager.getState() == States.BOOKING) {
             configAdapter();
             this.setVisible(true);
             return;

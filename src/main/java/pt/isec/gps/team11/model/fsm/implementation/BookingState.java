@@ -26,4 +26,10 @@ public class BookingState extends StateAdapter {
         setState(States.MAIN_MENU);
         return true;
     }
+
+    @Override
+    public boolean book(boolean oneWay, String date, int extraWaitingTime,
+                        int numberOfLuggage, int numberOfPassengers, String departureTime, boolean highway) {
+        return data.book(oneWay, date, extraWaitingTime, numberOfLuggage, numberOfPassengers, departureTime, highway);
+    }
 }

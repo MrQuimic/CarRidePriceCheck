@@ -1,16 +1,8 @@
 package pt.isec.gps.team11.model.data;
 
-import pt.isec.gps.team11.utils.Files;
-
-import java.awt.*;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Comparator;
 
 public class Data {
     public final String USERNAME = "admin@gps";
@@ -88,18 +80,8 @@ public class Data {
         return trips;
     }
 
-    public boolean confirmTrip(boolean oneWay, String date, int extraWaitingTime,int numberOfLuggage, int numberOfPassengers, String departureTime, boolean highway){
+    public boolean book(boolean oneWay, String date, int extraWaitingTime, int numberOfLuggage, int numberOfPassengers, String departureTime, boolean highway){
         currentTrip = new Trip(oneWay, date, extraWaitingTime, numberOfLuggage, numberOfPassengers, departureTime, highway);
-
-        //trip.setOrigin();
-        //trip.setDestination();
-        //trip.setArrival();
-        //trip.setCarsIds();
-        //trip.setPrice();
-
-        trips.add(currentTrip);
-
-
 
         return true;
     }
@@ -117,6 +99,12 @@ public class Data {
         this.distanceOfTrip = s[0];
         this.timeOfTrip = s[1];
         this.costOfTrip = s[2];
+    }
+
+    public void resetTripResults(){
+        this.distanceOfTrip = null;
+        this.timeOfTrip = null;
+        this.costOfTrip = null;
     }
 
     public String getCostOfTrip() {

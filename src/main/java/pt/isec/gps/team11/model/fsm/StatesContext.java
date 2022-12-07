@@ -24,6 +24,10 @@ public class StatesContext {
         this.state = state;
     }
 
+    public boolean goIdle(){
+        return state.goIdle();
+    }
+
     public boolean goMainMenu(){
         return state.goMainMenu();
     }
@@ -59,7 +63,7 @@ public class StatesContext {
     public void setIsLogged(){this.data.setIsLogged();}
 
     public boolean book(boolean oneWay, String date, int extraWaitingTime,int numberOfLuggage, int numberOfPassengers, String departureTime, boolean highway){
-        return data.confirmTrip(oneWay,date,extraWaitingTime,numberOfLuggage,numberOfPassengers,departureTime,highway);
+        return state.book(oneWay,date,extraWaitingTime,numberOfLuggage,numberOfPassengers,departureTime,highway);
     }
 
     public Trip getCurrentTrip(){
@@ -72,6 +76,10 @@ public class StatesContext {
 
     public void saveTripResult(String result){
         data.saveTripsResult(result);
+    }
+
+    public void resetTripResults(){
+        data.resetTripResults();
     }
 
     public String getCostOfTrip() {

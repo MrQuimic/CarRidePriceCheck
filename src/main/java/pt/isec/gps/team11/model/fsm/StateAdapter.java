@@ -25,6 +25,12 @@ public class StateAdapter implements IStates{
     }
 
     @Override
+    public boolean goIdle() {
+        setState(States.IDLE);
+        return true;
+    }
+
+    @Override
     public boolean goBooking() {
         return false;
     }

@@ -12,6 +12,7 @@ import pt.isec.gps.team11.MyBrowser;
 import pt.isec.gps.team11.gui.MenuOpt;
 import pt.isec.gps.team11.gui.panes.utils.CSSManager;
 import pt.isec.gps.team11.model.CRPCManager;
+import pt.isec.gps.team11.model.fsm.States;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -278,12 +279,12 @@ public class BookInfos extends BorderPane {
 
         btnReset.setOnAction(actionEvent -> {
 
-            crpcManager.setMenuOpt(MenuOpt.MAIN_MENU);
+            crpcManager.goMainMenu();
 
         });
 
         btnConfirm.setOnAction(actionEvent -> {
-            crpcManager.setMenuOpt(MenuOpt.ChooseCar);
+            crpcManager.goChooseCAr();
 
         });
 
@@ -304,7 +305,7 @@ public class BookInfos extends BorderPane {
     }
 
     private void update() {
-        if (crpcManager.getMenuOpt() == MenuOpt.CONFIRMBOOKING) {
+        if (crpcManager.getState() == States.CONFIRM_BOOKING) {
             myBrowser.webEngine.load(myBrowser.urlGoogleMaps.toExternalForm() + "?origin="
                     + crpcManager.getTripOrigin() + "&destin=" + crpcManager.getTripDestination());
             this.returnGoogleStr = crpcManager.getGoogleReturn();

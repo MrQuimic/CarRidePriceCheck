@@ -14,6 +14,7 @@ import pt.isec.gps.team11.gui.MenuOpt;
 import pt.isec.gps.team11.gui.panes.utils.CSSManager;
 import pt.isec.gps.team11.gui.panes.utils.ImageManager;
 import pt.isec.gps.team11.model.CRPCManager;
+import pt.isec.gps.team11.model.fsm.States;
 
 import java.util.Objects;
 
@@ -128,7 +129,7 @@ public class MainPagePane extends BorderPane {
     private void update() {
 
 
-            if (crpcManager.getMenuOpt() == MenuOpt.MAIN_MENU) {
+            if (crpcManager.getState() == States.MAIN_MENU) {
 
                 configAdapter();
                 this.setVisible(true);

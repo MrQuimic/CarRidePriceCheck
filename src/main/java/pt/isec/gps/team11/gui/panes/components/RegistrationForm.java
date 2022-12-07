@@ -105,7 +105,7 @@ public class RegistrationForm extends BorderPane {
             {
                 String emailAux = email.getText();
                 crpcManager.setLogin(emailAux);
-                crpcManager.setMenuOpt(MenuOpt.BOOKING);
+                crpcManager.goBooking();
                 crpcManager.setIsLogged();
             }
         });

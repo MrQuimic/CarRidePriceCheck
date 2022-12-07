@@ -14,15 +14,9 @@ public enum MenuOpt {
 
     IN_STATE,
 
-    MAIN_MENU,//todo temp onl for now
-
-    BOOKING,//todo temp onl for now
-
-    CONFIRMBOOKING,
-
     AUTHENTICATION,
 
-    LOGOUT, ChooseCar,
+    LOGOUT,
 
 
 }

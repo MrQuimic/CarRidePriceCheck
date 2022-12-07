@@ -22,6 +22,7 @@ import pt.isec.gps.team11.gui.panes.utils.CSSManager;
 import pt.isec.gps.team11.gui.panes.utils.ImageManager;
 import pt.isec.gps.team11.model.CRPCManager;
 import javafx.scene.layout.*;
+import pt.isec.gps.team11.model.fsm.States;
 
 import javax.swing.plaf.IconUIResource;
 import java.util.ArrayList;
@@ -45,6 +46,8 @@ public class ChooseCarPane extends BorderPane {
     Label waitingTime = new Label();
     Label kilometers = new Label();
     Label price = new Label();
+
+    Button btnConfirm;
 
     public ChooseCarPane(CRPCManager crpcManager){
         this.crpcManager = crpcManager;
@@ -152,13 +155,15 @@ public class ChooseCarPane extends BorderPane {
         passengers.setText("Passengers: ");
         suitcases.setText("Suitcases: ");
         departureDate.setText("Departure Date");
-        departureTime.setText("Departure Date: ");
-        waitingTime.setText("Waiting time: " );
+        departureTime.setText("Departure Time: " );
+        waitingTime.setText("Waiting time: ");
         kilometers.setText("Distance: ");
         price.setText("Price: ");
 
+        btnConfirm = new Button("Confirm");
+
         form.setPadding(new Insets(0,0,0,40));
-        form.getChildren().addAll(hForm);
+        form.getChildren().addAll(hForm, btnConfirm);
         this.setCenter(form);
     }
 
@@ -183,6 +188,9 @@ public class ChooseCarPane extends BorderPane {
             setCarChoosen(3);
         });
 
+        btnConfirm.setOnAction(actionEvent -> {
+            crpcManager.goConfirmBooking();
+        });
 
     }
 
@@ -190,7 +198,17 @@ public class ChooseCarPane extends BorderPane {
     }
 
     private void update() {
-        if (crpcManager.getMenuOpt() == MenuOpt.ChooseCar) {
+        if (crpcManager.getState() == States.CHOOSE_CAR) {
+            startAddress.setText("Start Address: " + crpcManager.getTripOrigin());
+            endAddress.setText("End Address: " + crpcManager.getTripDestination());
+            directions.setText("Directions: " + crpcManager.getCurrentTrip().isOneWay());
+            passengers.setText("Passengers: " + crpcManager.getCurrentTrip().getNumberOfPassengers());
+            suitcases.setText("Suitcases: " + crpcManager.getCurrentTrip().getNumberOfLuggage());
+            departureDate.setText("Departure Date: " + crpcManager.getCurrentTrip().getDepartureTime());
+            departureTime.setText("Departure Time: " + crpcManager.getCurrentTrip().getDepartureTime());
+            waitingTime.setText("Waiting time: " + crpcManager.getCurrentTrip().getExtraWaitingTime());
+            kilometers.setText("Distance: " + crpcManager.getDistanceOfTrip());
+            price.setText("Price: " + crpcManager.getCostOfTrip());
             configAdapter();
             this.setVisible(true);
         }else{

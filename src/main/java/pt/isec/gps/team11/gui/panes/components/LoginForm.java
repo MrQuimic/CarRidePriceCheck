@@ -38,7 +38,7 @@ public class LoginForm extends BorderPane {
 
             if(crpcManager.confirmLogin(emailAux, passwordAux)) {
                 crpcManager.setLogin(emailAux);
-                crpcManager.setMenuOpt(MenuOpt.BOOKING);
+                crpcManager.goToPreviousState();
             }
             else{
                 loginAlert.show();

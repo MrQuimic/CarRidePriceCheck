@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 public interface IStates {
     States getState();
+    boolean goIdle();
     boolean goMainMenu();
     boolean goBooking();
     boolean goChooseCar();

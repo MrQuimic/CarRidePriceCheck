@@ -25,13 +25,16 @@ public class CRPCManager {
 
     public static final String TRIP = "trip";
 
+    private States previousState;
+
     /**
      * Instantiates a new Gpe manager.
      */
     public CRPCManager() {
         this.fsm = new StatesContext();
         pcs = new PropertyChangeSupport(this);
-       this.menuOpt = MenuOpt.BOOKING;
+       this.menuOpt = null;
+       this.previousState = null;
     }
 
     /**
@@ -64,10 +67,34 @@ public class CRPCManager {
         pcs.addPropertyChangeListener(property, listener);
     }
     public void setMenuOpt(MenuOpt menuOpt) {
+        this.previousState = fsm.getState();
         this.menuOpt = menuOpt;
         System.out.println(menuOpt);
 
         pcs.firePropertyChange(null, null, null);
+    }
+
+    public  void goToPreviousState(){
+        this.menuOpt = null;
+
+        switch (previousState){
+            case BOOKING -> goBooking();
+            case MAIN_MENU -> goMainMenu();
+            case CHOOSE_CAR -> goChooseCAr();
+            case LIST_TRIPS -> goListTrips();
+            case TRIP_DETAILS -> goTripDetails();
+            case CONFIRM_BOOKING -> goConfirmBooking();
+        }
+
+        this.previousState = null;
+    }
+
+    public boolean goIdle(){
+        if(this.fsm.goIdle()){
+            pcs.firePropertyChange(null, null, null);
+            return true;
+        }
+        return false;
     }
 
     public boolean goMainMenu(){
@@ -155,6 +182,10 @@ public class CRPCManager {
 
     public void saveTripResults(String result){
         fsm.saveTripResult(result);
+    }
+
+    public void resetTripResults(){
+        fsm.resetTripResults();
     }
 
     public String getCostOfTrip() {

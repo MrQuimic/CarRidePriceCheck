@@ -17,6 +17,7 @@ import javafx.scene.text.Text;
 import pt.isec.gps.team11.gui.MenuOpt;
 import pt.isec.gps.team11.gui.panes.utils.ImageManager;
 import pt.isec.gps.team11.model.CRPCManager;
+import pt.isec.gps.team11.model.fsm.States;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -165,36 +166,38 @@ public class MenuTop extends BorderPane {
 
     private void registerHandlers() {
         btnsMenu[0].setOnAction(actionEvent -> {
-            manager.setMenuOpt(MenuOpt.MAIN_MENU);
-
+            manager.goMainMenu();
+            manager.setMenuOpt(null);
         });
 
         btnsMenu[1].setOnAction(actionEvent -> {
-            manager.setMenuOpt(MenuOpt.BOOKING);
-
+            manager.goBooking();
+            manager.setMenuOpt(null);
         });
 
         btnsMenu[2].setOnAction(actionEvent -> {
             manager.setMenuOpt(MenuOpt.CONTACTS);
+            manager.goIdle();
         });
 
         btnsMenu[3].setOnAction(actionEvent -> {
             manager.setMenuOpt(MenuOpt.ABOUTUS);
-
+            manager.goIdle();
         });
 
         btnsMenu[4].setOnAction(actionEvent -> {
             manager.setMenuOpt(MenuOpt.OURTEAM);
-
+            manager.goIdle();
         });
 
         logout.setOnAction(actionEvent -> {
             manager.logout();
-            manager.setMenuOpt(MenuOpt.BOOKING);
+            manager.goMainMenu();
         });
 
         authIcon.setOnMouseClicked(actionEvent -> {
             manager.setMenuOpt(MenuOpt.AUTHENTICATION);
+            manager.goIdle();
         });
 
         manager.addPropertyChangeListener(evt -> {
@@ -212,7 +215,7 @@ public class MenuTop extends BorderPane {
             authIcon.setVisible(true);
             logout.setVisible(false);
         }
-        if(manager.getMenuOpt()==MenuOpt.MAIN_MENU) {
+        if(manager.getState() == States.MAIN_MENU) {
             btnsMenu[0].setOpacity(0.8);
             btnsMenu[1].setOpacity(1);
             btnsMenu[2].setOpacity(1);
@@ -227,7 +230,7 @@ public class MenuTop extends BorderPane {
             btnsMenu[4].setStyle("-fx-font-weight: 600");
             logout.setStyle("-fx-font-weight: 600");
         }
-        else if(manager.getMenuOpt()==MenuOpt.BOOKING){
+        else if(manager.getState() == States.BOOKING){
             btnsMenu[0].setOpacity(1);
             btnsMenu[1].setOpacity(0.8);
             btnsMenu[2].setOpacity(1);
