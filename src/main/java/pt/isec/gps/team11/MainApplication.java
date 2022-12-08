@@ -63,7 +63,7 @@ public class MainApplication extends Application {
         primaryStage.show();
 
         try {
-            MailSending.sendVoucher();
+            //MailSending.sendVoucher();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
