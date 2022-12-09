@@ -19,6 +19,7 @@ import pt.isec.gps.team11.gui.panes.utils.ImageManager;
 import pt.isec.gps.team11.model.CRPCManager;
 import pt.isec.gps.team11.model.fsm.States;
 
+import java.awt.*;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
@@ -26,14 +27,14 @@ public class MenuTop extends BorderPane {
     private CRPCManager manager;
 
     Button[] btnsMenu;
-    Button logout;
+    Button logout, logUser;
     private HBox hBox, hBoxLogo,hBoxMenuTop, hBoxTextTop, hBoxAuth, hBoxMenuT;
     VBox vBox;
-    Text tMainMenu;
+    Text tMainMenu, usernameDisplay;
     MenuOpt menuOpt;
     ImageView authIcon;
     PropertyChangeSupport pcs;
-    Text usernameDisplay;
+
     String username;
 
     public MenuTop(CRPCManager manager, String username){
@@ -67,12 +68,18 @@ public class MenuTop extends BorderPane {
         btnsMenu[2] = new Button(String.format("\uD83D\uDCDE Contacts"));
         btnsMenu[3] = new Button(String.format("✨ About us"));
         btnsMenu[4] = new Button(String.format("\uD83D\uDC65 Our Team"));
-        logout = new Button(String.format("⏏ Logout"));
+        logout = new Button(String.format("Logout"));
         logout.setId("logoutbtn");
         logout.setVisible(false);
 
+        logout.setPrefSize(80,40);
+        logUser = new Button("");
+        logUser.setId("logUserbtn");
+        logUser.setVisible(false);
+        logUser.setPrefSize(95,40);
+
         for(int i = 0; i < 5; i++){
-            btnsMenu[i].setPrefSize(110,40);
+            btnsMenu[i].setPrefSize(100,40);
             btnsMenu[i].setId("MenuUIBtn");
             // btns[i].setStyle("");
         }
@@ -117,7 +124,7 @@ public class MenuTop extends BorderPane {
         authIcon.setFitHeight(30);
         authIcon.setPreserveRatio(true);
 
-        hBoxAuth.getChildren().addAll(authIcon, logout);
+        hBoxAuth.getChildren().addAll(authIcon, logout, logUser);
 
 
 
@@ -206,14 +213,18 @@ public class MenuTop extends BorderPane {
     }
 
     private void update(){
-        logout.setText("⏏Logout: \n" + manager.getUsername());
+        logout.setText("Logout: \n");
+        logUser.setText(manager.getUsername()+" \n");
+
         if(manager.isLogged()){
             authIcon.setVisible(false);
             logout.setVisible(true);
+            logUser.setVisible(true);
         }
         else{
             authIcon.setVisible(true);
             logout.setVisible(false);
+            logUser.setVisible(false);
         }
         if(manager.getState() == States.MAIN_MENU) {
             btnsMenu[0].setOpacity(0.8);

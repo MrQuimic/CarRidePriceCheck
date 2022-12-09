@@ -88,7 +88,7 @@ public class MainPagePane extends BorderPane {
                 " and taling you where you need to be\n");
         //lbOurServices.setFont(new Font(30));
         //lbOurServices.set
-        lbOurServices.setStyle("-fx-text-fill: blue; -fx-font-size: 30px;");
+        lbOurServices.setStyle("-fx-text-fill: #335ebe; -fx-font-size: 24px; -fx-font-weight: 700");
         lbServiceDescription.setStyle("-fx-text-fill: grey; -fx-font-size: 15px;");
 
         lbOurServices.setTextAlignment(TextAlignment.CENTER);
@@ -156,11 +156,12 @@ public class MainPagePane extends BorderPane {
         hbFourth.setAlignment(Pos.CENTER);
 
         btnBook = new Button("Book Now");
-        btnBook.setStyle("-fx-background-color: #92E86B;");
-        btnBook.setFont(new Font(22));
-        btnBook.setPrefSize(150,40);
+        btnBook.setStyle("-fx-background-color: #749f65;");
+        btnBook.setFont(new Font(18));
+        btnBook.setPrefSize(120,40);
         secondFrag.getChildren().add(btnBook);
         secondFrag.setAlignment(Pos.CENTER);
+        btnBook.setId("btnBook");
 
 
         Label lbMiddleOne = new Label("\"Save your time with this incredible solution\"\t\t\t\t\t");
