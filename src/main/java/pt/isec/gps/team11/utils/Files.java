@@ -45,7 +45,7 @@ public class Files{
                 System.out.println(tempList);
                 carsList.put(tempList.get(0),new Car(tempList.get(0),Integer.parseInt(tempList.get(1)), Integer.parseInt(tempList.get(2)), tempList.get(3), tempList.get(4), Boolean.parseBoolean(tempList.get(5)) ,tempList.get(6)));
             }catch (Exception e){
-                //System.err.println("Line: " + tempList + " with error" + e);
+                System.err.println("Line: " + tempList + " with error" + e);
             }
         }
         return carsList;
@@ -168,7 +168,7 @@ public class Files{
 
 
             }catch (Exception e){
-                System.err.println("Line: " + tempList + " with error");
+               // System.err.println("Line: " + tempList + " with error");
             }
         }
 

@@ -1,6 +1,6 @@
 package pt.isec.gps.team11.gui.panes;
 
-import com.almasb.fxgl.core.collection.Array;
+//import com.almasb.fxgl.core.collection.Array;
 import javafx.geometry.HorizontalDirection;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;

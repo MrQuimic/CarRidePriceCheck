@@ -12,8 +12,6 @@ import com.google.maps.model.PlaceDetails;
 import java.io.IOException;
 import java.util.SortedSet;
 import java.util.TreeSet;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.beans.value.ObservableValue;
 

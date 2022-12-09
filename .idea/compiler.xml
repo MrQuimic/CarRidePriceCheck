@@ -15,4 +15,9 @@
       <module name="CarRidePriceCheck" target="17" />
     </bytecodeTargetLevel>
   </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="carridepricecheck" options="" />
+    </option>
+  </component>
 </project>

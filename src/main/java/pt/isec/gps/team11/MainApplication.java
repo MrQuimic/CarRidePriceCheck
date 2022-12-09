@@ -61,14 +61,14 @@ public class MainApplication extends Application {
         primaryStage.setMaximized(true);
         primaryStage.setMaximized(false);
         primaryStage.show();
-
+/*
         try {
             MailSending.sendVoucher();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
 
-
+*/
         primaryStage.setOnCloseRequest(evt -> {
             Platform.exit();
         });
