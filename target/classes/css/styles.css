@@ -127,7 +127,17 @@
     -fx-opacity: 0.7;
 }
 
+#carsImages:hover{
+    -fx-scale-x: 120%;
+    -fx-scale-y: 120%;
+    -fx-cursor: Hand;
+}
 
+#carsImages:pressed{
+    -fx-scale-x: 180%;
+    -fx-scale-y: 180%;
+    -fx-cursor: Hand;
+}
 #mbtnSubmit{
     -fx-background-color: rgba(120, 168, 194, 0.75);
     -fx-border-color: rgb(190, 206, 238);
@@ -137,8 +147,6 @@
     -fx-background-radius: 10px 10px 10px 10px;
     -fx-border-width: 1px 1px 1px 1px;
     -fx-border-radius: 10px 10px 10px 10px;
-
-
 }
 #OriginA{
 

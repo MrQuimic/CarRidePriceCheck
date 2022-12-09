@@ -103,6 +103,10 @@ public class MainPagePane extends BorderPane {
         ImageView img3 = new ImageView(imgThird);
         Image imgFourth = ImageManager.getImage("cars/Tesla_Y.png");
         ImageView img4 = new ImageView(imgFourth);
+        img1.setId("carsImages");
+        img2.setId("carsImages");
+        img3.setId("carsImages");
+        img4.setId("carsImages");
 
         String cssBordering = "-fx-border-color: black; -fx-border-style: solid; -fx-border-width: 10px;";
 
