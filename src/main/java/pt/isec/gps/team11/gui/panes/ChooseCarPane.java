@@ -14,10 +14,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import pt.isec.gps.team11.MyBrowser;
 import pt.isec.gps.team11.gui.MenuOpt;
-import pt.isec.gps.team11.gui.panes.components.BookForm;
-import pt.isec.gps.team11.gui.panes.components.BookInfos;
-import pt.isec.gps.team11.gui.panes.components.MapDisplay;
-import pt.isec.gps.team11.gui.panes.components.MenuTop;
+import pt.isec.gps.team11.gui.panes.components.*;
 import pt.isec.gps.team11.gui.panes.utils.CSSManager;
 import pt.isec.gps.team11.gui.panes.utils.ImageManager;
 import pt.isec.gps.team11.model.CRPCManager;
@@ -47,6 +44,12 @@ public class ChooseCarPane extends BorderPane {
     Label kilometers = new Label();
     Label price = new Label();
 
+    RegistrationForm registrationForm;
+
+    LoginForm loginForm;
+    Alert chooseCarAlert;
+
+    Alert loggedIn;
     Button btnConfirm;
 
     public ChooseCarPane(CRPCManager crpcManager){
@@ -66,9 +69,22 @@ public class ChooseCarPane extends BorderPane {
         chooseCarLabel.setFont(timesNewRoman);
         chooseCarLabel.setTextFill(Color.BLACK);
 
+        registrationForm = new RegistrationForm(crpcManager);
+        loginForm = new LoginForm(crpcManager);
+        loginForm.setPadding(new Insets(20, 0,0,0));
+
+        loggedIn = new Alert(Alert.AlertType.ERROR);
+        loggedIn.setTitle("User not logged in");
+        loggedIn.setContentText("You must be logged in order to procede.");
+
+        chooseCarAlert = new Alert(Alert.AlertType.ERROR);
+        chooseCarAlert.setTitle("Choose car error");
+        chooseCarAlert.setContentText("Its mandatory to choose a car.");
+
         carChoosen = new Label();
         carChoosen.setFont(timesNewRoman);
         carChoosen.setTextFill(Color.BLACK);
+        carChoosen.setText("Choosen car: ");
 
         CSSManager.applyCSS(this,"mystyle.css");
 
@@ -133,7 +149,6 @@ public class ChooseCarPane extends BorderPane {
         tripInfo.getChildren().addAll(tripsInfos, startAddress, endAddress,carChoosen, directions, passengers, suitcases, departureDate, departureTime, waitingTime);
 
         VBox tripPriceInfo = new VBox();
-        tripPriceInfo.setSpacing(35);
 
         kilometers.setFont(timesNewRoman);
         kilometers.setTextFill(Color.BLACK);
@@ -142,11 +157,14 @@ public class ChooseCarPane extends BorderPane {
         price.setFont(timesNewRoman);
         price.setTextFill(Color.BLACK);
 
-        tripPriceInfo.getChildren().addAll(kilometers, price);
+        tripPriceInfo.getChildren().addAll(kilometers, price, loginForm);
+
+        VBox authenticationForms = new VBox();
+        authenticationForms.getChildren().add(registrationForm);
 
         HBox hForm = new HBox();
-        hForm.setSpacing(35);
-        hForm.getChildren().addAll(tripInfo, tripPriceInfo);
+        hForm.setSpacing(100);
+        hForm.getChildren().addAll(tripInfo, tripPriceInfo, authenticationForms);
 
 
         startAddress.setText("Start Address: ");
@@ -189,7 +207,14 @@ public class ChooseCarPane extends BorderPane {
         });
 
         btnConfirm.setOnAction(actionEvent -> {
-            crpcManager.goConfirmBooking();
+            if(carChoosen.getText().length() == 13){
+                chooseCarAlert.show();
+            }
+            if(!crpcManager.isLogged()){
+                loggedIn.show();
+            }
+            if(carChoosen.getText().length() != 13 && crpcManager.isLogged())
+                crpcManager.goConfirmBooking();
         });
 
     }
@@ -204,8 +229,8 @@ public class ChooseCarPane extends BorderPane {
             directions.setText("Directions: " + crpcManager.getCurrentTrip().isOneWay());
             passengers.setText("Passengers: " + crpcManager.getCurrentTrip().getNumberOfPassengers());
             suitcases.setText("Suitcases: " + crpcManager.getCurrentTrip().getNumberOfLuggage());
-            departureDate.setText("Departure Date: " + crpcManager.getCurrentTrip().getDepartureTime());
-            departureTime.setText("Departure Time: " + crpcManager.getCurrentTrip().getDepartureTime());
+            departureDate.setText(crpcManager.getCurrentTrip().getDate() == null ? "Departure date: not defined" : "Departure date: " + crpcManager.getCurrentTrip().getDate());
+            departureTime.setText(crpcManager.getCurrentTrip().getDepartureTime() == null ? "Departure time: not defined" : "Departure time: " + crpcManager.getCurrentTrip().getDepartureTime());
             waitingTime.setText("Waiting time: " + crpcManager.getCurrentTrip().getExtraWaitingTime());
             kilometers.setText("Distance: " + crpcManager.getDistanceOfTrip());
             price.setText("Price: " + crpcManager.getCostOfTrip());
@@ -217,7 +242,7 @@ public class ChooseCarPane extends BorderPane {
     }
 
     private void setCarChoosen(int index){
-        carChoosen.setText("Chosen car: " + carNames.get(index).split("/")[1].split("\\.")[0]);
+        carChoosen.setText("Choosen car: " + carNames.get(index).split("/")[1].split("\\.")[0]);
     }
 
 }

@@ -9,6 +9,7 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import pt.isec.gps.team11.gui.MenuOpt;
 import pt.isec.gps.team11.model.CRPCManager;
+import pt.isec.gps.team11.model.fsm.States;
 
 import java.beans.PropertyChangeSupport;
 
@@ -38,7 +39,8 @@ public class LoginForm extends BorderPane {
 
             if(crpcManager.confirmLogin(emailAux, passwordAux)) {
                 crpcManager.setLogin(emailAux);
-                crpcManager.goToPreviousState();
+                if(crpcManager.getState() != States.CHOOSE_CAR)
+                    crpcManager.goToPreviousState();
             }
             else{
                 loginAlert.show();
