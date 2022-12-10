@@ -84,7 +84,7 @@ public class ChooseCarPane extends BorderPane {
         carChoosen = new Label();
         carChoosen.setFont(timesNewRoman);
         carChoosen.setTextFill(Color.BLACK);
-        carChoosen.setText("Choosen car: ");
+        carChoosen.setText("Chosen car: ");
 
         CSSManager.applyCSS(this,"mystyle.css");
 
@@ -226,11 +226,14 @@ public class ChooseCarPane extends BorderPane {
         if (crpcManager.getState() == States.CHOOSE_CAR) {
             startAddress.setText("Start Address: " + crpcManager.getTripOrigin());
             endAddress.setText("End Address: " + crpcManager.getTripDestination());
-            directions.setText("Directions: " + crpcManager.getCurrentTrip().isOneWay());
+            if(crpcManager.getCurrentTrip().isOneWay())
+                directions.setText("Directions: One Way");
+            else
+                directions.setText("Directions: Return Trip");
             passengers.setText("Passengers: " + crpcManager.getCurrentTrip().getNumberOfPassengers());
             suitcases.setText("Suitcases: " + crpcManager.getCurrentTrip().getNumberOfLuggage());
-            departureDate.setText(crpcManager.getCurrentTrip().getDate() == null ? "Departure date: not defined" : "Departure date: " + crpcManager.getCurrentTrip().getDate());
-            departureTime.setText(crpcManager.getCurrentTrip().getDepartureTime() == null ? "Departure time: not defined" : "Departure time: " + crpcManager.getCurrentTrip().getDepartureTime());
+            departureDate.setText(crpcManager.getCurrentTrip().getStringDate() == null ? "Departure date: not defined" : "Departure date: " + crpcManager.getCurrentTrip().getStringDate());
+            departureTime.setText(crpcManager.getCurrentTrip().getStringTime() == null ? "Departure time: not defined" : "Departure time: " + crpcManager.getCurrentTrip().getStringTime());
             waitingTime.setText("Waiting time: " + crpcManager.getCurrentTrip().getExtraWaitingTime());
             kilometers.setText("Distance: " + crpcManager.getDistanceOfTrip());
             price.setText("Price: " + crpcManager.getCostOfTrip());
@@ -242,7 +245,7 @@ public class ChooseCarPane extends BorderPane {
     }
 
     private void setCarChoosen(int index){
-        carChoosen.setText("Choosen car: " + carNames.get(index).split("/")[1].split("\\.")[0]);
+        carChoosen.setText("Chosen car: " + carNames.get(index).split("/")[1].split("\\.")[0]);
     }
 
 }

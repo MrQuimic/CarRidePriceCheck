@@ -1,5 +1,9 @@
 package pt.isec.gps.team11.model.data;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -38,12 +42,41 @@ public class Trip {
     public Trip (boolean oneWay, String date, int extraWaitingTime,int numberOfLuggage, int numberOfPassengers, String departureTime, boolean highway) {
         this.id=++idGlobal;
         this.oneWay = oneWay;
-        //this.date = date; transform into date
+        this.date = setStringToDate(date);
         this.extraWaitingTime = extraWaitingTime;
         this.numberOfPassengers = numberOfPassengers;
         this.numberOfLuggage = numberOfLuggage;
-        //this.departureTime = departureTime; transform into date
+        this.departureTime = setStringToTime(departureTime);
         this.highway = highway;
+    }
+
+    public Date setStringToTime(String time) {
+        try {
+            SimpleDateFormat formatter = new SimpleDateFormat("HH:mm");
+            return formatter.parse(time);
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public Date setStringToDate(String date) {
+        try {
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+            return formatter.parse(date);
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public String getStringDate() {
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        String stringDate = formatter.format(date);
+        return stringDate;
+    }
+
+    public String getStringTime() {
+        SimpleDateFormat formatter = new SimpleDateFormat("HH:mm");
+        String stringTime = formatter.format(departureTime);
+        return stringTime;
     }
 
     private int numberOfPassengers;
