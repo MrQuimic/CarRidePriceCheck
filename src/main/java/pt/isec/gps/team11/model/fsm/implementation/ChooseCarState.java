@@ -25,19 +25,18 @@ public class ChooseCarState extends StateAdapter {
     }
 
     @Override
-    public boolean goBooking() {
-        setState(States.BOOKING);
-        return true;
-    }
-
-    @Override
     public boolean goMainMenu() {
         setState(States.MAIN_MENU);
         return true;
     }
 
     @Override
-    public ArrayList<Car> getSuitableCars(int lotation, int baggage) {
-        return this.data.getSuitableCars(lotation, baggage);
+    public ArrayList<Car> getSuitableCars() {
+        return this.data.getSuitableCars();
+    }
+
+    @Override
+    public void saveCurrentCar(Car car) {
+        data.saveCurrentCar(car);
     }
 }

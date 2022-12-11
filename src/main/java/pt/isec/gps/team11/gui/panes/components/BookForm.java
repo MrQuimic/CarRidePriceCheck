@@ -38,8 +38,8 @@ public class BookForm extends BorderPane {
 
     VBox vbStartAdress, vbEndAdress, vbDirections, vbExtraWaitTime, vbPassengers, vbSuitcases, vbDepartureDate, vbDepartureTime, vbTolls, vbDepartureTimeHour, vbDepartureTimeMinute;
     Label lbStartAdress, lbEndAdress, lbDirections, lbExtraWaitTime, lbPassengers, lbSuitcases, lbDepartureDate, lbDepartureTime, lbTolls, lbAdressesTitle, lbOptionsTitle, lbHour, lbMinute;
-    HBox hbPassengersSuitcases, hbDepartureDateAndImage, hbDepartureTimeHourMinutes, submitBtns;
-    Button btnSubmit, btnReset;
+    HBox hbPassengersSuitcases, hbDepartureDateAndImage, hbDepartureTimeHourMinutes, submitBtns, hDirectTolls;
+    Button btnSubmit, btnReset, btnMapUpdate;
     TextField tfExtraWaitTime, tfDepartureTime;
     ChoiceBox cbDirections, cbPassengers, cbSuitcases, cbTolls;
     DatePicker dpDepartureDate;
@@ -136,6 +136,17 @@ public class BookForm extends BorderPane {
         vbOptions = new VBox();
         vbOptions.setAlignment(Pos.CENTER);
 
+        //Tolls
+        vbTolls = new VBox();
+        vbTolls.setAlignment(Pos.CENTER_LEFT);
+
+        lbTolls = new Label("Tolls:");
+        lbTolls.setAlignment(Pos.CENTER_LEFT);
+        cbTolls = new ChoiceBox();
+        cbTolls.getItems().addAll("Yes","No");
+        cbTolls.setValue("Yes");
+        vbTolls.getChildren().addAll(lbTolls,cbTolls);
+
         //Directions
         vbDirections = new VBox();
         vbDirections.setAlignment(Pos.CENTER_LEFT);
@@ -149,7 +160,10 @@ public class BookForm extends BorderPane {
         cbDirections.setValue("One Way");
 
         vbDirections.getChildren().addAll(lbDirections,cbDirections);
-
+        hDirectTolls = new HBox();
+        hDirectTolls.getChildren().addAll(vbDirections, vbTolls);
+        hDirectTolls.setAlignment(Pos.CENTER_LEFT);
+        hDirectTolls.setSpacing(80);
         //Extra Waiting Time
         vbExtraWaitTime = new VBox();
         vbExtraWaitTime.setAlignment(Pos.CENTER_LEFT);
@@ -193,16 +207,11 @@ public class BookForm extends BorderPane {
         cbSuitcases.setValue("0");
         vbSuitcases.getChildren().addAll(lbSuitcases,cbSuitcases);
 
-        hbPassengersSuitcases.getChildren().addAll(vbPassengers,vbSuitcases);
-        hbPassengersSuitcases.setSpacing(10);
+
 
         //HBox for Departure Date and Image
         hbDepartureDateAndImage = new HBox();
         hbDepartureDateAndImage.setAlignment(Pos.CENTER_LEFT);
-
-        //HBox for DepartureDateHour and DepartureDateMinutes
-        hbPassengersSuitcases = new HBox();
-        hbPassengersSuitcases.setAlignment(Pos.CENTER_LEFT);
 
         //Passengers
         vbPassengers = new VBox();
@@ -238,28 +247,28 @@ public class BookForm extends BorderPane {
         DatePicker checkInDatePicker = new DatePicker();
         checkInDatePicker.setValue(LocalDate.now());
         final Callback<DatePicker, DateCell> dayCellFactory =
-            new Callback<DatePicker, DateCell>() {
-                @Override
-                public DateCell call(final DatePicker datePicker) {
-                    return new DateCell() {
-                        @Override
-                        public void updateItem(LocalDate item, boolean empty) {
-                            super.updateItem(item, empty);
+                new Callback<DatePicker, DateCell>() {
+                    @Override
+                    public DateCell call(final DatePicker datePicker) {
+                        return new DateCell() {
+                            @Override
+                            public void updateItem(LocalDate item, boolean empty) {
+                                super.updateItem(item, empty);
 
-                            if (item.isBefore(checkInDatePicker.getValue().plusDays(1))) {
-                                setDisable(true);
-                                setStyle("-fx-background-color: #ffc0cb;");
+                                if (item.isBefore(checkInDatePicker.getValue().plusDays(1))) {
+                                    setDisable(true);
+                                    setStyle("-fx-background-color: #ffc0cb;");
+                                }
                             }
-                        }
-                    };
-                }
-            };
+                        };
+                    }
+                };
         dpDepartureDate.setDayCellFactory(dayCellFactory);
         dpDepartureDate.setValue(checkInDatePicker.getValue().plusDays(1));
 
         ////////////////////////////////////////////////////////////////////////////////////////////////
         hbPassengersSuitcases.getChildren().addAll(vbPassengers,vbSuitcases);
-        hbPassengersSuitcases.setSpacing(10);
+        hbPassengersSuitcases.setSpacing(80);
         vbDepartureDate = new VBox();
         vbDepartureDate.setAlignment(Pos.CENTER);
 
@@ -324,33 +333,27 @@ public class BookForm extends BorderPane {
         vbDepartureTimeMinute.getChildren().addAll(lbMinute,cbMinute);
 
         hbDepartureTimeHourMinutes.getChildren().addAll(vbDepartureTimeHour,vbDepartureTimeMinute);
-        hbDepartureTimeHourMinutes.setSpacing(10);
 
+        hbDepartureTimeHourMinutes.setAlignment(Pos.CENTER_LEFT);
+        hbDepartureTimeHourMinutes.setSpacing(80);
         vbDepartureTime.getChildren().addAll(lbDepartureTime,hbDepartureTimeHourMinutes);
 
-        //Tolls
-        vbTolls = new VBox();
-        vbTolls.setAlignment(Pos.CENTER_LEFT);
 
-        lbTolls = new Label("Tolls:");
-        lbTolls.setAlignment(Pos.CENTER_LEFT);
-        cbTolls = new ChoiceBox();
-        cbTolls.getItems().addAll("Yes","No");
-        cbTolls.setValue("Yes");
-        vbTolls.getChildren().addAll(lbTolls,cbTolls);
 
-        vbOptions.getChildren().addAll(vbDirections,vbExtraWaitTime,hbPassengersSuitcases,hbDepartureDateAndImage,vbDepartureTime,vbTolls);
+        vbOptions.getChildren().addAll(hDirectTolls, vbExtraWaitTime,hbPassengersSuitcases,hbDepartureDateAndImage,vbDepartureTime);
         vbOptions.setSpacing(15);
 
         vbOptionsWithTitle.getChildren().addAll(lbOptionsTitle,vbOptions);
 
         submitBtns= new HBox();
         btnSubmit = new Button("Submit");
+        btnMapUpdate = new Button("Map Update");
         btnReset = new Button("Reset");
         btnSubmit.setId("mbtnSubmit");
+        btnMapUpdate.setId("mbtnSubmit");
         btnReset.setId("mbtnReset");
-        submitBtns.getChildren().addAll(btnReset, btnSubmit);
-        submitBtns.setPadding(new Insets(10,0,0,40));
+        submitBtns.getChildren().addAll(btnReset,btnMapUpdate, btnSubmit);
+        submitBtns.setPadding(new Insets(20,0,0,0));
         submitBtns.setSpacing(10);
 
         vbAdressesAndOptions.getChildren().addAll(vbAdressesWithTitle,vbOptionsWithTitle, submitBtns);
@@ -384,7 +387,12 @@ public class BookForm extends BorderPane {
 
             crpcManager.goMainMenu();
         });
+        btnMapUpdate.setOnAction(actionEvent -> {
 
+
+            myBrowser.webEngine.load(myBrowser.urlGoogleMaps.toExternalForm() + "?origin=" + originA.getText() + "&destin=" + destinA.getText() +"&style=" +"" + "&tolls" + cbTolls.getValue());
+
+        });
         btnSubmit.setOnAction(actionEvent -> {
             int extraWaitTime;
             String departureTime = null;
@@ -476,7 +484,7 @@ public class BookForm extends BorderPane {
             if(flag) {
                 crpcManager.book(directions,departureDate,extraWaitTime,nrSuitcases, nrPassengers,departureTime,tolls);
 
-                myBrowser.webEngine.load(myBrowser.urlGoogleMaps.toExternalForm() + "?origin=" + originA.getText() + "&destin=" + destinA.getText());
+                myBrowser.webEngine.load(myBrowser.urlGoogleMaps.toExternalForm() + "?origin=" + originA.getText() + "&destin=" + destinA.getText() +"&style=" + "" + "&tolls=" + cbTolls.getValue());
                 //String returnValue = (String) webEngine.executeScript("getRectArea()");
                 myBrowser.webEngine.getLoadWorker().stateProperty().addListener(
                         new ChangeListener() {
@@ -556,7 +564,7 @@ public class BookForm extends BorderPane {
                 }
             });
         });
-        
+
         crpcManager.addPropertyChangeListener(evt -> {
             update();
         });

@@ -20,10 +20,10 @@ public class Trip {
     private boolean highway;
     private String arrival;
     private int price;
-    private ArrayList<String> carsIds;
-    private ArrayList<Car> cars;
+    private int distance;
+    private Car car;
 
-    public Trip(String origin, String destination, boolean oneway, Date date, int extraWaitingTime, int numberOfPassengers, int numberOfLuggage, Date departureTime, boolean highway, String arrival, int price,ArrayList<Car> cars) {
+    public Trip(String origin, String destination, boolean oneway, Date date, int extraWaitingTime, int numberOfPassengers, int numberOfLuggage, Date departureTime, boolean highway, String arrival, int price,int distance,Car car) {
         this.id=++idGlobal;
         this.origin = origin;
         this.destination = destination;
@@ -36,7 +36,8 @@ public class Trip {
         this.highway = highway;
         this.arrival = arrival;
         this.price = price;
-        this.cars = cars;
+        this.car = car;
+        this.distance = distance;
     }
 
     public Trip (boolean oneWay, String date, int extraWaitingTime,int numberOfLuggage, int numberOfPassengers, String departureTime, boolean highway) {
@@ -121,15 +122,7 @@ public class Trip {
     public int getExtraWaitingTime() {
         return extraWaitingTime;
     }
-
-    public ArrayList<String> getCarsIds() {
-        return carsIds;
-    }
-
-    public void setCarsIds(ArrayList<String> carsIds) {
-        this.carsIds = carsIds;
-    }
-
+    
     public int getNumberOfPassengers() {
         return numberOfPassengers;
     }
@@ -178,12 +171,12 @@ public class Trip {
         this.price = price;
     }
 
-    public ArrayList<Car> getCars() {
-        return cars;
+    public Car getCar() {
+        return this.car;
     }
 
-    public void setCars(ArrayList<Car> cars) {
-        this.cars = cars;
+    public void setCar(Car car) {
+        this.car = car;
     }
 
     public int getId() {
@@ -208,20 +201,6 @@ public class Trip {
         return getId();
     }
 
-    private boolean addCar(Car car){
-        if(cars.contains(car) || car == null)
-            return false;
-
-        this.cars.add(car);
-        return true;
-    }
-
-    private boolean removeCar(Car car){
-        if(!cars.contains(car))
-            return false;
-        cars.remove(car);
-        return true;
-    }
 
     @Override
     public String toString() {
@@ -237,8 +216,7 @@ public class Trip {
                 ", highway=" + highway +
                 ", arrival='" + arrival + '\'' +
                 ", price=" + price +
-                ", carsIds=" + carsIds +
-                ", cars=" + cars +
+                ", car=" + car +
                 ", numberOfPassengers=" + numberOfPassengers +
                 '}';
     }
@@ -251,4 +229,11 @@ public class Trip {
         idGlobal = 0;
     }
 
+    public int getDistance() {
+        return distance;
+    }
+
+    public void setDistance(int distance) {
+        this.distance = distance;
+    }
 }

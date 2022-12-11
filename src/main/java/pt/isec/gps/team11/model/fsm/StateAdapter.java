@@ -65,7 +65,12 @@ public class StateAdapter implements IStates{
     }
 
     @Override
-    public ArrayList<Car> getSuitableCars(int lotation, int baggage) {
+    public ArrayList<Car> getSuitableCars() {
+        return null;
+    }
+
+    @Override
+    public ArrayList<Trip> getSuitableTrips() {
         return null;
     }
 
@@ -78,5 +83,15 @@ public class StateAdapter implements IStates{
     public boolean book(boolean oneWay, String date, int extraWaitingTime,
                         int numberOfLuggage, int numberOfPassengers, String departureTime, boolean highway) {
         return false;
+    }
+
+    @Override
+    public void saveCurrentCar(Car car) {
+
+    }
+
+    @Override
+    public void confirmTrip() {
+
     }
 }

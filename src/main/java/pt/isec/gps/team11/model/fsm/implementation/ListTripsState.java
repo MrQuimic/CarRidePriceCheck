@@ -26,6 +26,7 @@ public class ListTripsState extends StateAdapter {
 
     @Override
     public ArrayList<Trip> getTrips() {
-        return data.getTrips();
+        //return data.getTrips();
+        return null;
     }
 }

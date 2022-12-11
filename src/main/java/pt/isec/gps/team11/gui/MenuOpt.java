@@ -18,6 +18,8 @@ public enum MenuOpt {
 
     LOGOUT,
 
+    BOOKINGLIST
+
 
 }
 

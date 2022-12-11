@@ -1,5 +1,6 @@
 package pt.isec.gps.team11.model.fsm;
 
+import pt.isec.gps.team11.model.data.Car;
 import pt.isec.gps.team11.model.data.Data;
 import pt.isec.gps.team11.model.data.Trip;
 import pt.isec.gps.team11.model.fsm.implementation.BookingState;
@@ -108,5 +109,29 @@ public class StatesContext {
 
     public String getTripOrigin() {
         return data.getTripOrigin();
+    }
+
+    public ArrayList<Car> getSuitableCars(){
+        return state.getSuitableCars();
+    }
+
+    public ArrayList<Trip> getSuitableTrips(){
+        return state.getSuitableTrips();
+    }
+
+    public ArrayList<Trip> getTripsMap(){
+        return (ArrayList<Trip>) data.getTrips().values();
+    }
+
+    public void saveCurrentCar(Car car){
+        state.saveCurrentCar(car);
+    }
+
+    public void confirmTrip(){
+        state.confirmTrip();
+    }
+    
+    public Car getCurrentTripCar(){
+        return data.getCurrentTripCar();
     }
 }

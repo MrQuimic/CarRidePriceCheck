@@ -15,8 +15,15 @@ public interface IStates {
     boolean goConfirmBooking();
     boolean goTripDetails();
     void setNumberOfPassengers(int numberOfPassengers);
-    ArrayList<Car> getSuitableCars(int lotation, int baggage);
+    ArrayList<Car> getSuitableCars();
+    ArrayList<Trip> getSuitableTrips();
     ArrayList<Trip> getTrips();
     boolean book(boolean oneWay, String date, int extraWaitingTime,
                         int numberOfLuggage, int numberOfPassengers, String departureTime, boolean highway);
+
+    void saveCurrentCar(Car car);
+
+    void confirmTrip();
+
+
 }

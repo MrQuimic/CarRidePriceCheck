@@ -33,4 +33,9 @@ public class ConfirmBookingState extends StateAdapter {
         setState(States.MAIN_MENU);
         return true;
     }
+
+    @Override
+    public void confirmTrip() {
+        data.confirmTrip();
+    }
 }

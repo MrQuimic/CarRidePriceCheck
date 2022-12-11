@@ -90,7 +90,8 @@ public class RootPane extends BorderPane {
                 new MainPagePane(crpcManager),
                 new AuthenticationPane(crpcManager),
                 new ConfirmPane(crpcManager, myBrowser),
-                new ChooseCarPane(crpcManager)
+                new ChooseCarPane(crpcManager),
+                new BookingListPane(crpcManager)
         );
 
 

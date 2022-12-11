@@ -144,7 +144,7 @@ public class Files{
 
 
         //list of cars associated to one trip
-        ArrayList<Car> cars;
+        Car tripCar = new Car();
 
 
         //roam all the db entities
@@ -152,19 +152,18 @@ public class Files{
             try {
 
                 //check if have all the needed arguments
-                if(tempList.size() < 18)
+                if(tempList.size() != 19)
                     throw new Exception("Abnormal line in DB");
 
-                cars = new ArrayList<>();
 
                 //getting all the cars associated to the trip
-                for(int i = 17; i < tempList.size();i++)
-                    cars.add(availableCars.get(tempList.get(i)));
+                for(int i = 18; i < tempList.size();i++)
+                    tripCar = availableCars.get(tempList.get(i));
 
                 //add to the trip list
                 tripList.put(Trip.getNextId(),new Trip(tempList.get(0),tempList.get(1),Boolean.getBoolean(tempList.get(2)), new Date( Integer.parseInt(tempList.get(3)) ,Integer.parseInt(tempList.get(4)) ,Integer.parseInt(tempList.get(5)) ),Integer.parseInt(tempList.get(6)),
                         Integer.parseInt(tempList.get(7)),Integer.parseInt(tempList.get(8)) ,new Date( Integer.parseInt(tempList.get(9)) ,Integer.parseInt(tempList.get(10)) ,Integer.parseInt(tempList.get(11)),Integer.parseInt(tempList.get(12)),Integer.parseInt(tempList.get(13)) ),Boolean.getBoolean(tempList.get(14)),tempList.get(15),
-                        Integer.parseInt(tempList.get(16)),cars));
+                        Integer.parseInt(tempList.get(16)),Integer.parseInt(tempList.get(17)),tripCar));
 
 
             }catch (Exception e){
@@ -219,10 +218,9 @@ public class Files{
                     trip.getNumberOfLuggage()+';'+trip.getDepartureTime().getYear()+';'+trip.getDepartureTime().getMonth()+
                     ';'+trip.getDepartureTime().getDay()+';'+trip.isHighway());
 
-            //write all the extra informations
-            for(String info : trip.getCarsIds()){
-                pWriter.print(';'+info);
-            }
+
+                pWriter.print(';'+trip.getCar().getLicensePlate());
+
             //next line
             pWriter.println();
         }

@@ -61,13 +61,14 @@ public class MenuTop extends BorderPane {
         hBoxMenuTop.setId("hBoxMenuTop");
         hBoxAuth= new HBox();
         hBoxAuth.setId("hBoxMenuTop");
-        btnsMenu = new Button[5];
+        btnsMenu = new Button[6];
 
         btnsMenu[0] = new Button(String.format("\uD83C\uDFE0 Home"));
         btnsMenu[1] = new Button(String.format("\uD83D\uDCD5 Booking"));
         btnsMenu[2] = new Button(String.format("\uD83D\uDCDE Contacts"));
         btnsMenu[3] = new Button(String.format("✨ About us"));
         btnsMenu[4] = new Button(String.format("\uD83D\uDC65 Our Team"));
+        btnsMenu[5] = new Button(String.format("\uD83D\uDC65 Booking List"));
         logout = new Button(String.format("Logout"));
         logout.setId("logoutbtn");
         logout.setVisible(false);
@@ -78,7 +79,7 @@ public class MenuTop extends BorderPane {
         logUser.setVisible(false);
         logUser.setPrefSize(95,40);
 
-        for(int i = 0; i < 5; i++){
+        for(int i = 0; i < 6; i++){
             btnsMenu[i].setPrefSize(100,40);
             btnsMenu[i].setId("MenuUIBtn");
             // btns[i].setStyle("");
@@ -195,6 +196,11 @@ public class MenuTop extends BorderPane {
         btnsMenu[4].setOnAction(actionEvent -> {
             manager.setMenuOpt(MenuOpt.OURTEAM);
             manager.goIdle();
+        });
+
+        btnsMenu[5].setOnAction(actionEvent -> {
+            manager.goListTrips();
+
         });
 
         logout.setOnAction(actionEvent -> {

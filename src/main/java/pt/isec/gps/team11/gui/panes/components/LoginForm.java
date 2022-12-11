@@ -63,7 +63,6 @@ public class LoginForm extends BorderPane {
         loginAlert.setContentText("Please insert both valid username and password!");
 
         btnLogin = new Button("Login and Book");
-        btnLogin.setFont(timesNewRoman);
         btnLogin.setId("btnRegLogin");
         email = new TextField();
         email.setPromptText("Enter your email");

@@ -93,6 +93,7 @@ public class RegistrationForm extends BorderPane {
 
         btnRegister.setOnAction(actionEvent -> {
             if(email.getText().trim().isEmpty() ||
+                    !email.getText().contains("@") ||
                 phoneNumber.getText().trim().isEmpty() ||
                 firstName.getText().trim().isEmpty() ||
                 lastName.getText().trim().isEmpty() ||
@@ -108,7 +109,7 @@ public class RegistrationForm extends BorderPane {
                 crpcManager.setLogin(emailAux);
                 crpcManager.setIsLogged();
                 if(crpcManager.getState() != States.CHOOSE_CAR)
-                    crpcManager.goBooking();
+                    crpcManager.goToPreviousState();
             }
         });
 

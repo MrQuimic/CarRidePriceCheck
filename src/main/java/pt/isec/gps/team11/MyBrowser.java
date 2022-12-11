@@ -88,32 +88,6 @@ public class MyBrowser extends Region {
 
 
 
-
-        //String returnValue = (String) webEngine.executeScript("myFunction()");
-
-        //https://jenkov.com/tutorials/javafx/webview.html
-
-        //webEngine.executeScript("myFunction()"); //to execute function
-       //String returnValue = (String) webEngine.executeScript("myFunction()"); //get values to use from javascript
-       //https://www.tabnine.com/code/java/methods/javafx.scene.web.WebEngine/getLoadWorker
-       /* webEngine.getLoadWorker().stateProperty().addListener(
-                new ChangeListener() {
-                    @Override
-                    public void changed(ObservableValue observable, Object oldValue, Object newValue) {
-                        System.out.println("oldValue: " + oldValue);
-                        System.out.println("newValue: " + newValue);
-
-                        if (newValue == Worker.State.SUCCEEDED) {
-                            //document finished loading
-                        }
-                    }
-                }
-        );
-        */
-
-
-
-
     }
 
     private void registerHandlers() {}

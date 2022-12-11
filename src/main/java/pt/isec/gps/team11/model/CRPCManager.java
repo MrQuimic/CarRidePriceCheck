@@ -1,6 +1,7 @@
 package pt.isec.gps.team11.model;
 
 import pt.isec.gps.team11.gui.MenuOpt;
+import pt.isec.gps.team11.model.data.Car;
 import pt.isec.gps.team11.model.data.Trip;
 import pt.isec.gps.team11.model.fsm.IStates;
 import pt.isec.gps.team11.model.fsm.States;
@@ -46,7 +47,9 @@ public class CRPCManager {
         return fsm.getState();
     }
 
-
+    public States getPreviousState(){
+        return this.previousState;
+    }
 
     public MenuOpt getMenuOpt() {
         return menuOpt;
@@ -98,6 +101,9 @@ public class CRPCManager {
     }
 
     public boolean goMainMenu(){
+        if(this.menuOpt != null){
+            goToPreviousState();
+        }
         if(this.fsm.goMainMenu()){
             pcs.firePropertyChange(null, null, null);
             return true;
@@ -111,6 +117,9 @@ public class CRPCManager {
     }
 
     public boolean goBooking(){
+        if(this.menuOpt != null){
+            goToPreviousState();
+        }
         if(this.fsm.goBooking()){
             pcs.firePropertyChange(null, null, null);
             return true;
@@ -162,9 +171,13 @@ public class CRPCManager {
         return username;
     }
 
-    public void setLogin(String username) {
-        this.username = username;
-        pcs.firePropertyChange(null, null, null);
+    public boolean setLogin(String username) {
+        if(username.contains("@")) {
+            this.username = username;
+            pcs.firePropertyChange(null, null, null);
+            return true;
+        }
+        return false;
     }
 
     public boolean book(boolean oneWay, String date, int extraWaitingTime, int numberOfLuggage, int numberOfPassengers, String departureTime, boolean highway){
@@ -222,5 +235,30 @@ public class CRPCManager {
 
     public String getGoogleReturn() {
         return googleReturnValue;
+    }
+
+    public ArrayList<Car> getSuitableCars(){
+        return this.fsm.getSuitableCars();
+    }
+
+    public ArrayList<Trip> getSuitableTrips(){
+        return this.fsm.getSuitableTrips();
+    }
+
+    public ArrayList<Trip> getTripsMap(){
+        return fsm.getTripsMap();
+    }
+
+
+    public void saveCar(Car car){
+        this.fsm.saveCurrentCar(car);
+    }
+
+    public void confirmTrip(){
+        this.fsm.confirmTrip();
+    }
+
+    public Car getCurrentTripCar(){
+        return fsm.getCurrentTripCar();
     }
 }

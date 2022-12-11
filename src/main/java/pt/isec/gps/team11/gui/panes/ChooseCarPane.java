@@ -1,37 +1,31 @@
 package pt.isec.gps.team11.gui.panes;
 
 //import com.almasb.fxgl.core.collection.Array;
-import javafx.geometry.HorizontalDirection;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import pt.isec.gps.team11.MyBrowser;
-import pt.isec.gps.team11.gui.MenuOpt;
 import pt.isec.gps.team11.gui.panes.components.*;
 import pt.isec.gps.team11.gui.panes.utils.CSSManager;
 import pt.isec.gps.team11.gui.panes.utils.ImageManager;
 import pt.isec.gps.team11.model.CRPCManager;
 import javafx.scene.layout.*;
+import pt.isec.gps.team11.model.data.Car;
 import pt.isec.gps.team11.model.fsm.States;
 
-import javax.swing.plaf.IconUIResource;
 import java.util.ArrayList;
-import java.util.Objects;
 
 public class ChooseCarPane extends BorderPane {
 
     CRPCManager crpcManager;
     MyBrowser myBrowser;
     VBox form;
-    ArrayList<String> carNames;
-    ImageView[] carViews;
+    ArrayList<Car> carNames;
+    ArrayList<ImageView> carViews;
     Label carChoosen;
     Label startAddress = new Label();
     Label endAddress = new Label();
@@ -52,11 +46,17 @@ public class ChooseCarPane extends BorderPane {
     Alert loggedIn;
     Button btnConfirm;
 
+    HBox cars;
+
+    Car currentCar;
+
+    boolean alreadyGotTheCars;
+
     public ChooseCarPane(CRPCManager crpcManager){
         this.crpcManager = crpcManager;
         this.myBrowser = new MyBrowser(crpcManager);
         carNames = new ArrayList<>();
-        carViews = new ImageView[4];
+        carViews = new ArrayList<>();
         createViews();
         registerHandlers();
         update();
@@ -92,26 +92,9 @@ public class ChooseCarPane extends BorderPane {
         form.getChildren().add(chooseCarLabel);
         form.setSpacing(35);
 
-        HBox cars = new HBox();
-
-        carNames.add("cars/Audi_A3.png");
-        carNames.add("cars/Renault_Space.png");
-        carNames.add("cars/Seat_Ibiza.png");
-        carNames.add("cars/Tesla_Y.png");
-
+        cars = new HBox();
 
         cars.setSpacing(35);
-
-        int counter = 0;
-        for(String carName : carNames)
-        {
-            carViews[counter] = new ImageView(ImageManager.getImage(carName));
-            carViews[counter].setId("carView");
-            carViews[counter].setFitHeight(110);
-            carViews[counter].setPreserveRatio(true);
-            cars.getChildren().add(carViews[counter]);
-            counter++;
-        }
 
         form.getChildren().addAll(cars);
 
@@ -179,7 +162,7 @@ public class ChooseCarPane extends BorderPane {
         price.setText("Price: ");
 
         btnConfirm = new Button("Confirm");
-
+        btnConfirm.setId("mbtnSubmit");
         form.setPadding(new Insets(0,0,0,40));
         form.getChildren().addAll(hForm, btnConfirm);
         this.setCenter(form);
@@ -190,22 +173,6 @@ public class ChooseCarPane extends BorderPane {
             update();
         });
 
-        carViews[0].setOnMouseClicked(actionEvent ->{
-            setCarChoosen(0);
-        });
-
-        carViews[1].setOnMouseClicked(actionEvent ->{
-            setCarChoosen(1);
-        });
-
-        carViews[2].setOnMouseClicked(actionEvent ->{
-            setCarChoosen(2);
-        });
-
-        carViews[3].setOnMouseClicked(actionEvent ->{
-            setCarChoosen(3);
-        });
-
         btnConfirm.setOnAction(actionEvent -> {
             if(carChoosen.getText().length() <= 13){
                 chooseCarAlert.show();
@@ -213,8 +180,10 @@ public class ChooseCarPane extends BorderPane {
             if(!crpcManager.isLogged()){
                 loggedIn.show();
             }
-            if(carChoosen.getText().length() >= 13 && crpcManager.isLogged())
+            if(carChoosen.getText().length() >= 13 && crpcManager.isLogged()){
+                crpcManager.saveCar(currentCar);
                 crpcManager.goConfirmBooking();
+            }
         });
 
     }
@@ -224,6 +193,30 @@ public class ChooseCarPane extends BorderPane {
 
     private void update() {
         if (crpcManager.getState() == States.CHOOSE_CAR) {
+            if(!alreadyGotTheCars){
+                carNames = crpcManager.getSuitableCars();
+
+                for(Car carName : carNames)
+                {
+                    ImageView car = new ImageView(ImageManager.getImage(carName.getImage()));
+                    car.setId("carView");
+                    car.setFitHeight(110);
+                    car.setPreserveRatio(true);
+                    carViews.add(car);
+                    cars.getChildren().add(car);
+                }
+
+                for(int i = 0; i < carViews.size(); ++i){
+                    int finalI = i;
+                    carViews.get(i).setOnMouseClicked(actionEvent ->{
+                        setCarChosen(finalI);
+                    });
+                }
+
+                alreadyGotTheCars = true;
+            }
+
+
             startAddress.setText("Start Address: " + crpcManager.getTripOrigin());
             endAddress.setText("End Address: " + crpcManager.getTripDestination());
             if(crpcManager.getCurrentTrip().isOneWay())
@@ -244,10 +237,10 @@ public class ChooseCarPane extends BorderPane {
         }
     }
 
-    private void setCarChoosen(int index){
-        String car = carNames.get(index).split("/")[1].split("\\.")[0];
-        String newString = car.replace("_", " ");
-        carChoosen.setText("Chosen car: " + newString);
+    private void setCarChosen(int index){
+        String car = carNames.get(index).getBrand() + " " + carNames.get(index).getModel();
+        carChoosen.setText("Chosen car: " + car);
+        currentCar = new Car(carNames.get(index));
     }
 
 }

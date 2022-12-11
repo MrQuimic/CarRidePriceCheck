@@ -103,7 +103,7 @@ class FilesTest {
 
     //confirmLogin
     @Test
-    void loginFailTest(){
+    void loginFailedTest(){
         String email = "someone@gmail.com";
         String password = "@Gps2022";
         boolean result = manager.confirmLogin(email,password);
@@ -112,13 +112,33 @@ class FilesTest {
 
     @Test
     void loginSuccessfulTest(){
-        String email = "someone@gmail.com";
-        String password = "@Gps2022";
+        String email = "admin@gps";
+        String password = "admin@gps";
         boolean result = manager.confirmLogin(email,password);
+        Assertions.assertTrue(result,"message");
+    }
+
+    @Test
+    void registerFailedTest(){
+        String email = "someone2.pt";
+        boolean result = manager.setLogin(email);
         Assertions.assertFalse(result,"message");
     }
 
+    @Test
+    void registerSuccessfulTest(){
+        String email = "someone@mail";
+        boolean result = manager.setLogin(email);
+        Assertions.assertTrue(result,"message");
+    }
 
-
+    @Test
+    void logoutSuccessfulTest(){
+        String email = "someone@mail";
+        manager.setLogin(email);
+        manager.logout();
+        boolean result = manager.isLogged();
+        Assertions.assertFalse(result,"message");
+    }
 
 }

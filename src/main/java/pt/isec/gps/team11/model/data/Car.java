@@ -47,6 +47,9 @@ public class Car {
         this.imagePath = other.imagePath;
     }
 
+    public Car(){
+    }
+
 
     /**
      * Sets lotation.

@@ -1,8 +1,12 @@
 package pt.isec.gps.team11.model.data;
 
+import pt.isec.gps.team11.utils.Files;
+
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Data {
     public final String USERNAME = "admin@gps";
@@ -10,8 +14,8 @@ public class Data {
 
     private boolean isLogged;
 
-    private ArrayList<Car> cars;
-    private ArrayList<Trip> trips;
+    private HashMap<String, Car> cars;
+    private HashMap<Integer, Trip> trips;
 
     private String distanceOfTrip;
     private String timeOfTrip;
@@ -20,12 +24,14 @@ public class Data {
     private String tripDestination;
     private Trip currentTrip;
 
+    private Car currentTripCar;
+
     public Data(){
         this.isLogged = false;
-        this.cars = new ArrayList<>();
-        this.trips = new ArrayList<>();
+        this.cars = new HashMap<>();
+        this.trips = new HashMap<>();
 
-//        getCarsFromFile();
+        getCarsFromFile();
     }
 
 
@@ -51,17 +57,22 @@ public class Data {
         String filePath = currentRelativePath.toAbsolutePath().toString()
                     + "\\src\\main\\resources\\dbCar";
 
-        //cars = (ArrayList<Car>) Files.dbReadCars(filePath);
+        cars = Files.dbReadCars(filePath);
     }
 
-    public ArrayList<Car> getSuitableCars(int lotation, int baggage){
-        getCarsFromFile();
-
+    public ArrayList<Car> getSuitableCars(){
         ArrayList<Car> suitableCars = new ArrayList<>();
 
-        for(Car car : cars){
-            if(car.getLotation() <= lotation && car.getBagageCapacity() <= baggage){
-                suitableCars.add(new Car(car));
+        for(Map.Entry<String, Car> entry : cars.entrySet()){
+            if(entry.getValue().getLotation() >= currentTrip.getNumberOfPassengers()
+                    && entry.getValue().getBagageCapacity() >= currentTrip.getNumberOfLuggage()){
+                suitableCars.add(new Car(entry.getValue()));
+            }
+        }
+
+        if(suitableCars.isEmpty()){
+            for(Map.Entry<String, Car> entry : cars.entrySet()){
+                suitableCars.add(new Car(entry.getValue()));
             }
         }
 
@@ -71,12 +82,12 @@ public class Data {
     public void getTripsFromFile(){
         Path currentRelativePath = Paths.get("");
         String filePath = currentRelativePath.toAbsolutePath().toString()
-                + "\\src\\main\\resources\\dbCar";
+                + "\\src\\main\\resources\\dbTrip";
 
-        //trips = (ArrayList<Trip>) Files.dbReadTrip(filePath);
+        trips = Files.dbReadTrip(filePath,cars);
     }
 
-    public ArrayList<Trip> getTrips() {
+    public HashMap<Integer, Trip> getTrips() {
         return trips;
     }
 
@@ -99,6 +110,10 @@ public class Data {
         this.distanceOfTrip = s[0];
         this.timeOfTrip = s[1];
         this.costOfTrip = s[2];
+    }
+
+    public void saveCurrentTripCar(){
+
     }
 
     public void resetTripResults(){
@@ -133,5 +148,19 @@ public class Data {
 
     public String getTripOrigin() {
         return tripOrigin;
+    }
+
+    public void saveCurrentCar(Car car){
+        this.currentTripCar = new Car(car);
+    }
+
+    public Car getCurrentTripCar(){
+        return currentTripCar;
+    }
+
+    public void confirmTrip(){
+        currentTrip.setOrigin(this.tripOrigin);
+        currentTrip.setDestination(this.tripDestination);
+        currentTrip.setCar(this.currentTripCar);
     }
 }
