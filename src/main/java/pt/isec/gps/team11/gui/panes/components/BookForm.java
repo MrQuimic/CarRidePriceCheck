@@ -567,8 +567,6 @@ public class BookForm extends BorderPane {
         tfExtraWaitTime.setText("0");
         cbPassengers.setValue(1);
         cbDirections.setValue(0);
-        dpDepartureDate.setValue(null);
-        //tfDepartureTime.setText("Time");
         cbTolls.setValue("Yes");
     }
 

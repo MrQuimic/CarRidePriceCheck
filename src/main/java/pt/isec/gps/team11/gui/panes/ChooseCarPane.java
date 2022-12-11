@@ -63,8 +63,8 @@ public class ChooseCarPane extends BorderPane {
     }
 
     private void createViews() {
-        Font timesNewRoman = Font.font("TimesRoman", FontWeight.BOLD, 20);
-
+        Font timesNewRoman = Font.font("TimesRoman", FontWeight.BOLD, 18);
+        Font timesNewRomanNormal = Font.font("TimesRoman", FontWeight.NORMAL, 18);
         Label chooseCarLabel = new Label("Choose the car you desire");
         chooseCarLabel.setFont(timesNewRoman);
         chooseCarLabel.setTextFill(Color.BLACK);
@@ -122,35 +122,35 @@ public class ChooseCarPane extends BorderPane {
         tripsInfos.setFont(timesNewRoman);
         tripsInfos.setTextFill(Color.BLACK);
 
-        startAddress.setFont(timesNewRoman);
+        startAddress.setFont(timesNewRomanNormal);
         startAddress.setTextFill(Color.BLACK);
 
-        endAddress.setFont(timesNewRoman);
+        endAddress.setFont(timesNewRomanNormal);
         endAddress.setTextFill(Color.BLACK);
 
-        directions.setFont(timesNewRoman);
+        directions.setFont(timesNewRomanNormal);
         directions.setTextFill(Color.BLACK);
 
-        passengers.setFont(timesNewRoman);
+        passengers.setFont(timesNewRomanNormal);
         passengers.setTextFill(Color.BLACK);
 
-        suitcases.setFont(timesNewRoman);
+        suitcases.setFont(timesNewRomanNormal);
         suitcases.setTextFill(Color.BLACK);
 
-        departureDate.setFont(timesNewRoman);
+        departureDate.setFont(timesNewRomanNormal);
         departureDate.setTextFill(Color.BLACK);
 
-        departureTime.setFont(timesNewRoman);
+        departureTime.setFont(timesNewRomanNormal);
         departureTime.setTextFill(Color.BLACK);
 
-        waitingTime.setFont(timesNewRoman);
+        waitingTime.setFont(timesNewRomanNormal);
         waitingTime.setTextFill(Color.BLACK);
 
         tripInfo.getChildren().addAll(tripsInfos, startAddress, endAddress,carChoosen, directions, passengers, suitcases, departureDate, departureTime, waitingTime);
 
         VBox tripPriceInfo = new VBox();
 
-        kilometers.setFont(timesNewRoman);
+        kilometers.setFont(timesNewRomanNormal);
         kilometers.setTextFill(Color.BLACK);
 
 
@@ -207,13 +207,13 @@ public class ChooseCarPane extends BorderPane {
         });
 
         btnConfirm.setOnAction(actionEvent -> {
-            if(carChoosen.getText().length() == 13){
+            if(carChoosen.getText().length() <= 13){
                 chooseCarAlert.show();
             }
             if(!crpcManager.isLogged()){
                 loggedIn.show();
             }
-            if(carChoosen.getText().length() != 13 && crpcManager.isLogged())
+            if(carChoosen.getText().length() >= 13 && crpcManager.isLogged())
                 crpcManager.goConfirmBooking();
         });
 
@@ -245,7 +245,9 @@ public class ChooseCarPane extends BorderPane {
     }
 
     private void setCarChoosen(int index){
-        carChoosen.setText("Chosen car: " + carNames.get(index).split("/")[1].split("\\.")[0]);
+        String car = carNames.get(index).split("/")[1].split("\\.")[0];
+        String newString = car.replace("_", " ");
+        carChoosen.setText("Chosen car: " + newString);
     }
 
 }

@@ -20,6 +20,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.Scanner;
 
 public class BookInfos extends BorderPane {
     PropertyChangeSupport pcs;
@@ -238,9 +239,7 @@ public class BookInfos extends BorderPane {
         submitBtns.setPadding(new Insets(10,0,0,40));
         submitBtns.setSpacing(10);
 
-
-        labelResultGoogle = new Label(returnGoogleStr);
-
+        labelResultGoogle = new Label();
 
         lbInfoLabel = new Label("Trip Information");
         lbInfoLabel.setPadding(new Insets(20,0,5,0));
@@ -277,12 +276,6 @@ public class BookInfos extends BorderPane {
 
     private void registerHandlers() {
 
-        btnReset.setOnAction(actionEvent -> {
-
-            crpcManager.goMainMenu();
-
-        });
-
         btnConfirm.setOnAction(actionEvent -> {
             crpcManager.goChooseCAr();
 
@@ -290,6 +283,7 @@ public class BookInfos extends BorderPane {
 
         btnReset.setOnAction(actionEvent -> {
             myBrowser.webEngine.load(myBrowser.urlGoogleMaps.toExternalForm());
+            crpcManager.goMainMenu();
         });
 
 
@@ -308,8 +302,8 @@ public class BookInfos extends BorderPane {
         if (crpcManager.getState() == States.CONFIRM_BOOKING) {
             myBrowser.webEngine.load(myBrowser.urlGoogleMaps.toExternalForm() + "?origin="
                     + crpcManager.getTripOrigin() + "&destin=" + crpcManager.getTripDestination());
-            this.returnGoogleStr = crpcManager.getGoogleReturn();
-            labelResultGoogle.setText(this.returnGoogleStr);
+
+            labelResultGoogle.setText("Price: " + crpcManager.getCostOfTrip() + "\nDuration: " +crpcManager.getTimeOfTrip() + "\nDistance : " + crpcManager.getDistanceOfTrip());
             System.out.println("Results: " + crpcManager.getGoogleReturn());
         }
     }

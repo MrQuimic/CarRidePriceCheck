@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import pt.isec.gps.team11.gui.panes.utils.CSSManager;
+import pt.isec.gps.team11.model.CRPCManager;
 import pt.isec.gps.team11.model.data.Car;
 import pt.isec.gps.team11.model.data.Company;
 import pt.isec.gps.team11.model.data.Trip;
@@ -22,13 +23,14 @@ class FilesTest {
     private static HashMap<String,Car> supposedCars;
     private static HashMap<Integer,Trip> supposedTrip;
     private static HashMap<String,Company> supposedCompanies;
+    private static CRPCManager manager;
 
     private static final Path currentRelativePath = Paths.get("");
     private static final String s = currentRelativePath.toAbsolutePath().toString();
     @BeforeAll
     public static void init() {
 
-
+        manager = new CRPCManager();
         supposedCars = new HashMap<>();
         supposedCars.put("39-AT-39",new Car("39-AT-39",4, 4, "Tesla", "Y",true ,"Resources/image/cars/photo1.png"));
         supposedCars.put("74-00-AC",new Car("74-00-AC",3, 3, "Seat", "Ibiza",false ,"Resources/image/cars/photo2.png"));
@@ -68,7 +70,7 @@ class FilesTest {
 
 
     @Test
-    void dbReadCars() {
+    void dbReadCarsTest() {
 
         String url = s+"\\src\\main\\resources\\dbCar";
 
@@ -81,7 +83,7 @@ class FilesTest {
     }
 
     @Test
-    void dbReadTrips(){
+    void dbReadTripsTest(){
 
         String url = s+"\\src\\main\\resources\\dbTrip";
         HashMap<Integer,Trip> tripsRead = Files.dbReadTrip(url, supposedCars);
@@ -91,7 +93,7 @@ class FilesTest {
     }
 
     @Test
-    void dbReadCompanies(){
+    void dbReadCompaniesTest(){
 
         String url = s+"\\src\\main\\resources\\dbCompany";
 
@@ -99,6 +101,22 @@ class FilesTest {
         Assertions.assertEquals(supposedCompanies,companiesRead,"iguais");
     }
 
+    //confirmLogin
+    @Test
+    void loginFailTest(){
+        String email = "someone@gmail.com";
+        String password = "@Gps2022";
+        boolean result = manager.confirmLogin(email,password);
+        Assertions.assertFalse(result,"message");
+    }
+
+    @Test
+    void loginSuccessfulTest(){
+        String email = "someone@gmail.com";
+        String password = "@Gps2022";
+        boolean result = manager.confirmLogin(email,password);
+        Assertions.assertFalse(result,"message");
+    }
 
 
 
