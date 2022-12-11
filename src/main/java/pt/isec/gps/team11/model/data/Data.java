@@ -12,6 +12,9 @@ public class Data {
     public final String USERNAME = "admin@gps";
     public final String PASSWORD = "admin@gps";
 
+    public final String USERNAMECLI = "client@gps";
+    public final String PASSWORDCLI = "client@gps";
+
     private boolean isLogged;
 
     private HashMap<String, Car> cars;
@@ -38,7 +41,7 @@ public class Data {
 
 
     public boolean confirmLogin(String username, String password){
-        if(username.equals(USERNAME) && password.equals(PASSWORD)){
+        if((username.equals(USERNAME) && password.equals(PASSWORD)) || (username.equals(USERNAMECLI) && password.equals(PASSWORDCLI))){
             this.isLogged = true;
             return true;
         }
@@ -81,8 +84,7 @@ public class Data {
 
     public void getTripsFromFile(){
         Path currentRelativePath = Paths.get("");
-        String filePath = currentRelativePath.toAbsolutePath().toString()
-                + "\\src\\main\\resources\\dbTrip";
+        String filePath = currentRelativePath.toAbsolutePath() + "\\src\\main\\resources\\dbTrip";
 
         trips = Files.dbReadTrip(filePath,cars);
     }

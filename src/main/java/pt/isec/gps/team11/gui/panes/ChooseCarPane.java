@@ -128,8 +128,11 @@ public class ChooseCarPane extends BorderPane {
 
         waitingTime.setFont(timesNewRomanNormal);
         waitingTime.setTextFill(Color.BLACK);
+        waitingTime.setPadding(new Insets(0,0,30,0));
+        btnConfirm = new Button("Confirm");
+        btnConfirm.setId("mbtnSubmit");
 
-        tripInfo.getChildren().addAll(tripsInfos, startAddress, endAddress,carChoosen, directions, passengers, suitcases, departureDate, departureTime, waitingTime);
+        tripInfo.getChildren().addAll(tripsInfos, startAddress, endAddress,carChoosen, directions, passengers, suitcases, departureDate, departureTime, waitingTime, btnConfirm);
 
         VBox tripPriceInfo = new VBox();
 
@@ -161,10 +164,9 @@ public class ChooseCarPane extends BorderPane {
         kilometers.setText("Distance: ");
         price.setText("Price: ");
 
-        btnConfirm = new Button("Confirm");
-        btnConfirm.setId("mbtnSubmit");
+
         form.setPadding(new Insets(0,0,0,40));
-        form.getChildren().addAll(hForm, btnConfirm);
+        form.getChildren().addAll(hForm);
         this.setCenter(form);
     }
 

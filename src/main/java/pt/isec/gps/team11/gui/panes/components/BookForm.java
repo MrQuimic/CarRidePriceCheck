@@ -18,7 +18,6 @@ import javafx.scene.text.FontWeight;
 import javafx.util.Callback;
 import org.apache.commons.lang3.StringUtils;
 import pt.isec.gps.team11.MyBrowser;
-import pt.isec.gps.team11.gui.MenuOpt;
 import pt.isec.gps.team11.gui.panes.utils.CSSManager;
 import pt.isec.gps.team11.model.CRPCManager;
 import pt.isec.gps.team11.utils.AutoCompleteAddressField;
@@ -28,7 +27,9 @@ import java.beans.PropertyChangeSupport;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 public class BookForm extends BorderPane {
     PropertyChangeSupport pcs;
@@ -41,10 +42,14 @@ public class BookForm extends BorderPane {
     HBox hbPassengersSuitcases, hbDepartureDateAndImage, hbDepartureTimeHourMinutes, submitBtns, hDirectTolls;
     Button btnSubmit, btnReset, btnMapUpdate;
     TextField tfExtraWaitTime, tfDepartureTime;
-    ChoiceBox cbDirections, cbPassengers, cbSuitcases, cbTolls;
+    ChoiceBox cbDirections;
+    ChoiceBox cbPassengers;
+    ChoiceBox<String> cbSuitcases;
+    ChoiceBox<String> cbTolls;
     DatePicker dpDepartureDate;
 
-    ComboBox cbHour, cbMinute;
+    ComboBox<String> cbHour;
+    ComboBox<String> cbMinute;
 
 
     AutoCompleteAddressField originA = new AutoCompleteAddressField();
@@ -142,7 +147,7 @@ public class BookForm extends BorderPane {
 
         lbTolls = new Label("Tolls:");
         lbTolls.setAlignment(Pos.CENTER_LEFT);
-        cbTolls = new ChoiceBox();
+        cbTolls = new ChoiceBox<String>();
         cbTolls.getItems().addAll("Yes","No");
         cbTolls.setValue("Yes");
         vbTolls.getChildren().addAll(lbTolls,cbTolls);
@@ -162,8 +167,8 @@ public class BookForm extends BorderPane {
         vbDirections.getChildren().addAll(lbDirections,cbDirections);
         hDirectTolls = new HBox();
         hDirectTolls.getChildren().addAll(vbDirections, vbTolls);
-        hDirectTolls.setAlignment(Pos.CENTER_LEFT);
-        hDirectTolls.setSpacing(80);
+        hDirectTolls.setAlignment(Pos.CENTER);
+        hDirectTolls.setSpacing(40);
         //Extra Waiting Time
         vbExtraWaitTime = new VBox();
         vbExtraWaitTime.setAlignment(Pos.CENTER_LEFT);
@@ -179,14 +184,14 @@ public class BookForm extends BorderPane {
 
         //HBox for Passengers and Suitcases
         hbPassengersSuitcases = new HBox();
-        hbPassengersSuitcases.setAlignment(Pos.CENTER_LEFT);
+        hbPassengersSuitcases.setAlignment(Pos.CENTER);
 
         //Passengers
         vbPassengers = new VBox();
         vbPassengers.setAlignment(Pos.CENTER);
 
         lbPassengers = new Label("Passengers");
-        lbPassengers.setAlignment(Pos.CENTER_LEFT);
+        lbPassengers.setAlignment(Pos.CENTER);
         lbPassengers.setPadding(new Insets(0,0,5,0));
         lbPassengers.setFont(fontSmall);
         cbPassengers = new ChoiceBox();
@@ -202,7 +207,7 @@ public class BookForm extends BorderPane {
         lbSuitcases.setAlignment(Pos.CENTER_RIGHT);
         lbSuitcases.setPadding(new Insets(0,0,5,0));
         lbSuitcases.setFont(fontSmall);
-        cbSuitcases = new ChoiceBox();
+        cbSuitcases = new ChoiceBox<>();
         cbSuitcases.getItems().addAll("0", "1", "2", "3", "4","5", "6", "7");
         cbSuitcases.setValue("0");
         vbSuitcases.getChildren().addAll(lbSuitcases,cbSuitcases);
@@ -234,7 +239,7 @@ public class BookForm extends BorderPane {
         lbSuitcases.setAlignment(Pos.CENTER_RIGHT);
         lbSuitcases.setPadding(new Insets(0,0,5,0));
         lbSuitcases.setFont(fontSmall);
-        cbSuitcases = new ChoiceBox();
+        cbSuitcases = new ChoiceBox<>();
         cbSuitcases.getItems().addAll("0", "1", "2", "3", "4","5", "6", "7");
         cbSuitcases.setValue("0");
         vbSuitcases.getChildren().addAll(lbSuitcases,cbSuitcases);
@@ -255,7 +260,7 @@ public class BookForm extends BorderPane {
                         public void updateItem(LocalDate item, boolean empty) {
                             super.updateItem(item, empty);
 
-                            if (item.isBefore(checkInDatePicker.getValue().plusDays(1))) {
+                            if (item.isBefore(checkInDatePicker.getValue().plusDays(0))) {
                                 setDisable(true);
                                 setStyle("-fx-background-color: #ffc0cb;");
                             }
@@ -264,11 +269,11 @@ public class BookForm extends BorderPane {
                 }
             };
         dpDepartureDate.setDayCellFactory(dayCellFactory);
-        dpDepartureDate.setValue(checkInDatePicker.getValue().plusDays(1));
+        dpDepartureDate.setValue(checkInDatePicker.getValue().plusDays(0));
 
         ////////////////////////////////////////////////////////////////////////////////////////////////
         hbPassengersSuitcases.getChildren().addAll(vbPassengers,vbSuitcases);
-        hbPassengersSuitcases.setSpacing(80);
+        hbPassengersSuitcases.setSpacing(40);
         vbDepartureDate = new VBox();
         vbDepartureDate.setAlignment(Pos.CENTER);
 
@@ -303,18 +308,45 @@ public class BookForm extends BorderPane {
         hbDepartureTimeHourMinutes.setAlignment(Pos.CENTER_LEFT);
         lbDepartureDate = new Label("Departure time");
 
+        Date date = new Date();   // given date
+        Calendar calendar = GregorianCalendar.getInstance(); // creates a new calendar instance
+        calendar.setTime(date);   // assigns calendar to given date
+        //calendar.get(Calendar.HOUR_OF_DAY); // gets hour in 24h format
+        //calendar.get(Calendar.HOUR);        // gets hour in 12h format
+        int year       = calendar.get(Calendar.YEAR);
+        int month      = calendar.get(Calendar.MONTH)+1; // Jan = 0, dec = 11
+        int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
+
         //Hour
         vbDepartureTimeHour = new VBox();
         vbDepartureTimeHour.setAlignment(Pos.CENTER);
+
 
         lbHour = new Label("Hour");
         lbHour.setAlignment(Pos.CENTER_LEFT);
         lbHour.setPadding(new Insets(0,0,5,0));
         lbHour.setFont(fontSmall);
-        cbHour = new ComboBox();
-        for(int i = 0 ; i < 24 ; i++)
+        cbHour = new ComboBox<>();
+        int hourStart = 0;
+
+        if (dpDepartureDate.getValue().toString().equals(year+"-"+month+"-"+(dayOfMonth))) {
+
+
+            if(calendar.get(Calendar.HOUR_OF_DAY) <23) {
+                hourStart = calendar.get(Calendar.HOUR_OF_DAY) + 1;
+                cbHour.setValue(String.valueOf(calendar.get(Calendar.HOUR_OF_DAY)+1));
+            } else {
+                dpDepartureDate.setValue(checkInDatePicker.getValue().plusDays(1));
+                cbHour.setValue(String.valueOf(calendar.get(Calendar.HOUR_OF_DAY)));
+            }
+        }
+
+
+        for(int i = hourStart ; i < 24 ; i++)
             cbHour.getItems().add(String.valueOf(i));
-        cbHour.setValue("0");
+
+
+
         vbDepartureTimeHour.getChildren().addAll(lbHour,cbHour);
 
         //Minutes
@@ -325,17 +357,18 @@ public class BookForm extends BorderPane {
         lbMinute.setAlignment(Pos.CENTER_RIGHT);
         lbMinute.setPadding(new Insets(0,0,5,0));
         lbMinute.setFont(fontSmall);
-        cbMinute = new ComboBox();
+        cbMinute = new ComboBox<String>();
         for(int i = 0 ; i < 59 ; i++)
             cbMinute.getItems().add(String.valueOf(i));
 
         cbMinute.setValue("0");
+        cbMinute.setValue(String.valueOf(calendar.get(Calendar.MINUTE)));
         vbDepartureTimeMinute.getChildren().addAll(lbMinute,cbMinute);
 
         hbDepartureTimeHourMinutes.getChildren().addAll(vbDepartureTimeHour,vbDepartureTimeMinute);
 
-        hbDepartureTimeHourMinutes.setAlignment(Pos.CENTER_LEFT);
-        hbDepartureTimeHourMinutes.setSpacing(80);
+        hbDepartureTimeHourMinutes.setAlignment(Pos.CENTER);
+        hbDepartureTimeHourMinutes.setSpacing(40);
         vbDepartureTime.getChildren().addAll(lbDepartureTime,hbDepartureTimeHourMinutes);
 
 
@@ -390,7 +423,7 @@ public class BookForm extends BorderPane {
         btnMapUpdate.setOnAction(actionEvent -> {
 
 
-            myBrowser.webEngine.load(myBrowser.urlGoogleMaps.toExternalForm() + "?origin=" + originA.getText() + "&destin=" + destinA.getText() +"&style=" +"" + "&tolls" + cbTolls.getValue());
+            myBrowser.webEngine.load(myBrowser.urlGoogleMaps.toExternalForm() + "?origin=" + originA.getText() + "&destin=" + destinA.getText() +"&style=" +"A" + "&tolls=" + cbTolls.getValue() + "&returnTrip=" + cbDirections.getValue());
 
         });
         btnSubmit.setOnAction(actionEvent -> {
@@ -463,9 +496,9 @@ public class BookForm extends BorderPane {
 
             if(cbDirections.getValue().equals("One Way")) {
                 directions = true;
-            }else
+            }else{
                 directions = false;//return trip
-
+                 }
             if(cbPassengers.getValue() != null) {
                 String s = cbPassengers.getValue().toString();
                 nrPassengers = Integer.parseInt(s);
@@ -484,7 +517,7 @@ public class BookForm extends BorderPane {
             if(flag) {
                 crpcManager.book(directions,departureDate,extraWaitTime,nrSuitcases, nrPassengers,departureTime,tolls);
 
-                myBrowser.webEngine.load(myBrowser.urlGoogleMaps.toExternalForm() + "?origin=" + originA.getText() + "&destin=" + destinA.getText() + "&tolls=" + cbTolls.getValue() +"&style=" + "");
+                myBrowser.webEngine.load(myBrowser.urlGoogleMaps.toExternalForm() + "?origin=" + originA.getText() + "&destin=" + destinA.getText() +"&style=" +"A" + "&tolls=" + cbTolls.getValue() + "&returnTrip=" + cbDirections.getValue());
                 //String returnValue = (String) webEngine.executeScript("getRectArea()");
                 myBrowser.webEngine.getLoadWorker().stateProperty().addListener(
                         new ChangeListener() {
@@ -507,7 +540,6 @@ public class BookForm extends BorderPane {
                 );
             }
 
-            clearForm();
         });
 
 

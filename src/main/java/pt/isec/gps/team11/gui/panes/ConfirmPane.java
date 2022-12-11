@@ -3,18 +3,18 @@ package pt.isec.gps.team11.gui.panes;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import pt.isec.gps.team11.MyBrowser;
 import pt.isec.gps.team11.gui.MenuOpt;
 import pt.isec.gps.team11.gui.panes.components.BookForm;
 import pt.isec.gps.team11.gui.panes.components.BookInfos;
 import pt.isec.gps.team11.gui.panes.components.MapDisplay;
 import pt.isec.gps.team11.gui.panes.components.MenuTop;
+import pt.isec.gps.team11.gui.panes.utils.CSSManager;
 import pt.isec.gps.team11.model.CRPCManager;
-import javafx.scene.control.SplitPane;
 import javafx.scene.layout.*;
 import pt.isec.gps.team11.model.fsm.States;
 
@@ -30,8 +30,10 @@ public class ConfirmPane extends BorderPane {
 
     VBox vbox, leftControl, rightControl;
     HBox submitBtns, hBoxMap;
-    MenuTop bp;
 
+    Label lbInfoLabel;
+    MenuTop bp;
+    TextArea lbInfo;
     MenuOpt menuOpt;
 
     MyBrowser myBrowser;
@@ -45,7 +47,9 @@ public class ConfirmPane extends BorderPane {
     }
 
     private void createViews() {
-
+        CSSManager.applyCSS(this,"styles.css");
+        Font font = Font.font("Verdana", FontWeight.BOLD, 16);
+        Font fontSmall = Font.font("Verdana", FontWeight.BOLD, 10);
         VBox vBox= new VBox();
         VBox vBox2= new VBox();
         submitBtns= new HBox();
@@ -60,10 +64,20 @@ public class ConfirmPane extends BorderPane {
         hBox.setAlignment(Pos.CENTER_LEFT);
         hBox.setSpacing(50);
         bookInfos.setPadding(new Insets(0,0,0,50));
+
+        lbInfoLabel = new Label("Trip Information");
+        lbInfoLabel.setPadding(new Insets(20,0,5,0));
+        lbInfoLabel.setFont(font);
+        lbInfoLabel.setAlignment(Pos.CENTER);
+        lbInfo = new TextArea();
+        lbInfo.setPrefColumnCount(7);
+        lbInfo.setPrefRowCount(2);
+
         MapDisplay mapDisplay = new MapDisplay(crpcManager, myBrowser);
-        HBox hBoxMap = new HBox(mapDisplay);
+        HBox hBoxMap = new HBox(mapDisplay, lbInfoLabel, lbInfo);
         hBox.setAlignment(Pos.CENTER_LEFT);
         hBox.setSpacing(50);
+
 
 
         hBox.setAlignment(Pos.CENTER_LEFT);
@@ -77,6 +91,9 @@ public class ConfirmPane extends BorderPane {
 
         splitPane.setId("splitPaneContent");
         scene = new Scene(splitPane);
+
+
+
         vBox.getChildren().addAll(splitPane);
 
         this.setCenter(vBox);

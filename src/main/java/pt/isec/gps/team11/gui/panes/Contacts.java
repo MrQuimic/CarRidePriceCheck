@@ -1,5 +1,6 @@
 package pt.isec.gps.team11.gui.panes;
 
+import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -72,7 +73,7 @@ public class Contacts extends BorderPane {
                 BorderStrokeStyle.SOLID,CornerRadii.EMPTY,new BorderWidths(1))));
 
         lbStatus2.setStyle("-fx-background-color: rgba(73,69,69,0.08);-fx-font-family: 'Courrier New'; -fx-font-size: 16;");
-
+        lbStatus2.setPadding(new Insets(0,0,0,50));
         this.setTop(lbStatus2);
     }
 
@@ -89,7 +90,7 @@ public class Contacts extends BorderPane {
 
 
 
-        if(crpcManager.getMenuOpt()==MenuOpt.ABOUTUS) {
+        if(crpcManager.getMenuOpt()==MenuOpt.CONTACTS) {
             this.setVisible(true);
             //SoundManager.play("637996__davejf__melody-loop-110-bpm.mp3");
 
@@ -103,14 +104,19 @@ public class Contacts extends BorderPane {
 
 
 
-            lbStatus2.setText(String.format("" +
-                    "\n\n ✎ Authors:\n" +
-                    " Carlos Santos  {Email: a2003035578@isec.pt}\n" +
-                    " Hugo Ferreira  {Email: a2020128305@isec.pt}\n" +
-                    " Leonardo Sousa {Email: a2019129243@isec.pt }\n" +
-                    " Luís Cruz  {Email: a2020142846@isec.pt}\n" +
-                    " Rafael Gil {Email: a2020136741@isec.pt}\n\n"));
-
+        lbStatus2.setText(String.format("" +
+                "\n\n ☎ Contacts:\n" +
+                "\t\tCarlos Santos  " +
+                "\t\t\t\ta2003035578@isec.pt\n" +
+                "\t\tHugo Ferreira   " +
+                "\t\t\ta2020128305@isec.pt\n" +
+                "\t\tLeonardo Sousa  " +
+                "\t\t\ta2019129243@isec.pt \n" +
+                "\t\tLuís Cruz   " +
+                "\t\t\t\ta2020142846@isec.pt\n" +
+                "\t\tRafael Gil " +
+                "\t\t\t\ta2020136741@isec.pt\n\n"+
+                "\n ⚑ You can write additional info when booking\n"));
 
 
     }

@@ -61,14 +61,16 @@ public class MenuTop extends BorderPane {
         hBoxMenuTop.setId("hBoxMenuTop");
         hBoxAuth= new HBox();
         hBoxAuth.setId("hBoxMenuTop");
-        btnsMenu = new Button[6];
+        btnsMenu = new Button[5];
 
         btnsMenu[0] = new Button(String.format("\uD83C\uDFE0 Home"));
         btnsMenu[1] = new Button(String.format("\uD83D\uDCD5 Booking"));
-        btnsMenu[2] = new Button(String.format("\uD83D\uDCDE Contacts"));
-        btnsMenu[3] = new Button(String.format("✨ About us"));
-        btnsMenu[4] = new Button(String.format("\uD83D\uDC65 Our Team"));
-        btnsMenu[5] = new Button(String.format("\uD83D\uDC65 Booking List"));
+        btnsMenu[2] = new Button(String.format("\uD83D\uDCCB Contacts"));
+        btnsMenu[3] = new Button(String.format("\uD83D\uDC65 About Us"));
+        btnsMenu[4] = new Button(String.format("\uD83D\uDCCB Orders"));
+
+
+
         logout = new Button(String.format("Logout"));
         logout.setId("logoutbtn");
         logout.setVisible(false);
@@ -79,7 +81,9 @@ public class MenuTop extends BorderPane {
         logUser.setVisible(false);
         logUser.setPrefSize(95,40);
 
-        for(int i = 0; i < 6; i++){
+        btnsMenu[4].setVisible(logUser.getText().equals("admin@gps"));
+
+        for(int i = 0; i < 5; i++){
             btnsMenu[i].setPrefSize(100,40);
             btnsMenu[i].setId("MenuUIBtn");
             // btns[i].setStyle("");
@@ -193,12 +197,9 @@ public class MenuTop extends BorderPane {
             manager.goIdle();
         });
 
-        btnsMenu[4].setOnAction(actionEvent -> {
-            manager.setMenuOpt(MenuOpt.OURTEAM);
-            manager.goIdle();
-        });
 
-        btnsMenu[5].setOnAction(actionEvent -> {
+
+        btnsMenu[4].setOnAction(actionEvent -> {
             manager.setMenuOpt(MenuOpt.BOOKINGLIST);
             manager.goIdle();
         });
@@ -219,18 +220,20 @@ public class MenuTop extends BorderPane {
     }
 
     private void update(){
-        logout.setText("Logout: \n");
-        logUser.setText(manager.getUsername()+" \n");
 
         if(manager.isLogged()){
             authIcon.setVisible(false);
             logout.setVisible(true);
             logUser.setVisible(true);
+            logout.setText("Logout: \n");
+            logUser.setText(manager.getUsername()+" \n");
+            btnsMenu[4].setVisible(logUser.getText().equals("admin@gps"+" \n"));
         }
         else{
             authIcon.setVisible(true);
             logout.setVisible(false);
             logUser.setVisible(false);
+            btnsMenu[4].setVisible(false);
         }
         if(manager.getState() == States.MAIN_MENU) {
             btnsMenu[0].setOpacity(0.8);
@@ -247,6 +250,7 @@ public class MenuTop extends BorderPane {
             btnsMenu[4].setStyle("-fx-font-weight: 600");
             logout.setStyle("-fx-font-weight: 600");
         }
+
         else if(manager.getState() == States.BOOKING){
             btnsMenu[0].setOpacity(1);
             btnsMenu[1].setOpacity(0.8);
@@ -285,16 +289,15 @@ public class MenuTop extends BorderPane {
             btnsMenu[3].setOpacity(0.8);
             btnsMenu[4].setOpacity(1);
             logout.setOpacity(1);
+
             authIcon.setOpacity(1);
             btnsMenu[0].setStyle("-fx-font-weight: 600");
             btnsMenu[1].setStyle("-fx-font-weight: 600");
             btnsMenu[2].setStyle("-fx-font-weight: 600");
             btnsMenu[3].setStyle("-fx-font-weight: 700");
-            btnsMenu[4].setStyle("-fx-font-weight: 600");
             logout.setStyle("-fx-font-weight: 600");
         }
-
-        else if(manager.getMenuOpt()==MenuOpt.OURTEAM){
+        else if(manager.getMenuOpt()==MenuOpt.BOOKINGLIST){
             btnsMenu[0].setOpacity(1);
             btnsMenu[1].setOpacity(1);
             btnsMenu[2].setOpacity(1);
@@ -306,24 +309,20 @@ public class MenuTop extends BorderPane {
             btnsMenu[0].setStyle("-fx-font-weight: 600");
             btnsMenu[1].setStyle("-fx-font-weight: 600");
             btnsMenu[2].setStyle("-fx-font-weight: 600");
-            btnsMenu[3].setStyle("-fx-font-weight: 600");
-            btnsMenu[4].setStyle("-fx-font-weight: 700");
+            btnsMenu[3].setStyle("-fx-font-weight: 700");
             logout.setStyle("-fx-font-weight: 600");
         }
-
         else if(manager.getMenuOpt()==MenuOpt.LOGOUT){
             btnsMenu[0].setOpacity(1);
             btnsMenu[1].setOpacity(1);
             btnsMenu[2].setOpacity(1);
             btnsMenu[3].setOpacity(1);
-            btnsMenu[4].setOpacity(1);
             logout.setOpacity(0.8);
             authIcon.setOpacity(0.65);
             btnsMenu[0].setStyle("-fx-font-weight: 600");
             btnsMenu[1].setStyle("-fx-font-weight: 600");
             btnsMenu[2].setStyle("-fx-font-weight: 600");
             btnsMenu[3].setStyle("-fx-font-weight: 600");
-            btnsMenu[4].setStyle("-fx-font-weight: 600");
             logout.setStyle("-fx-font-weight: 700");
         }
     }

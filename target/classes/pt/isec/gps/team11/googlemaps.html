@@ -29,7 +29,7 @@
 </div>
 
 
-<div id="macDiv"> results() </div>
+<div id="macDiv"> </div>
 
 <script type="text/javascript">
     document.getElementById("locationField").style.display = "none";
@@ -151,14 +151,14 @@
 
 
         }
-        let tolls = params.get('tolls');
+        let tollsavoid;
 
-        if(params.get('tolls')!=="true"){
+        if(params.get('tolls')==="Yes"){
 
-            tolls = params.get('tolls');
+            tollsavoid = false;
 
         }else{
-            tolls = params.get('tolls');
+            tollsavoid = true;
         }
 
         let directionsDisplay = new google.maps.DirectionsRenderer();
@@ -177,9 +177,9 @@
                 mapTypeId: google.maps.MapTypeId.ROADMAP,
                 unitSystem: google.maps.UnitSystem.METRIC,
                 streetViewControl: false,
-                avoidHighways: false,
                 disableDefaultUI: false,
-                avoidTolls: tolls
+                avoidHighways: tollsavoid,
+                avoidTolls: tollsavoid
 
             }, myOptions2 = {
             origin: start,
@@ -196,8 +196,8 @@
             mapTypeId: google.maps.MapTypeId.ROADMAP,
             unitSystem: google.maps.UnitSystem.METRIC,
             streetViewControl: false,
-            avoidHighways: false,
-            avoidTolls: tolls
+            avoidHighways: tollsavoid,
+            avoidTolls: tollsavoid
 
         };
 
@@ -263,8 +263,8 @@
         destination = pointB;
 
         var request = {
-            origin: source,
-            destination: destination,
+            origins: [source, destination],
+            destinations: [destination, source],
             travelMode: google.maps.TravelMode.DRIVING
         };
         directionsService.route(request, function (response, status) {
@@ -276,24 +276,55 @@
             //*********DISTANCE AND DURATION**********************//
             let service = new google.maps.DistanceMatrixService();
             service.getDistanceMatrix({
-                origins: [source],
-                destinations: [destination],
+                origins: [source, destination],
+                destinations: [destination, source],
                 travelMode: google.maps.TravelMode.DRIVING,
                 unitSystem: google.maps.UnitSystem.METRIC,
-                avoidHighways: false,
-                avoidTolls: false
+                avoidHighways: tollsavoid,
+                avoidTolls: tollsavoid
             }, function (response, status) {
                 if (status === google.maps.DistanceMatrixStatus.OK && response.rows[0].elements[0].status !== "ZERO_RESULTS") {
-                    var distance = response.rows[0].elements[0].distance.text;
-                    var duration = response.rows[0].elements[0].duration.text;
-                    var dvDistance = document.getElementById("dvDistance");
-                    var dist = distance.slice(0, -3).replaceAll(',', '');
-                    var price = dist * 1.5;
-                    dvDistance.innerHTML = "";
-                    dvDistance.innerHTML += distance + " | ";
-                    dvDistance.innerHTML += duration + " | ";
-                    dvDistance.innerHTML += tolls + " | ";
-                    dvDistance.innerHTML += price + " \u20AC";
+                    const distance = response.rows[0].elements[0].distance.text;
+                    let duration = response.rows[0].elements[0].duration.text;
+                    const dvDistance = document.getElementById("dvDistance");
+                    let duration2 = duration.split(" ")[0];
+                    let duration3 = duration.split(" ")[2];
+                    let dist = distance.slice(0, -3).replaceAll('', '');
+                    let price;
+
+
+
+                    if(params.get('returnTrip')==="One Way"){
+
+                        price = dist * 1.5;
+
+                    }else{
+
+                    if(duration3===undefined){
+                        duration3 =0;
+
+                        duration = time_convert(duration2*2);
+                    }else{
+
+                        duration = time_convert((duration2*60*2) + duration3*2);
+                    }
+
+                        price = (dist * 1.5)*2;
+                        dist= dist*2;
+                    }
+
+                    price = price.toFixed(2);
+
+
+                    if(params.get('style')!=="macDivSmaller"){
+
+                        dvDistance.innerHTML = "";
+                        dvDistance.innerHTML += dist + " | ";
+                        dvDistance.innerHTML += duration + " | ";
+                        dvDistance.innerHTML += price + " \u20AC";
+
+                    }
+
 
                 } else {
                     alert("Unable to find the distance via road.");
@@ -312,6 +343,12 @@
 
     }
 
+    function time_convert(num)
+    {
+        const hours = Math.floor(num / 60);
+        const minutes = num % 60;
+        return `${hours} hours ${minutes} mins`;
+    }
 
     function calculateAndDisplayRoute(directionsService, directionsDisplay, distinationOrigin, destinationMarker) {
         directionsService.route({

@@ -73,7 +73,7 @@ public class AboutUs extends BorderPane {
                 BorderStrokeStyle.SOLID,CornerRadii.EMPTY,new BorderWidths(1))));
 
         lbStatus2.setStyle("-fx-background-color: rgba(73,69,69,0.08);-fx-font-family: 'Courrier New'; -fx-font-size: 16;");
-
+        lbStatus2.setPadding(new Insets(0,0,0,50));
         this.setTop(lbStatus2);
     }
 
@@ -104,14 +104,16 @@ public class AboutUs extends BorderPane {
 
 
 
-            lbStatus2.setText(String.format("" +
-                    "\n\n ✎ Authors:\n" +
-                    " Carlos Santos  {Email: a2003035578@isec.pt}\n" +
-                    " Hugo Ferreira  {Email: a2020128305@isec.pt}\n" +
-                    " Leonardo Sousa {Email: a2019129243@isec.pt }\n" +
-                    " Luís Cruz  {Email: a2020142846@isec.pt}\n" +
-                    " Rafael Gil {Email: a2020136741@isec.pt}\n\n"));
-
+        lbStatus2.setText(String.format("" +
+                "\n\n ✎ Authors:\n" +
+                "\tCarlos Santos  {Email: a2003035578@isec.pt}\n" +
+                "\tHugo Ferreira  {Email: a2020128305@isec.pt}\n" +
+                "\tLeonardo Sousa {Email: a2019129243@isec.pt }\n" +
+                "\tLuís Cruz  {Email: a2020142846@isec.pt}\n" +
+                "\tRafael Gil {Email: a2020136741@isec.pt}\n\n"+
+                "\n ⚑ Application Car Ride Price Check\n"+
+                " ⌛ Date 2022/11/27\n\n" +
+                " ⚑ This pratical assignment was carried out in an academic context for the subject of GPS at ISEC!"));
 
 
     }

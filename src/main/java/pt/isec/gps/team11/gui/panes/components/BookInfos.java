@@ -29,15 +29,15 @@ public class BookInfos extends BorderPane {
 
     String returnGoogleStr = "";
     VBox vbStartAdress, vbEndAdress, vbDirections, vbExtraWaitTime, vbPassengers, vbSuitcases, vbDepartureDate, vbDepartureTime, vbTolls;
-    Label lbStartAdress,  tfExtraWaitTime, tfDepartureTime, lbEndAdress, lbDirections, lbExtraWaitTime, lbPassengers, lbSuitcases, lbDepartureDate, lbDepartureTime, lbTolls, lbAdressesTitle, lbOptionsTitle, lbInfoLabel;
-    HBox hbPassengersSuitcases, hbDepartureDateAndImage, hbDepartureTimeAndImage, submitBtns;
+    Label lbStartAdress,  tfExtraWaitTime, tfDepartureTime, lbEndAdress, lbDirections, lbExtraWaitTime, lbPassengers, lbSuitcases, lbDepartureDate, lbDepartureTime, lbTolls, lbAdressesTitle, lbOptionsTitle;
+    HBox hbPassengersSuitcases, hbDepartureDateAndImage, hbDepartureTimeAndImage, submitBtns, hDirectTolls;
     Button btnConfirm, btnReset;
     Label cbDirections, cbPassengers, cbSuitcases, cbTolls, labelResultGoogle;
     DatePicker dpDepartureDate;
 
     Label originA, destinA;
 
-    TextArea lbInfo;
+
     TextField Destin1 = new TextField();
     TextField Origin1 = new TextField();
 
@@ -141,7 +141,20 @@ public class BookInfos extends BorderPane {
         lbDirections.setAlignment(Pos.CENTER_LEFT);
         cbDirections = new Label();
         cbDirections.setText("One Way");
+        //Tolls
+        vbTolls = new VBox();
+        vbTolls.setAlignment(Pos.CENTER_LEFT);
 
+        lbTolls = new Label("Tolls:");
+        lbTolls.setFont(fontSmall);
+        lbTolls.setAlignment(Pos.CENTER_LEFT);
+        cbTolls = new Label();
+        cbTolls.setText("Yes");
+        vbTolls.getChildren().addAll(lbTolls,cbTolls);
+        hDirectTolls = new HBox();
+        hDirectTolls.getChildren().addAll(vbDirections, vbTolls);
+        hDirectTolls.setAlignment(Pos.CENTER);
+        hDirectTolls.setSpacing(40);
         vbDirections.getChildren().addAll(lbDirections,cbDirections);
 
         //Extra Waiting Time
@@ -215,17 +228,8 @@ public class BookInfos extends BorderPane {
         hbDepartureTimeAndImage.setAlignment(Pos.CENTER_LEFT);
 
 
-        //Tolls
-        vbTolls = new VBox();
-        vbTolls.setAlignment(Pos.CENTER_LEFT);
 
-        lbTolls = new Label("Tolls:");
-        lbTolls.setFont(font);
-        lbTolls.setAlignment(Pos.CENTER_LEFT);
-        cbTolls = new Label();
-        cbTolls.setText("Yes");
-        vbTolls.getChildren().addAll(lbTolls,cbTolls);
-        vbOptions.getChildren().addAll(vbDirections,vbExtraWaitTime,hbPassengersSuitcases,hbDepartureDateAndImage,vbTolls);
+        vbOptions.getChildren().addAll(hDirectTolls,vbExtraWaitTime,hbPassengersSuitcases,hbDepartureDateAndImage);
         vbOptions.setSpacing(15);
 
         vbOptionsWithTitle.getChildren().addAll(lbOptionsTitle,vbOptions);
@@ -241,17 +245,12 @@ public class BookInfos extends BorderPane {
 
         labelResultGoogle = new Label();
 
-        lbInfoLabel = new Label("Trip Information");
-        lbInfoLabel.setPadding(new Insets(20,0,5,0));
-        lbInfoLabel.setFont(font);
-        //Adresses VBox
 
-        lbInfoLabel.setAlignment(Pos.CENTER);
-        lbInfo = new TextArea();
-        lbInfo.setPrefColumnCount(7);
-        lbInfo.setPrefRowCount(2);
+        //Adresses VBox  admin@gps
+
+
         vbAdressesAndOptions.setSpacing(10);
-        vbAdressesAndOptions.getChildren().addAll(vbAdressesWithTitle,vbOptionsWithTitle, labelResultGoogle, lbInfoLabel, lbInfo,btnConfirm);
+        vbAdressesAndOptions.getChildren().addAll(vbAdressesWithTitle,vbOptionsWithTitle, labelResultGoogle, btnConfirm);
 
 
 
@@ -301,7 +300,7 @@ public class BookInfos extends BorderPane {
     private void update() {
         if (crpcManager.getState() == States.CONFIRM_BOOKING) {
             myBrowser.webEngine.load(myBrowser.urlGoogleMaps.toExternalForm() + "?origin="
-                    + crpcManager.getTripOrigin() + "&destin=" + crpcManager.getTripDestination() +"&style=" +"macDivSmaller" + "&tolls" + cbTolls.getText());
+                    + crpcManager.getTripOrigin() + "&destin=" + crpcManager.getTripDestination() +"&style=" +"macDivSmaller" + "&tolls=" + cbTolls.getText()+ "&returnTrip=" + cbDirections.getText());
 
             labelResultGoogle.setText("Price: " + crpcManager.getCostOfTrip() + "\nDuration: " +crpcManager.getTimeOfTrip() + "\nDistance : " + crpcManager.getDistanceOfTrip());
             System.out.println("Results: " + crpcManager.getGoogleReturn());

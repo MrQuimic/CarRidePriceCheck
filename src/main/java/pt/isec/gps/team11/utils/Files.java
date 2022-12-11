@@ -148,6 +148,7 @@ public class Files{
 
 
         //roam all the db entities
+        assert list != null;
         for(List<String> tempList : list){
             try {
 
