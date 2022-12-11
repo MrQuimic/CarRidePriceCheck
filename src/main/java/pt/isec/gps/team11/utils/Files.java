@@ -42,10 +42,10 @@ public class Files{
                 if(tempList.size() != 7) {
                     throw new Exception("Abnormal line in DB");
                 }
-                System.out.println(tempList);
+                //System.out.println(tempList);
                 carsList.put(tempList.get(0),new Car(tempList.get(0),Integer.parseInt(tempList.get(1)), Integer.parseInt(tempList.get(2)), tempList.get(3), tempList.get(4), Boolean.parseBoolean(tempList.get(5)) ,tempList.get(6)));
             }catch (Exception e){
-                System.err.println("Line: " + tempList + " with error" + e);
+                //System.err.println("Line: " + tempList + " with error" + e);
             }
         }
         return carsList;
@@ -158,8 +158,7 @@ public class Files{
 
 
                 //getting all the cars associated to the trip
-                for(int i = 16; i < tempList.size();i++)
-                    tripCar = availableCars.get(tempList.get(i));
+                tripCar = availableCars.get(tempList.get(15));
 
                 //add to the trip list
                 Calendar tempCalendar1 = GregorianCalendar.getInstance();

@@ -23,14 +23,12 @@ class FilesTest {
     private static HashMap<String,Car> supposedCars;
     private static HashMap<Integer,Trip> supposedTrip;
     private static HashMap<String,Company> supposedCompanies;
-    private static CRPCManager manager;
 
     private static final Path currentRelativePath = Paths.get("");
     private static final String s = currentRelativePath.toAbsolutePath().toString();
     @BeforeAll
     public static void init() {
 
-        manager = new CRPCManager();
         supposedCars = new HashMap<>();
         supposedCars.put("39-AT-39",new Car("39-AT-39",4, 4, "Tesla", "Y",true ,"Resources/image/cars/photo1.png"));
         supposedCars.put("74-00-AC",new Car("74-00-AC",3, 3, "Seat", "Ibiza",false ,"Resources/image/cars/photo2.png"));
@@ -64,8 +62,6 @@ class FilesTest {
     }
 
 
-
-
     @Test
     void dbReadCarsTest() {
 
@@ -96,53 +92,6 @@ class FilesTest {
 
         HashMap<String, Company> companiesRead = Files.dbReadCompany(url, supposedTrip);
         Assertions.assertEquals(supposedCompanies,companiesRead,"iguais");
-    }
-
-    //confirmLogin
-    @Test
-    void loginFailedTest(){
-        String email = "someone@gmail.com";
-        String password = "@Gps2022";
-        boolean result = manager.confirmLogin(email,password);
-        Assertions.assertFalse(result,"message");
-    }
-
-    @Test
-    void loginSuccessfulTest(){
-        String email = "admin@gps";
-        String password = "admin@gps";
-        boolean result = manager.confirmLogin(email,password);
-        Assertions.assertTrue(result,"message");
-    }
-
-    @Test
-    void registerFailedTest(){
-        String email = "someone2.pt";
-        boolean result = manager.setLogin(email);
-        Assertions.assertFalse(result,"message");
-    }
-
-    @Test
-    void registerSuccessfulTest(){
-        String email = "someone@mail";
-        boolean result = manager.setLogin(email);
-        Assertions.assertTrue(result,"message");
-    }
-
-    @Test
-    void logoutSuccessfulTest(){
-        String email = "someone@mail";
-        manager.setLogin(email);
-        manager.logout();
-        boolean result = manager.isLogged();
-        Assertions.assertFalse(result,"message");
-    }
-
-    @Test
-    void tripTest(){
-        manager.setTripOrigin("Coimbra");
-        manager.setTripDestination("Porto");
-        manager.saveCar(supposedCars.get("39-AT-39"));
     }
 
 

@@ -89,6 +89,7 @@ public class Data {
     }
 
     public HashMap<Integer, Trip> getTrips() {
+        getTripsFromFile();
         return trips;
     }
 

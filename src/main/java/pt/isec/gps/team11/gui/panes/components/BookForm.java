@@ -35,7 +35,7 @@ public class BookForm extends BorderPane {
     PropertyChangeSupport pcs;
     CRPCManager crpcManager;
     VBox vbAdressesAndOptions, vbAdresses, vbOptions, vbAdressesWithTitle, vbOptionsWithTitle;
-
+    DatePicker checkInDatePicker;
 
     VBox vbStartAdress, vbEndAdress, vbDirections, vbExtraWaitTime, vbPassengers, vbSuitcases, vbDepartureDate, vbDepartureTime, vbTolls, vbDepartureTimeHour, vbDepartureTimeMinute;
     Label lbStartAdress, lbEndAdress, lbDirections, lbExtraWaitTime, lbPassengers, lbSuitcases, lbDepartureDate, lbDepartureTime, lbTolls, lbAdressesTitle, lbOptionsTitle, lbHour, lbMinute;
@@ -249,8 +249,9 @@ public class BookForm extends BorderPane {
 
         ////////////////////////////////////////////////////////////////////////////////////////////////
         dpDepartureDate = new DatePicker();
-        DatePicker checkInDatePicker = new DatePicker();
+        checkInDatePicker = new DatePicker();
         checkInDatePicker.setValue(LocalDate.now());
+
         final Callback<DatePicker, DateCell> dayCellFactory =
             new Callback<DatePicker, DateCell>() {
                 @Override
@@ -418,7 +419,11 @@ public class BookForm extends BorderPane {
 
             crpcManager.resetTripResults();
 
-            crpcManager.goMainMenu();
+            clearForm();
+
+            originA.setText("Coimbra, Portugal");
+            destinA.setText("Porto, Portugal");
+            checkInDatePicker.setValue(LocalDate.now());
         });
         btnMapUpdate.setOnAction(actionEvent -> {
 
