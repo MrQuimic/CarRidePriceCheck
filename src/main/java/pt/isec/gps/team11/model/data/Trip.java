@@ -41,6 +41,7 @@ public class Trip {
     }
 
     public Trip (boolean oneWay, String date, int extraWaitingTime,int numberOfLuggage, int numberOfPassengers, String departureTime, boolean highway) {
+        System.out.println("DATE " + date);
         this.id=++idGlobal;
         this.oneWay = oneWay;
         this.date = setStringToDate(date);
@@ -49,6 +50,7 @@ public class Trip {
         this.numberOfLuggage = numberOfLuggage;
         this.departureTime = setStringToTime(departureTime);
         this.highway = highway;
+
     }
 
     public Date setStringToTime(String time) {

@@ -115,8 +115,12 @@ public class ConfirmPane extends BorderPane {
 
 
         btnConfirm.setOnAction(actionEvent -> {
-            crpcManager.goChooseCAr();
-
+            crpcManager.confirmTrip();
+            crpcManager.goMainMenu();
+            Alert confirm = new Alert(Alert.AlertType.INFORMATION);
+            confirm.setTitle("Trip Status");
+            confirm.setContentText("Your Trip has been scheduled!\nThank you for your preference");
+            confirm.show();
         });
     }
 
@@ -124,8 +128,6 @@ public class ConfirmPane extends BorderPane {
     }
 
     private void update() {
-
-
         if (crpcManager.getState() == States.CONFIRM_BOOKING) {
             configAdapter();
 

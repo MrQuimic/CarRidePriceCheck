@@ -138,4 +138,12 @@ class FilesTest {
         Assertions.assertFalse(result,"message");
     }
 
+    @Test
+    void tripTest(){
+        manager.setTripOrigin("Coimbra");
+        manager.setTripDestination("Porto");
+        manager.saveCar(supposedCars.get("39-AT-39"));
+    }
+
+
 }

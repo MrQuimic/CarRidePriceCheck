@@ -2,11 +2,10 @@ package pt.isec.gps.team11.model.data;
 
 import pt.isec.gps.team11.utils.Files;
 
+import java.io.*;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class Data {
     public final String USERNAME = "admin@gps";
@@ -164,5 +163,31 @@ public class Data {
         currentTrip.setOrigin(this.tripOrigin);
         currentTrip.setDestination(this.tripDestination);
         currentTrip.setCar(this.currentTripCar);
+
+        String[] date = currentTrip.getStringDate().split("/");
+        String[] time = currentTrip.getStringTime().split(":");
+
+        StringBuilder sb = new StringBuilder();
+        sb.append(currentTrip.getOrigin()).append(";").append(currentTrip.getDestination()).append(";")
+                .append(currentTrip.isOneWay()).append(";").append(date[2]).append(";")
+                .append(date[1]).append(";").append(date[0]).append(";").append(currentTrip.getExtraWaitingTime())
+                .append(";").append(currentTrip.getNumberOfPassengers())
+                .append(";").append(currentTrip.getNumberOfLuggage()).append(";").append(time[0])
+                .append(";").append(time[1]).append(";").append(currentTrip.isHighway()).append(";")
+                .append("---").append(";").append(currentTrip.getPrice()).append(";").append(currentTrip.getDistance())
+                .append(";").append(currentTrip.getCar().getLicensePlate()).append("\n");
+
+
+
+        try{
+            Path currentRelativePath = Paths.get("");
+            String filePath = currentRelativePath.toAbsolutePath() + "\\src\\main\\resources\\dbTrip";
+            File file = new File(filePath);
+            PrintWriter pw = new PrintWriter(new FileWriter(file, true));
+            pw.write(sb.toString());
+            pw.close();
+        }catch (IOException e){
+            e.printStackTrace();
+        }
     }
 }
