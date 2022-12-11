@@ -84,7 +84,7 @@ public class MainPagePane extends BorderPane {
         )));
 */
         Label lbOurServices = new Label("Our Services");
-        Label lbServiceDescription = new Label("    It is our privilege to be a part of the journy" +
+        Label lbServiceDescription = new Label("    It is our privilege to be a part of the journey" +
                 " and taling you where you need to be\n");
         //lbOurServices.setFont(new Font(30));
         //lbOurServices.set

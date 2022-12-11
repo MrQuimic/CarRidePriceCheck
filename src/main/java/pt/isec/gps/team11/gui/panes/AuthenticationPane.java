@@ -46,6 +46,13 @@ public class AuthenticationPane extends BorderPane {
     }
 
     private void update() {
+
+        if(crpcManager.isLogged()){
+            configAdapter();
+
+            this.setVisible(false);
+        }
+
         if (crpcManager.getMenuOpt() == MenuOpt.AUTHENTICATION) {
             configAdapter();
             this.setVisible(true);

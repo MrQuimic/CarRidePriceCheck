@@ -4,6 +4,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -14,9 +15,13 @@ import pt.isec.gps.team11.gui.panes.components.BookInfos;
 import pt.isec.gps.team11.gui.panes.components.MapDisplay;
 import pt.isec.gps.team11.gui.panes.components.MenuTop;
 import pt.isec.gps.team11.gui.panes.utils.CSSManager;
+import pt.isec.gps.team11.gui.panes.utils.ImageManager;
 import pt.isec.gps.team11.model.CRPCManager;
 import javafx.scene.layout.*;
+import pt.isec.gps.team11.model.data.Car;
 import pt.isec.gps.team11.model.fsm.States;
+
+import java.util.ArrayList;
 
 public class ConfirmPane extends BorderPane {
 
@@ -35,8 +40,9 @@ public class ConfirmPane extends BorderPane {
     MenuTop bp;
     TextArea lbInfo;
     MenuOpt menuOpt;
-
+    Button btnConfirm;
     MyBrowser myBrowser;
+
     public ConfirmPane(CRPCManager crpcManager, MyBrowser myBrowser){
         this.crpcManager = crpcManager;
         this.myBrowser = myBrowser;
@@ -56,9 +62,6 @@ public class ConfirmPane extends BorderPane {
         SplitPane splitPane = new SplitPane();
 
 
-
-
-
         BookInfos bookInfos = new BookInfos(crpcManager, myBrowser);
         HBox hBox = new HBox(bookInfos);
         hBox.setAlignment(Pos.CENTER_LEFT);
@@ -70,23 +73,28 @@ public class ConfirmPane extends BorderPane {
         lbInfoLabel.setFont(font);
         lbInfoLabel.setAlignment(Pos.CENTER);
         lbInfo = new TextArea();
-        lbInfo.setPrefColumnCount(7);
-        lbInfo.setPrefRowCount(2);
+        lbInfo.setMaxWidth(600);
+        lbInfo.setMaxHeight(50);
 
         MapDisplay mapDisplay = new MapDisplay(crpcManager, myBrowser);
-        HBox hBoxMap = new HBox(mapDisplay, lbInfoLabel, lbInfo);
+        btnConfirm = new Button("Confirm");
+        btnConfirm.setId("mbtnSubmit");
+
+
+        VBox vBoxMap = new VBox(lbInfoLabel, lbInfo, btnConfirm, mapDisplay);
         hBox.setAlignment(Pos.CENTER_LEFT);
         hBox.setSpacing(50);
+        vBoxMap.setSpacing(20);
 
-
+//admin@gps
 
         hBox.setAlignment(Pos.CENTER_LEFT);
-        hBoxMap.setAlignment(Pos.CENTER_LEFT);
+        vBoxMap.setAlignment(Pos.CENTER_LEFT);
 
-        splitPane.getItems().addAll(hBox, hBoxMap);
-        splitPane.setDividerPositions(0.45f, 0.55f); //Important for zoom
+        splitPane.getItems().addAll(hBox, vBoxMap);
+        splitPane.setDividerPositions(0.40f, 0.55f); //Important for zoom
         splitPane.getDividers().get(0).positionProperty().addListener((observable,oldValue,newValue) -> {
-            splitPane.setDividerPositions(0.45f, 0.55f);
+            splitPane.setDividerPositions(0.40f, 0.55f);
         });
 
         splitPane.setId("splitPaneContent");
@@ -104,12 +112,19 @@ public class ConfirmPane extends BorderPane {
         crpcManager.addPropertyChangeListener(evt -> {
             update();
         });
+
+
+        btnConfirm.setOnAction(actionEvent -> {
+            crpcManager.goChooseCAr();
+
+        });
     }
 
     private void configAdapter() {
     }
 
     private void update() {
+
 
         if (crpcManager.getState() == States.CONFIRM_BOOKING) {
             configAdapter();
