@@ -19,11 +19,11 @@ public class Trip {
     private Date departureTime;
     private boolean highway;
     private String arrival;
-    private int price;
+    private double price;
     private int distance;
     private Car car;
 
-    public Trip(String origin, String destination, boolean oneway, Date date, int extraWaitingTime, int numberOfPassengers, int numberOfLuggage, Date departureTime, boolean highway, String arrival, int price,int distance,Car car) {
+    public Trip(String origin, String destination, boolean oneway, Date date, int extraWaitingTime, int numberOfPassengers, int numberOfLuggage, Date departureTime, boolean highway, String arrival, double price,int distance,Car car) {
         this.id=++idGlobal;
         this.origin = origin;
         this.destination = destination;
@@ -165,7 +165,7 @@ public class Trip {
         this.arrival = arrival;
     }
 
-    public int getPrice() {
+    public double getPrice() {
         return price;
     }
 

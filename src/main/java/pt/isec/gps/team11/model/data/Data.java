@@ -108,7 +108,7 @@ public class Data {
     }
 
     public void saveTripsResult(String result){
-        String[] s = result.split("\\|");
+        String[] s = result.split("\\| ");
         this.distanceOfTrip = s[0];
         this.timeOfTrip = s[1];
         this.costOfTrip = s[2];
@@ -167,6 +167,8 @@ public class Data {
 
         String[] date = currentTrip.getStringDate().split("/");
         String[] time = currentTrip.getStringTime().split(":");
+        String[] cost = this.costOfTrip.split(" ");
+        String[] distance = this.distanceOfTrip.split(" ");
 
         StringBuilder sb = new StringBuilder();
         sb.append(currentTrip.getOrigin()).append(";").append(currentTrip.getDestination()).append(";")
@@ -175,7 +177,7 @@ public class Data {
                 .append(";").append(currentTrip.getNumberOfPassengers())
                 .append(";").append(currentTrip.getNumberOfLuggage()).append(";").append(time[0])
                 .append(";").append(time[1]).append(";").append(currentTrip.isHighway()).append(";")
-                .append("---").append(";").append(currentTrip.getPrice()).append(";").append(currentTrip.getDistance())
+                .append("---").append(";").append(cost[0]).append(";").append(distance[0])
                 .append(";").append(currentTrip.getCar().getLicensePlate()).append("\n");
 
 
