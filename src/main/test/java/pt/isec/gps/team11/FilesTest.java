@@ -39,17 +39,14 @@ class FilesTest {
 
         supposedTrip = new HashMap<>();
 
-        ArrayList<Car> temp = new ArrayList<>();
-        temp.add(supposedCars.get("39-AT-39"));
-        supposedTrip.put(1,new Trip("Coimbra","Porto",true,new Date(2022,12,3),0,2,2,new Date(2022,12,3,12,30),true,"---",60,temp));
 
-        temp = new ArrayList<>();
-        temp.add(supposedCars.get("74-00-AC"));
-        supposedTrip.put(2,new Trip("Lisboa","Setubal",false,new Date(2022,12,15),0,4,2,new Date(2022,12,15,15,20),true,"---",45,temp));
 
-        temp = new ArrayList<>();
-        temp.add(supposedCars.get("45-XD-22"));
-        supposedTrip.put(3,new Trip("Algarve","Evora",true,new Date(2023,1,23),0,1,2,new Date(2023,1,23,7,45),false,"---",50,temp));
+        supposedTrip.put(1,new Trip("Coimbra","Porto",true,new Date(2022,12,3),0,2,2,new Date(2022,12,3,12,30),true,"---",1,124,(supposedCars.get("39-AT-39"))));
+
+        supposedTrip.put(2,new Trip("Lisboa","Setubal",false,new Date(2022,12,15),0,4,2,new Date(2022,12,15,15,20),true,"---",45,48,supposedCars.get("74-00-AC")));
+
+
+        supposedTrip.put(3,new Trip("Algarve","Evora",true,new Date(2023,1,23),0,1,2,new Date(2023,1,23,7,45),false,"---",50,45,supposedCars.get("45-XD-22")));
         Trip.resetId();
 
         supposedCompanies= new HashMap<>();

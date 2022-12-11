@@ -32,6 +32,7 @@ public class Data {
         this.trips = new HashMap<>();
 
         getCarsFromFile();
+        getTripsFromFile();
     }
 
 
