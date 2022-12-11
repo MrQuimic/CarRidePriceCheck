@@ -32,7 +32,7 @@ public class BookInfos extends BorderPane {
     Label lbStartAdress,  tfExtraWaitTime, tfDepartureTime, lbEndAdress, lbDirections, lbExtraWaitTime, lbPassengers, lbSuitcases, lbDepartureDate, lbDepartureTime, lbTolls, lbAdressesTitle, lbOptionsTitle, lbInfoLabel;
     HBox hbPassengersSuitcases, hbDepartureDateAndImage, hbDepartureTimeAndImage, submitBtns;
     Button btnConfirm, btnReset;
-    Label cbDirections, cbPassengers, cbSuitcases, cbTolls;
+    Label cbDirections, cbPassengers, cbSuitcases, cbTolls, labelResultGoogle;
     DatePicker dpDepartureDate;
 
     Label originA, destinA;
@@ -56,7 +56,7 @@ public class BookInfos extends BorderPane {
     private void createViews() {
         CSSManager.applyCSS(this,"styles.css");
         Font font = Font.font("Verdana", FontWeight.BOLD, 16);
-        Font fontSmall = Font.font("Verdana", FontWeight.BOLD, 12);
+        Font fontSmall = Font.font("Verdana", FontWeight.BOLD, 10);
         //VBox of the Addresses and the Options
         originA = new Label();
         destinA = new Label();
@@ -89,6 +89,9 @@ public class BookInfos extends BorderPane {
         destinA.setId("destinA");
         originA.setMaxWidth(250);
         destinA.setMaxWidth(250);
+
+
+        String returnGoogleStr = "";
 
         Origin1.setPromptText("Origin1");
         Destin1.setPromptText("Destin1");
@@ -236,6 +239,8 @@ public class BookInfos extends BorderPane {
         submitBtns.setPadding(new Insets(10,0,0,40));
         submitBtns.setSpacing(10);
 
+        labelResultGoogle = new Label();
+
         lbInfoLabel = new Label("Trip Information");
         lbInfoLabel.setPadding(new Insets(20,0,5,0));
         lbInfoLabel.setFont(font);
@@ -246,7 +251,8 @@ public class BookInfos extends BorderPane {
         lbInfo.setPrefColumnCount(7);
         lbInfo.setPrefRowCount(2);
         vbAdressesAndOptions.setSpacing(10);
-        vbAdressesAndOptions.getChildren().addAll(vbAdressesWithTitle,vbOptionsWithTitle, lbInfoLabel, lbInfo,btnConfirm);
+        vbAdressesAndOptions.getChildren().addAll(vbAdressesWithTitle,vbOptionsWithTitle, labelResultGoogle, lbInfoLabel, lbInfo,btnConfirm);
+
 
 
         this.setTop(vbAdressesAndOptions);
@@ -269,13 +275,10 @@ public class BookInfos extends BorderPane {
     }
 
     private void registerHandlers() {
-        btnConfirm.setOnAction(evt -> {
-            crpcManager.confirmTrip();
-            crpcManager.goMainMenu();
-            Alert confirm = new Alert(Alert.AlertType.INFORMATION);
-            confirm.setTitle("Trip Booked");
-            confirm.setContentText("Your trip has been booked");
-            confirm.show();
+
+        btnConfirm.setOnAction(actionEvent -> {
+            crpcManager.goChooseCAr();
+
         });
 
         btnReset.setOnAction(actionEvent -> {
@@ -298,7 +301,10 @@ public class BookInfos extends BorderPane {
     private void update() {
         if (crpcManager.getState() == States.CONFIRM_BOOKING) {
             myBrowser.webEngine.load(myBrowser.urlGoogleMaps.toExternalForm() + "?origin="
-                    + crpcManager.getTripOrigin() + "&destin=" + crpcManager.getTripDestination() +"&style=" +"macDivSmaller"+ "&tolls" + cbTolls.getText());
+                    + crpcManager.getTripOrigin() + "&destin=" + crpcManager.getTripDestination() +"&style=" +"macDivSmaller" + "&tolls" + cbTolls.getText());
+
+            labelResultGoogle.setText("Price: " + crpcManager.getCostOfTrip() + "\nDuration: " +crpcManager.getTimeOfTrip() + "\nDistance : " + crpcManager.getDistanceOfTrip());
+            System.out.println("Results: " + crpcManager.getGoogleReturn());
         }
     }
 

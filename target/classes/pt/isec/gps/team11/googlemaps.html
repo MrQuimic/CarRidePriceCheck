@@ -7,6 +7,7 @@
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/distancematrix/json?destinations=Porto,Portugal&origins=Portimão,Portugal&units=imperial&key=AIzaSyDP1feUTnivFyTntFVr722y7SwOxsit7VQ"></script>
 
     <link rel="stylesheet" href="mystyle.css">
+
 </head>
 
 <body onload="initMap()">
@@ -24,9 +25,11 @@
     <div id="out"></div>
     <button onclick="geoFindMe()">Show my location</button>-->
 </div>
-<div id="dvDistance" style="display: none">
+<div id="dvDistance">
 </div>
-<div id="macDiv"> </div>
+
+
+<div id="macDiv"> results() </div>
 
 <script type="text/javascript">
     document.getElementById("locationField").style.display = "none";
@@ -109,7 +112,7 @@
 
     }
 
-function initMapjs(){
+    function initMapjs(){
         JSmap="on";
         initMap();
 
@@ -148,6 +151,15 @@ function initMapjs(){
 
 
         }
+        let tolls = params.get('tolls');
+
+        if(params.get('tolls')!=="true"){
+
+            tolls = params.get('tolls');
+
+        }else{
+            tolls = params.get('tolls');
+        }
 
         let directionsDisplay = new google.maps.DirectionsRenderer();
         let directionsService = new google.maps.DirectionsService();
@@ -167,20 +179,53 @@ function initMapjs(){
                 streetViewControl: false,
                 avoidHighways: false,
                 disableDefaultUI: false,
-                avoidTolls: false
+                avoidTolls: tolls
 
-            };
+            }, myOptions2 = {
+            origin: start,
+            center: pointA,
+            zoom: 15,
+            minZoom: 1,
+            mapTypeControl: false,
+            scaleControl: false,
+            scrollwheel: false,
+            disableDefaultUI: true,
+            panControl: false,
+            zoomControl: false,
+            travelMode: google.maps.DirectionsTravelMode.DRIVING,
+            mapTypeId: google.maps.MapTypeId.ROADMAP,
+            unitSystem: google.maps.UnitSystem.METRIC,
+            streetViewControl: false,
+            avoidHighways: false,
+            avoidTolls: tolls
+
+        };
+
+        map = new google.maps.Map(document.getElementById('macDiv'), myOptions);
+
+        if(params.get('style')!=="macDivSmaller"){
+
             map = new google.maps.Map(document.getElementById('macDiv'), myOptions);
-        directionsRenderer.setMap(map);
 
+        }else{
+
+
+            document.getElementById('macDiv').id = 'macDivSmaller';
+            map = new google.maps.Map(document.getElementById('macDivSmaller'), myOptions2);
+
+
+
+
+        }
+        directionsRenderer.setMap(map);
         directionsService = new google.maps.DirectionsService,
             directionsDisplay = new google.maps.DirectionsRenderer({
-                draggable: true,
+                draggable: false,
                 travelMode: google.maps.TravelMode.DRIVING,
                 map,
                 panel: document.getElementById("panel"),
             });
-      //  addYourLocationButton(map, myMarker);
+        //  addYourLocationButton(map, myMarker);
         google.maps.event.clearListeners(map);
         var myMarker = new google.maps.Marker({
             map: map,
@@ -209,7 +254,7 @@ function initMapjs(){
 
         }
         directionsService.route(request, function (response, status) {
-            if (status == google.maps.DirectionsStatus.OK) {
+            if (status === google.maps.DirectionsStatus.OK) {
                 directionsDisplay.setDirections(response);
             }
         });
@@ -238,15 +283,16 @@ function initMapjs(){
                 avoidHighways: false,
                 avoidTolls: false
             }, function (response, status) {
-                if (status == google.maps.DistanceMatrixStatus.OK && response.rows[0].elements[0].status != "ZERO_RESULTS") {
+                if (status === google.maps.DistanceMatrixStatus.OK && response.rows[0].elements[0].status !== "ZERO_RESULTS") {
                     var distance = response.rows[0].elements[0].distance.text;
                     var duration = response.rows[0].elements[0].duration.text;
                     var dvDistance = document.getElementById("dvDistance");
                     var dist = distance.slice(0, -3).replaceAll(',', '');
                     var price = dist * 1.5;
                     dvDistance.innerHTML = "";
-                    dvDistance.innerHTML += distance + "|";
-                    dvDistance.innerHTML += duration + "|";
+                    dvDistance.innerHTML += distance + " | ";
+                    dvDistance.innerHTML += duration + " | ";
+                    dvDistance.innerHTML += tolls + " | ";
                     dvDistance.innerHTML += price + " \u20AC";
 
                 } else {
@@ -342,7 +388,7 @@ function initMapjs(){
 
 
 
-   // var zoom = map.getZoom();
+    // var zoom = map.getZoom();
     //map.setZoom(zoom+1);
     //map.setZoom(zoom);
 

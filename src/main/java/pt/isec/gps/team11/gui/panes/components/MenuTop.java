@@ -199,8 +199,8 @@ public class MenuTop extends BorderPane {
         });
 
         btnsMenu[5].setOnAction(actionEvent -> {
-            manager.goListTrips();
-
+            manager.setMenuOpt(MenuOpt.BOOKINGLIST);
+            manager.goIdle();
         });
 
         logout.setOnAction(actionEvent -> {

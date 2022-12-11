@@ -120,7 +120,9 @@ public class StatesContext {
     }
 
     public ArrayList<Trip> getTripsMap(){
-        return (ArrayList<Trip>) data.getTrips().values();
+
+        ArrayList<Trip> temp = new ArrayList<>(data.getTrips().values());
+        return temp;
     }
 
     public void saveCurrentCar(Car car){

@@ -247,22 +247,22 @@ public class BookForm extends BorderPane {
         DatePicker checkInDatePicker = new DatePicker();
         checkInDatePicker.setValue(LocalDate.now());
         final Callback<DatePicker, DateCell> dayCellFactory =
-                new Callback<DatePicker, DateCell>() {
-                    @Override
-                    public DateCell call(final DatePicker datePicker) {
-                        return new DateCell() {
-                            @Override
-                            public void updateItem(LocalDate item, boolean empty) {
-                                super.updateItem(item, empty);
+            new Callback<DatePicker, DateCell>() {
+                @Override
+                public DateCell call(final DatePicker datePicker) {
+                    return new DateCell() {
+                        @Override
+                        public void updateItem(LocalDate item, boolean empty) {
+                            super.updateItem(item, empty);
 
-                                if (item.isBefore(checkInDatePicker.getValue().plusDays(1))) {
-                                    setDisable(true);
-                                    setStyle("-fx-background-color: #ffc0cb;");
-                                }
+                            if (item.isBefore(checkInDatePicker.getValue().plusDays(1))) {
+                                setDisable(true);
+                                setStyle("-fx-background-color: #ffc0cb;");
                             }
-                        };
-                    }
-                };
+                        }
+                    };
+                }
+            };
         dpDepartureDate.setDayCellFactory(dayCellFactory);
         dpDepartureDate.setValue(checkInDatePicker.getValue().plusDays(1));
 
@@ -484,7 +484,7 @@ public class BookForm extends BorderPane {
             if(flag) {
                 crpcManager.book(directions,departureDate,extraWaitTime,nrSuitcases, nrPassengers,departureTime,tolls);
 
-                myBrowser.webEngine.load(myBrowser.urlGoogleMaps.toExternalForm() + "?origin=" + originA.getText() + "&destin=" + destinA.getText() +"&style=" + "" + "&tolls=" + cbTolls.getValue());
+                myBrowser.webEngine.load(myBrowser.urlGoogleMaps.toExternalForm() + "?origin=" + originA.getText() + "&destin=" + destinA.getText() + "&tolls=" + cbTolls.getValue() +"&style=" + "");
                 //String returnValue = (String) webEngine.executeScript("getRectArea()");
                 myBrowser.webEngine.getLoadWorker().stateProperty().addListener(
                         new ChangeListener() {

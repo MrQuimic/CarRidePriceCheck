@@ -63,8 +63,8 @@ public class ChooseCarPane extends BorderPane {
     }
 
     private void createViews() {
-        Font timesNewRoman = Font.font("TimesRoman", FontWeight.BOLD, 18);
-        Font timesNewRomanNormal = Font.font("TimesRoman", FontWeight.NORMAL, 18);
+        Font timesNewRoman = Font.font("TimesRoman", FontWeight.BOLD, 16);
+        Font timesNewRomanNormal = Font.font("TimesRoman", FontWeight.NORMAL, 14);
         Label chooseCarLabel = new Label("Choose the car you desire");
         chooseCarLabel.setFont(timesNewRoman);
         chooseCarLabel.setTextFill(Color.BLACK);

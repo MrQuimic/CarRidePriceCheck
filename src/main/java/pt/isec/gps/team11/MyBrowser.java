@@ -83,7 +83,7 @@ public class MyBrowser extends Region {
             }
         });
 
-        VBox vboxAll = new VBox( webView);
+        VBox vboxAll = new VBox(webView);
         getChildren().addAll(vboxAll);
 
 

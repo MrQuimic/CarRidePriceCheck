@@ -56,7 +56,6 @@ public class Data {
         Path currentRelativePath = Paths.get("");
         String filePath = currentRelativePath.toAbsolutePath().toString()
                     + "\\src\\main\\resources\\dbCar";
-
         cars = Files.dbReadCars(filePath);
     }
 

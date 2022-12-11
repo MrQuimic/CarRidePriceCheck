@@ -38,6 +38,31 @@ body{
 }
 
 
+#macDivSmaller {
+    margin-top: 10px;
+    padding: 0px;
+    text-align: center;
+    width:60%;
+    height:290px;
+    background-color: #8a8a8a;
+
+    border-width: 5px 5px 5px 5px;
+    border-color: #2a2d34;
+}
+
+
+#macDiv2 {
+    margin-top: 10px;
+    padding: 0px;
+    text-align: center;
+    width:80%;
+    height:390px;
+    background-color: #8a8a8a;
+
+    border-width: 5px 5px 5px 5px;
+    border-color: #2a2d34;
+}
+
 #submit{
 
     background-color: rgba(120, 168, 194, 0.75);
