@@ -152,25 +152,32 @@ public class Files{
             try {
 
                 //check if have all the needed arguments
-                if(tempList.size() != 19)
+                if(tempList.size() != 17)
                     throw new Exception("Abnormal line in DB");
 
 
                 //getting all the cars associated to the trip
-                for(int i = 18; i < tempList.size();i++)
+                for(int i = 16; i < tempList.size();i++)
                     tripCar = availableCars.get(tempList.get(i));
 
                 //add to the trip list
-                tripList.put(Trip.getNextId(),new Trip(tempList.get(0),tempList.get(1),Boolean.getBoolean(tempList.get(2)), new Date( Integer.parseInt(tempList.get(3)) ,Integer.parseInt(tempList.get(4)) ,Integer.parseInt(tempList.get(5)) ),Integer.parseInt(tempList.get(6)),
-                        Integer.parseInt(tempList.get(7)),Integer.parseInt(tempList.get(8)) ,new Date( Integer.parseInt(tempList.get(9)) ,Integer.parseInt(tempList.get(10)) ,Integer.parseInt(tempList.get(11)),Integer.parseInt(tempList.get(12)),Integer.parseInt(tempList.get(13)) ),Boolean.getBoolean(tempList.get(14)),tempList.get(15),
-                        Integer.parseInt(tempList.get(16)),Integer.parseInt(tempList.get(17)),tripCar));
-                System.out.println("Lido: "+tripList.toString());
+                Calendar tempCalendar1 = GregorianCalendar.getInstance();
+                tempCalendar1.set(Calendar.YEAR,Integer.parseInt(tempList.get(3)));
+                tempCalendar1.set(Calendar.MONTH,Integer.parseInt(tempList.get(4)));
+                tempCalendar1.set(Calendar.DAY_OF_MONTH,Integer.parseInt(tempList.get(5)));
 
+                Calendar tempCalendar2 = GregorianCalendar.getInstance();
+                tempCalendar2.set(Calendar.YEAR,Integer.parseInt(tempList.get(9)));
+                tempCalendar2.set(Calendar.MONTH,Integer.parseInt(tempList.get(10)));
+                tempCalendar2.set(Calendar.DAY_OF_MONTH,Integer.parseInt(tempList.get(11)));
+
+                tripList.put(Trip.getNextId(),new Trip(tempList.get(0),tempList.get(1),Boolean.getBoolean(tempList.get(2)), tempCalendar1.getTime(),Integer.parseInt(tempList.get(6)),
+                        Integer.parseInt(tempList.get(7)),Integer.parseInt(tempList.get(8)) , tempCalendar2.getTime() ,Boolean.getBoolean(tempList.get(12)),tempList.get(13),
+                        Integer.parseInt(tempList.get(14)),Integer.parseInt(tempList.get(15)),tripCar));
             }catch (Exception e){
-               // System.err.println("Line: " + tempList + " with error");
+                System.err.println("Line: " + tempList + " with error"  + e);
             }
         }
-
         return tripList;
     }
 
