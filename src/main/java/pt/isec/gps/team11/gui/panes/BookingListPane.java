@@ -21,16 +21,16 @@ public class BookingListPane extends BorderPane {
     CRPCManager crpcManager;
     private ArrayList<Trip> trips;
     private HBox[] tripsInfos;
-    private VBox vbFirst;
-
+    private VBox vbFirst, vbox1, vbox2, vbox3;
     public BookingListPane(CRPCManager crpcManager){
         this.crpcManager = crpcManager;
-        createViews();
+     createViews();
         registerHandlers();
         update();
     }
 
     private void createViews() {
+
 
         this.trips = crpcManager.getTripsMap();
         this.tripsInfos = new HBox[trips.size()];
@@ -39,14 +39,31 @@ public class BookingListPane extends BorderPane {
         lbOurServices.setStyle("-fx-text-fill: rgba(35,34,34,0.51); -fx-font-size: 20px; -fx-font-weight: 700");
         vbFirst = new VBox(new Separator(), lbOurServices, new Separator());
 
+        createLists();
+
+
+        this.setTop(vbFirst);
+    }
+
+    private void registerHandlers() {
+        crpcManager.addPropertyChangeListener(evt -> {
+            update();
+        });
+    }
+
+    private void configAdapter() {
+    }
+
+    private void createLists(){
+
         for(int i=0; i<trips.size(); i++){
             tripsInfos[i] = new HBox();
-            VBox vbox1 = new VBox();
-            VBox vbox2 = new VBox();
-            VBox vbox3 = new VBox();
+            vbox1 = new VBox();
+            vbox2 = new VBox();
+            vbox3 = new VBox();
             Trip currentTrip = trips.get(i);
 
-            /*                                      vbox1                                                       */
+            /* vbox1                                                       */
             Label car = new Label();
             car.setText("Car: "+ currentTrip.getCar().getBrand() + " " + currentTrip.getCar().getModel());
             Label licensePlate = new Label();
@@ -83,26 +100,23 @@ public class BookingListPane extends BorderPane {
 
         }
 
-        this.setTop(vbFirst);
     }
-
-    private void registerHandlers() {
-        crpcManager.addPropertyChangeListener(evt -> {
-            update();
-        });
-    }
-
-    private void configAdapter() {
-    }
-
-
     private void update() {
 
         if (crpcManager.getMenuOpt() == MenuOpt.BOOKINGLIST) {
+            this.trips = crpcManager.getTripsMap();
+
+            this.tripsInfos = new HBox[trips.size()];
+            vbFirst.getChildren().clear();
+
+            createLists();
+
             configAdapter();
             this.setVisible(true);
         }else{
             this.setVisible(false);
         }
     }
+
+
 }

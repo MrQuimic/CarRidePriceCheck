@@ -55,7 +55,7 @@ public class ConfirmPane extends BorderPane {
     private void createViews() {
         CSSManager.applyCSS(this,"styles.css");
         Font font = Font.font("Verdana", FontWeight.BOLD, 16);
-        Font fontSmall = Font.font("Verdana", FontWeight.BOLD, 10);
+        Font fontSmall = Font.font("Verdana", FontWeight.BOLD, 14);
         VBox vBox= new VBox();
         VBox vBox2= new VBox();
         submitBtns= new HBox();

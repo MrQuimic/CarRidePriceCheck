@@ -39,8 +39,14 @@ public class LoginForm extends BorderPane {
 
             if(crpcManager.confirmLogin(emailAux, passwordAux)) {
                 crpcManager.setLogin(emailAux);
-                if(crpcManager.getState() != States.CHOOSE_CAR)
+
+                if(crpcManager.getPreviousState()==States.IDLE){
+                    crpcManager.goMainMenu();
+
+                }else{
                     crpcManager.goToPreviousState();
+                }
+
             }
             else{
                 loginAlert.show();
@@ -78,6 +84,7 @@ public class LoginForm extends BorderPane {
     }
 
     private void update(){
+
         this.setVisible(!crpcManager.isLogged());
     }
 }

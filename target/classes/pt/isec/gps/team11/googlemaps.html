@@ -57,8 +57,8 @@
 
     const params = new URLSearchParams(window.location.search)
 
-    let start, end, JSmap;
-
+    let start, end, JSmap, reloadAction, resumeinfo;
+    reloadAction = false;
 
     function initialize() {
         autocomplete = new google.maps.places.Autocomplete(
@@ -123,21 +123,33 @@
     function initMap() {
         //download('the content of the file', 'filename.txt', 'text/plain');
         //Cria opções ou um conjunto de recursos no Google Map
-        let resumeinfo;
+        if(reloadAction === true){
+
+                start = new google.maps.LatLng(40.192866977423314, -8.411561405441944); //ISEC
+                end = "";
+                JSmap = "off";
+                resumeinfo = "off";
+                var dvDistance = document.getElementById("dvDistance");
+                dvDistance.innerHTML = "";
+                document.getElementById("autocomplete").value = "";
+                document.getElementById("autocomplete2").value = "";
+
+        }else{
         if(!params.has("origin") && JSmap !== "on"){
             initialize();
             start = new google.maps.LatLng(40.192866977423314, -8.411561405441944); //ISEC
             //end = new google.maps.LatLng(40.192866977423314, -8.411561405441944); //ISEC
             resumeinfo="off";
-        }else if(JSmap !== "on"){
+        }else if(JSmap !== "on") {
             initialize();
             start = params.get('origin');
             end = params.get('destin');
-            resumeinfo="on";
+            resumeinfo = "on";
+
         }else{
             start = document.getElementById("autocomplete").value;
             end = document.getElementById("autocomplete2").value;
-            resumeinfo="on";
+            resumeinfo="off";
             if(start==="" || end===""){
                 start = new google.maps.LatLng(40.192866977423314, -8.411561405441944); //ISEC
                 end="";
@@ -150,6 +162,7 @@
             }
 
 
+        }
         }
         let tollsavoid;
 
@@ -268,7 +281,7 @@
             travelMode: google.maps.TravelMode.DRIVING
         };
         directionsService.route(request, function (response, status) {
-            if (status == google.maps.DirectionsStatus.OK) {
+            if (status === google.maps.DirectionsStatus.OK) {
                 directionsDisplay.setDirections(response);
             }
         });
@@ -327,8 +340,12 @@
 
 
                 } else {
+
                     alert("Unable to find the distance via road.");
+
                 }
+
+
             });
 
             // get route from A to B
@@ -360,6 +377,11 @@
                 directionsDisplay.setDirections(response);
             } else {
                 window.alert('Directions request failed due to ' + status);
+
+                    reloadAction=true;
+                    //location.reload();
+                    initMap();
+
             }
         });
 
