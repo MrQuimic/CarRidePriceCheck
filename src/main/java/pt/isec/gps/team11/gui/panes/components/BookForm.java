@@ -415,7 +415,15 @@ public class BookForm extends BorderPane {
             }
             departureDate = dpDepartureDate.getValue().toString();
 
-/*            if(cbHour.getValue() != null) {
+            if(cbHour.getValue() != null) {
+                hour = cbHour.getValue().toString();
+                if(cbMinute.getValue() != null) {
+                    minute = cbMinute.getValue().toString();
+                    departureTime = hour + ":" + minute;
+                }
+            }
+/*
+            if(cbHour.getValue() != null) {
                  hour = cbHour.getValue().toString();
                  if(cbMinute.getValue() != null) {
                      minute = cbMinute.getValue().toString();
@@ -442,8 +450,8 @@ public class BookForm extends BorderPane {
                  }else
                      flag = false;
             }else
-                flag = false;*/
-
+                flag = false;
+*/
 
             if(cbDirections.getValue().equals("One Way")) {
                 directions = true;
