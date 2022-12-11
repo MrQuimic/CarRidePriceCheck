@@ -168,9 +168,11 @@ public class Files{
                 tempCalendar1.set(Calendar.DAY_OF_MONTH,Integer.parseInt(tempList.get(5)));
 
                 Calendar tempCalendar2 = GregorianCalendar.getInstance();
-                tempCalendar2.set(Calendar.YEAR,Integer.parseInt(tempList.get(9)));
-                tempCalendar2.set(Calendar.MONTH,Integer.parseInt(tempList.get(10)));
-                tempCalendar2.set(Calendar.DAY_OF_MONTH,Integer.parseInt(tempList.get(11)));
+                tempCalendar2.set(Calendar.HOUR,Integer.parseInt(tempList.get(9)));
+                tempCalendar2.set(Calendar.MINUTE,Integer.parseInt(tempList.get(10)));
+
+                for(int i=0; i<16; i++)
+                    System.out.println(tempList.get(i));
 
                 tripList.put(Trip.getNextId(),new Trip(tempList.get(0),tempList.get(1),Boolean.getBoolean(tempList.get(2)), tempCalendar1.getTime(),Integer.parseInt(tempList.get(6)),
                         Integer.parseInt(tempList.get(7)),Integer.parseInt(tempList.get(8)) , tempCalendar2.getTime() ,Boolean.getBoolean(tempList.get(12)),tempList.get(13),
