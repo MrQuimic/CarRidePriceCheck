@@ -30,6 +30,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class BookForm extends BorderPane {
     PropertyChangeSupport pcs;
@@ -439,6 +440,8 @@ public class BookForm extends BorderPane {
 
         originA.getEntryMenu().setOnAction((ActionEvent e) ->
         {
+            myBrowser.webEngine.load(myBrowser.urlGoogleMaps.toExternalForm() + "?origin=" + originA.getText() + "&destin=" + destinA.getText() +"&style=" +"A" + "&tolls=" + cbTolls.getValue() + "&returnTrip=" + cbDirections.getValue());
+
             ((MenuItem) e.getTarget()).addEventHandler(Event.ANY, (Event event) ->
             {
                 if (originA.getLastSelectedObject() != null)
@@ -466,6 +469,8 @@ public class BookForm extends BorderPane {
 
         destinA.getEntryMenu().setOnAction((ActionEvent e) ->
         {
+            myBrowser.webEngine.load(myBrowser.urlGoogleMaps.toExternalForm() + "?origin=" + originA.getText() + "&destin=" + destinA.getText() +"&style=" +"A" + "&tolls=" + cbTolls.getValue() + "&returnTrip=" + cbDirections.getValue());
+
             ((MenuItem) e.getTarget()).addEventHandler(Event.ANY, (Event event) ->
             {
                 if (destinA.getLastSelectedObject() != null)
@@ -489,6 +494,16 @@ public class BookForm extends BorderPane {
                     }
                 }
             });
+        });
+
+
+        cbDirections.setOnAction(actionEvent -> {
+            myBrowser.webEngine.load(myBrowser.urlGoogleMaps.toExternalForm() + "?origin=" + originA.getText() + "&destin=" + destinA.getText() +"&style=" +"A" + "&tolls=" + cbTolls.getValue() + "&returnTrip=" + cbDirections.getValue());
+
+        });
+        cbTolls.setOnAction(actionEvent -> {
+            myBrowser.webEngine.load(myBrowser.urlGoogleMaps.toExternalForm() + "?origin=" + originA.getText() + "&destin=" + destinA.getText() +"&style=" +"A" + "&tolls=" + cbTolls.getValue() + "&returnTrip=" + cbDirections.getValue());
+
         });
 
         crpcManager.addPropertyChangeListener(evt -> {

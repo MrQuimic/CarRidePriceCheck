@@ -84,7 +84,7 @@ public class BookingListPane extends BorderPane {
             vbox2.getChildren().addAll(startAddress, endAddress, departureTime, waitingTime);
             /*                                      vbox3                                                       */
             Label kilometers = new Label();
-            kilometers.setText("kilometers: " + currentTrip.getDistance());
+            kilometers.setText("Kilometers: " + currentTrip.getDistance());
             Label price = new Label();
             price.setText("Price: " + currentTrip.getPrice());
             Label passengers = new Label();

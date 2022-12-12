@@ -170,9 +170,6 @@ public class Files{
                 tempCalendar2.set(Calendar.HOUR,Integer.parseInt(tempList.get(9)));
                 tempCalendar2.set(Calendar.MINUTE,Integer.parseInt(tempList.get(10)));
 
-                for(int i=0; i<16; i++)
-                    System.out.println(tempList.get(i));
-
                 tripList.put(Trip.getNextId(),new Trip(tempList.get(0),tempList.get(1),Boolean.getBoolean(tempList.get(2)), tempCalendar1.getTime(),Integer.parseInt(tempList.get(6)),
                         Integer.parseInt(tempList.get(7)),Integer.parseInt(tempList.get(8)) , tempCalendar2.getTime() ,Boolean.getBoolean(tempList.get(11)),tempList.get(12),
                         Double.parseDouble(tempList.get(13)),Integer.parseInt(tempList.get(14)),tripCar));
