@@ -86,7 +86,7 @@ public class BookingListPane extends BorderPane {
             Label kilometers = new Label();
             kilometers.setText("kilometers: " + currentTrip.getDistance());
             Label price = new Label();
-            endAddress.setText("Price: " + currentTrip.getPrice());
+            price.setText("Price: " + currentTrip.getPrice());
             Label passengers = new Label();
             passengers.setText("Passengers: " + currentTrip.getNumberOfPassengers() );
             Label suitcases = new Label();
