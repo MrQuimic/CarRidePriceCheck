@@ -251,7 +251,8 @@ public class BookForm extends BorderPane {
         dpDepartureDate = new DatePicker();
         checkInDatePicker = new DatePicker();
         checkInDatePicker.setValue(LocalDate.now());
-
+        dpDepartureDate.getEditor().setOpacity(1);
+        dpDepartureDate.getEditor().setDisable(true);
         final Callback<DatePicker, DateCell> dayCellFactory =
             new Callback<DatePicker, DateCell>() {
                 @Override
@@ -664,6 +665,15 @@ public class BookForm extends BorderPane {
 
     private void update() {
 
+    }
+
+    private void alert(String erro){
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("Alert");
+        alert.setHeaderText(null);
+        alert.setContentText(erro);
+        alert.show();
+        //clearForm();
     }
 
 

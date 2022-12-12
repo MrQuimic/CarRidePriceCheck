@@ -113,7 +113,6 @@ public class Data {
         this.timeOfTrip = s[1];
         this.costOfTrip = s[2];
     }
-
     public void saveCurrentTripCar(){
 
     }
