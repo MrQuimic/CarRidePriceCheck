@@ -57,6 +57,7 @@ public class MyBrowser extends Region {
 
     private void createViews() {
         tf_origin.getText();
+        assert urlGoogleMaps != null;
         webEngine.load(urlGoogleMaps.toExternalForm());
         webEngine.setJavaScriptEnabled(true);
 

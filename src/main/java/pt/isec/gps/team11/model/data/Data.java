@@ -109,9 +109,12 @@ public class Data {
 
     public void saveTripsResult(String result){
         String[] s = result.split("\\| ");
-        this.distanceOfTrip = s[0];
-        this.timeOfTrip = s[1];
-        this.costOfTrip = s[2];
+
+
+
+            this.distanceOfTrip = s[0];
+            this.timeOfTrip = s[1];
+            this.costOfTrip = s[2];
     }
     public void saveCurrentTripCar(){
 

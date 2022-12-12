@@ -433,9 +433,115 @@ public class BookForm extends BorderPane {
             myBrowser.webEngine.load(myBrowser.urlGoogleMaps.toExternalForm() + "?origin=" + originA.getText() + "&destin=" + destinA.getText() +"&style=" +"A" + "&tolls=" + cbTolls.getValue() + "&returnTrip=" + cbDirections.getValue());
 
         });
+
         btnSubmit.setOnAction(actionEvent -> {
-            updatemap();
-        });
+
+                    int extraWaitTime;
+                    String departureTime = null;
+                    String departureDate = null;
+                    boolean directions;
+                    int nrPassengers = 1;
+                    int nrSuitcases = 0;
+                    boolean tolls;
+                    boolean flag = true;
+                    String hour;
+                    String minute;
+
+                    if (tfExtraWaitTime.getText().isBlank()) {
+                        extraWaitTime = 0;
+                    } else {
+                        try {
+                            extraWaitTime = Integer.parseInt(tfExtraWaitTime.getText());
+                        } catch (Exception e) {
+                            alert("Insert a valid extra waiting minute!");
+                            tfExtraWaitTime.setText("0");
+                            return;
+                        }
+                    }
+
+                    if (dpDepartureDate.getValue() == null) {
+                        Alert alert = new Alert(Alert.AlertType.WARNING);
+                        alert.setTitle("Alert");
+                        alert.setHeaderText(null);
+                        alert.setContentText("The departure time is invalid");
+                        alert.showAndWait();
+                        flag = false;
+                        clearForm();
+                        return;
+                    }
+
+                    departureDate = dpDepartureDate.getValue().toString();
+
+                    if (cbHour.getValue() != null) {
+                        hour = cbHour.getValue().toString();
+                        if (cbMinute.getValue() != null) {
+                            minute = cbMinute.getValue().toString();
+                            departureTime = hour + ":" + minute;
+                        }
+                    }
+
+                    //return trip
+                    directions = cbDirections.getValue().equals("One Way");
+
+                    if (cbPassengers.getValue() != null) {
+                        String s = cbPassengers.getValue().toString();
+                        nrPassengers = Integer.parseInt(s);
+                    }
+
+                    if (cbSuitcases.getValue() != null) {
+                        String s = cbSuitcases.getValue().toString();
+                        nrSuitcases = Integer.parseInt(s);
+                    }
+
+                    AtomicBoolean exit = new AtomicBoolean(false);
+
+                    tolls = cbTolls.getValue().equals("Yes");
+
+                    crpcManager.book(directions, departureDate, extraWaitTime, nrSuitcases, nrPassengers, departureTime, tolls);
+
+                    myBrowser.webEngine.load(myBrowser.urlGoogleMaps.toExternalForm() + "?origin=" + originA.getText() + "&destin=" + destinA.getText() + "&style=" + "A" + "&tolls=" + cbTolls.getValue() + "&returnTrip=" + cbDirections.getValue());
+                    //String returnValue = (String) webEngine.executeScript("getRectArea()");
+
+                    myBrowser.webEngine.getLoadWorker().stateProperty().addListener(
+                            new ChangeListener() {
+                                @Override
+                                public void changed(ObservableValue observable, Object oldValue, Object newValue) {
+                                    if (newValue != Worker.State.SUCCEEDED) {
+                                        return;
+                                    }
+
+                                    String returnValue = (String) myBrowser.webEngine.executeScript("results()");
+
+
+                                    try {
+                                        crpcManager.saveTripResults(returnValue);
+
+                                        crpcManager.setTripOrigin(originA.getText());
+                                        crpcManager.setTripDestination(destinA.getText());
+
+                                        crpcManager.goChooseCAr();
+
+
+                                    } catch (ArrayIndexOutOfBoundsException e) {
+                                        myBrowser.webEngine.getLoadWorker().stateProperty().removeListener(this);
+                                        originA.setText("Coimbra, Portugal");
+                                        destinA.setText("Porto, Portugal");
+                                        alert("Set a valid origin/destination");
+
+                                        return;
+                                    }
+                                }
+                            }
+                    );
+
+
+
+                }
+
+        );
+
+
+
 
 
         originA.getEntryMenu().setOnAction((ActionEvent e) ->
@@ -519,164 +625,7 @@ public class BookForm extends BorderPane {
         cbTolls.setValue("Yes");
     }
 
-    private void updatemap(){
 
-        int extraWaitTime;
-        String departureTime = null;
-        String departureDate = null;
-        boolean directions;
-        int nrPassengers = 1;
-        int nrSuitcases = 0;
-        boolean tolls;
-        boolean flag = true;
-        String hour;
-        String minute;
-
-        if(tfExtraWaitTime.getText().isBlank()) {
-            extraWaitTime = 0;
-        } else {
-            extraWaitTime = Integer.parseInt(tfExtraWaitTime.getText());
-        }
-
-        if(dpDepartureDate.getValue() == null) {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Alert");
-            alert.setHeaderText(null);
-            alert.setContentText("The departure time is invalid");
-            alert.showAndWait();
-            flag = false;
-            clearForm();
-            return;
-        }
-
-        departureDate = dpDepartureDate.getValue().toString();
-
-        if(cbHour.getValue() != null) {
-            hour = cbHour.getValue().toString();
-            if(cbMinute.getValue() != null) {
-                minute = cbMinute.getValue().toString();
-                departureTime = hour + ":" + minute;
-            }
-        }
-
-        if(cbDirections.getValue().equals("One Way")) {
-            directions = true;
-        }else{
-            directions = false;//return trip
-        }
-        if(cbPassengers.getValue() != null) {
-            String s = cbPassengers.getValue().toString();
-            nrPassengers = Integer.parseInt(s);
-        }
-
-        if(cbSuitcases.getValue() != null) {
-            String s = cbSuitcases.getValue().toString();
-            nrSuitcases = Integer.parseInt(s);
-        }
-
-        if(cbTolls.getValue().equals("Yes"))
-            tolls = true;
-        else
-            tolls = false;
-
-        if(flag) {
-            crpcManager.book(directions,departureDate,extraWaitTime,nrSuitcases, nrPassengers,departureTime,tolls);
-
-            myBrowser.webEngine.load(myBrowser.urlGoogleMaps.toExternalForm() + "?origin=" + originA.getText() + "&destin=" + destinA.getText() +"&style=" +"A" + "&tolls=" + cbTolls.getValue() + "&returnTrip=" + cbDirections.getValue());
-            //String returnValue = (String) webEngine.executeScript("getRectArea()");
-            myBrowser.webEngine.getLoadWorker().stateProperty().addListener(
-                    new ChangeListener() {
-                        @Override
-                        public void changed(ObservableValue observable, Object oldValue, Object newValue) {
-                            if (newValue != Worker.State.SUCCEEDED) { return; }
-
-                            String returnValue = (String) myBrowser.webEngine.executeScript("results()");
-
-                            crpcManager.saveTripResults(returnValue);
-
-                            crpcManager.setTripOrigin(originA.getText());
-                            crpcManager.setTripDestination(destinA.getText());
-
-                            crpcManager.goChooseCAr();
-                        }
-                    }
-            );
-        }
-
-
-        originA.setOnAction(actionEvent -> {
-            myBrowser.webEngine.load(myBrowser.urlGoogleMaps.toExternalForm() + "?origin=" + originA.getText() + "&destin=" + destinA.getText() +"&style=" +"A" + "&tolls=" + cbTolls.getValue() + "&returnTrip=" + cbDirections.getValue());
-
-        });
-        destinA.setOnAction(actionEvent -> {
-            myBrowser.webEngine.load(myBrowser.urlGoogleMaps.toExternalForm() + "?origin=" + originA.getText() + "&destin=" + destinA.getText() +"&style=" +"A" + "&tolls=" + cbTolls.getValue() + "&returnTrip=" + cbDirections.getValue());
-
-        });
-
-
-        cbDirections.setOnAction(actionEvent -> {
-            myBrowser.webEngine.load(myBrowser.urlGoogleMaps.toExternalForm() + "?origin=" + originA.getText() + "&destin=" + destinA.getText() +"&style=" +"A" + "&tolls=" + cbTolls.getValue() + "&returnTrip=" + cbDirections.getValue());
-
-        });
-        cbTolls.setOnAction(actionEvent -> {
-            myBrowser.webEngine.load(myBrowser.urlGoogleMaps.toExternalForm() + "?origin=" + originA.getText() + "&destin=" + destinA.getText() +"&style=" +"A" + "&tolls=" + cbTolls.getValue() + "&returnTrip=" + cbDirections.getValue());
-
-        });
-        originA.getEntryMenu().setOnAction((ActionEvent e) ->
-        {
-            ((MenuItem) e.getTarget()).addEventHandler(Event.ANY, (Event event) ->
-            {
-                if (originA.getLastSelectedObject() != null)
-                {
-                    originA.setText(originA.getLastSelectedObject().toString());
-                    PlaceDetails place = AutoCompleteAddressField.getPlace((AutoCompleteAddressField.AddressPrediction) originA.getLastSelectedObject());
-                    if (place != null)
-                    {
-                        StringUtils StringUtils = null;
-                        Destin1.setText(
-                                StringUtils.join(
-                                        AutoCompleteAddressField.getComponentLongName(place.addressComponents, AddressComponentType.STREET_NUMBER),
-                                        " ",
-                                        AutoCompleteAddressField.getComponentLongName(place.addressComponents, AddressComponentType.ROUTE))
-                        );
-
-                    } else
-                    {
-                        Destin1.clear();
-
-                    }
-                }
-            });
-        });
-
-        destinA.getEntryMenu().setOnAction((ActionEvent e) ->
-        {
-            ((MenuItem) e.getTarget()).addEventHandler(Event.ANY, (Event event) ->
-            {
-                if (destinA.getLastSelectedObject() != null)
-                {
-                    destinA.setText(destinA.getLastSelectedObject().toString());
-                    PlaceDetails place = AutoCompleteAddressField.getPlace((AutoCompleteAddressField.AddressPrediction) destinA.getLastSelectedObject());
-                    if (place != null)
-                    {
-                        StringUtils StringUtils = null;
-                        Origin1.setText(
-                                StringUtils.join(
-                                        AutoCompleteAddressField.getComponentLongName(place.addressComponents, AddressComponentType.STREET_NUMBER),
-                                        " ",
-                                        AutoCompleteAddressField.getComponentLongName(place.addressComponents, AddressComponentType.ROUTE))
-                        );
-
-                    } else
-                    {
-                        Origin1.clear();
-
-                    }
-                }
-            });
-        });
-
-    }
 
     private void update() {
 
