@@ -24,9 +24,7 @@ import pt.isec.gps.team11.utils.AutoCompleteAddressField;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -42,7 +40,7 @@ public class BookForm extends BorderPane {
     Label lbStartAdress, lbEndAdress, lbDirections, lbExtraWaitTime, lbPassengers, lbSuitcases, lbDepartureDate, lbDepartureTime, lbTolls, lbAdressesTitle, lbOptionsTitle, lbHour, lbMinute;
     HBox hbPassengersSuitcases, hbDepartureDateAndImage, hbDepartureTimeHourMinutes, submitBtns, hDirectTolls;
     Button btnSubmit, btnReset, btnMapUpdate;
-    TextField tfExtraWaitTime, tfDepartureTime;
+    TextField tfExtraWaitTime;
     ChoiceBox cbDirections;
     ChoiceBox cbPassengers;
     ChoiceBox<String> cbSuitcases;
@@ -161,7 +159,7 @@ public class BookForm extends BorderPane {
         lbDirections.setPadding(new Insets(0,0,5,0));
         lbDirections.setFont(fontSmall);
         lbDirections.setAlignment(Pos.CENTER_LEFT);
-        cbDirections = new ChoiceBox();
+        cbDirections = new ChoiceBox<>();
         cbDirections.getItems().addAll("One Way", "Return");
         cbDirections.setValue("One Way");
 
@@ -443,7 +441,6 @@ public class BookForm extends BorderPane {
                     int nrPassengers = 1;
                     int nrSuitcases = 0;
                     boolean tolls;
-                    boolean flag = true;
                     String hour;
                     String minute;
 
@@ -465,7 +462,6 @@ public class BookForm extends BorderPane {
                         alert.setHeaderText(null);
                         alert.setContentText("The departure time is invalid");
                         alert.showAndWait();
-                        flag = false;
                         clearForm();
                         return;
                     }
