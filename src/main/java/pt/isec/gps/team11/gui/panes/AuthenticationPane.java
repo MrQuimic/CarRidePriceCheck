@@ -16,7 +16,7 @@ public class AuthenticationPane extends BorderPane {
     HBox hbox;
 
 
-    public AuthenticationPane(CRPCManager crpcManager){
+    public AuthenticationPane(CRPCManager crpcManager) {
         this.crpcManager = crpcManager;
         createViews();
         registerHandlers();
@@ -28,9 +28,9 @@ public class AuthenticationPane extends BorderPane {
         registrationForm = new RegistrationForm(crpcManager);
         hbox = new HBox(loginForm, registrationForm);
         hbox.setAlignment(Pos.BASELINE_CENTER);
-        hbox.setPadding(new Insets(30,0,0,0));
+        hbox.setPadding(new Insets(30, 0, 0, 0));
         hbox.setBorder(new Border(new BorderStroke(Color.BLACK,
-                BorderStrokeStyle.SOLID,CornerRadii.EMPTY,new BorderWidths(1))));
+                BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(1))));
         hbox.setStyle("-fx-background-color: rgba(73,69,69,0.08);-fx-font-family: 'Courrier New'; -fx-font-size: 16;");
         hbox.setSpacing(100);
         this.setCenter(hbox);
@@ -47,7 +47,7 @@ public class AuthenticationPane extends BorderPane {
 
     private void update() {
 
-        if(crpcManager.isLogged()){
+        if (crpcManager.isLogged()) {
             configAdapter();
             this.setVisible(false);
         }
@@ -55,7 +55,7 @@ public class AuthenticationPane extends BorderPane {
         if (crpcManager.getMenuOpt() == MenuOpt.AUTHENTICATION) {
             configAdapter();
             this.setVisible(true);
-        }else{
+        } else {
             this.setVisible(false);
         }
 

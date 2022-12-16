@@ -22,9 +22,10 @@ public class BookingListPane extends BorderPane {
     private ArrayList<Trip> trips;
     private HBox[] tripsInfos;
     private VBox vbFirst, vbox1, vbox2, vbox3;
-    public BookingListPane(CRPCManager crpcManager){
+
+    public BookingListPane(CRPCManager crpcManager) {
         this.crpcManager = crpcManager;
-     createViews();
+        createViews();
         registerHandlers();
         update();
     }
@@ -53,9 +54,9 @@ public class BookingListPane extends BorderPane {
     private void configAdapter() {
     }
 
-    private void createLists(){
+    private void createLists() {
 
-        for(int i=0; i<trips.size(); i++){
+        for (int i = 0; i < trips.size(); i++) {
             tripsInfos[i] = new HBox();
             vbox1 = new VBox();
             vbox2 = new VBox();
@@ -64,7 +65,7 @@ public class BookingListPane extends BorderPane {
 
             /* vbox1                                                       */
             Label car = new Label();
-            car.setText("Car: "+ currentTrip.getCar().getBrand() + " " + currentTrip.getCar().getModel());
+            car.setText("Car: " + currentTrip.getCar().getBrand() + " " + currentTrip.getCar().getModel());
             Label licensePlate = new Label();
             licensePlate.setText("License plate: " + currentTrip.getCar().getLicensePlate());
             Label directions = new Label();
@@ -87,19 +88,20 @@ public class BookingListPane extends BorderPane {
             Label price = new Label();
             price.setText("Price: " + currentTrip.getPrice());
             Label passengers = new Label();
-            passengers.setText("Passengers: " + currentTrip.getNumberOfPassengers() );
+            passengers.setText("Passengers: " + currentTrip.getNumberOfPassengers());
             Label suitcases = new Label();
             suitcases.setText("Suitcases: " + currentTrip.getNumberOfLuggage());
             vbox3.getChildren().addAll(kilometers, price, passengers, suitcases);
 
             tripsInfos[i].getChildren().addAll(vbox1, vbox2, vbox3);
             vbFirst.getChildren().add(tripsInfos[i]);
-            tripsInfos[i].setPadding(new Insets(20,0,0,30));
+            tripsInfos[i].setPadding(new Insets(20, 0, 0, 30));
             tripsInfos[i].setSpacing(20);
 
         }
 
     }
+
     private void update() {
 
         if (crpcManager.getMenuOpt() == MenuOpt.BOOKINGLIST) {
@@ -112,7 +114,7 @@ public class BookingListPane extends BorderPane {
 
             configAdapter();
             this.setVisible(true);
-        }else{
+        } else {
             this.setVisible(false);
         }
     }

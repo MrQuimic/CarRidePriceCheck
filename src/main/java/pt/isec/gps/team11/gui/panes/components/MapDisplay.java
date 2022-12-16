@@ -23,7 +23,7 @@ public class MapDisplay extends BorderPane {
     HBox submitBtns;
     MenuTop bp;
 
-    public MapDisplay(CRPCManager crpcManager, MyBrowser myBrowser){
+    public MapDisplay(CRPCManager crpcManager, MyBrowser myBrowser) {
         this.crpcManager = crpcManager;
         this.myBrowser = myBrowser;
 
@@ -33,7 +33,7 @@ public class MapDisplay extends BorderPane {
     }
 
     private void createViews() {
-        VBox vBox2= new VBox();
+        VBox vBox2 = new VBox();
 
         origin = new Label("Origin");
         destination = new Label("Destination");

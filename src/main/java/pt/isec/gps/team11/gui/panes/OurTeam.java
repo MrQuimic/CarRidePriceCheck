@@ -53,8 +53,7 @@ public class OurTeam extends BorderPane {
     private Label lbStatus2;
 
 
-
-    public OurTeam(CRPCManager crpcManager){
+    public OurTeam(CRPCManager crpcManager) {
         this.crpcManager = crpcManager;
         createViews();
         registerHandlers();
@@ -69,7 +68,7 @@ public class OurTeam extends BorderPane {
         lbStatus2.setPrefWidth(Integer.MAX_VALUE);
 
         lbStatus2.setBorder(new Border(new BorderStroke(Color.BLACK,
-                BorderStrokeStyle.SOLID,CornerRadii.EMPTY,new BorderWidths(1))));
+                BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(1))));
 
         lbStatus2.setStyle("-fx-background-color: rgba(73,69,69,0.08);-fx-font-family: 'Courrier New'; -fx-font-size: 16;");
 
@@ -88,19 +87,16 @@ public class OurTeam extends BorderPane {
     private void update() {
 
 
-
-        if(crpcManager.getMenuOpt()==MenuOpt.OURTEAM) {
+        if (crpcManager.getMenuOpt() == MenuOpt.OURTEAM) {
             this.setVisible(true);
             //SoundManager.play("637996__davejf__melody-loop-110-bpm.mp3");
 
-        }else{
+        } else {
             this.setVisible(false);
 
             //crpcManager.play(" ");
 
         }
-
-
 
 
         lbStatus2.setText(String.format("" +
@@ -109,14 +105,13 @@ public class OurTeam extends BorderPane {
                 " Hugo Ferreira  {Email: a2020128305@isec.pt}\n" +
                 " Leonardo Sousa {Email: a2019129243@isec.pt }\n" +
                 " Luís Cruz  {Email: a2020142846@isec.pt}\n" +
-                " Rafael Gil {Email: a2020136741@isec.pt}\n\n"+
-                "\n ⚑ Application Car Ride Price Check\n"+
+                " Rafael Gil {Email: a2020136741@isec.pt}\n\n" +
+                "\n ⚑ Application Car Ride Price Check\n" +
                 " ⌛ Date 2022/11/27\n\n" +
                 " ⚑ This pratical assignment was carried out in an academic context \nfor the subject of GPS at ISEC!"));
 
 
     }
-
 
 
 }

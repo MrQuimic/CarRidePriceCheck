@@ -28,7 +28,7 @@ public class MenuTop extends BorderPane {
 
     Button[] btnsMenu;
     Button logout, logUser;
-    private HBox hBox, hBoxLogo,hBoxMenuTop, hBoxTextTop, hBoxAuth, hBoxMenuT;
+    private HBox hBox, hBoxLogo, hBoxMenuTop, hBoxTextTop, hBoxAuth, hBoxMenuT;
     VBox vBox;
     Text tMainMenu, usernameDisplay;
     MenuOpt menuOpt;
@@ -37,7 +37,7 @@ public class MenuTop extends BorderPane {
 
     String username;
 
-    public MenuTop(CRPCManager manager, String username){
+    public MenuTop(CRPCManager manager, String username) {
         this.manager = manager;
         //this.username = username;
         pcs = new PropertyChangeSupport(this);
@@ -59,7 +59,7 @@ public class MenuTop extends BorderPane {
         hBoxTextTop.setId("hBoxTextTop");
         hBoxMenuTop = new HBox();
         hBoxMenuTop.setId("hBoxMenuTop");
-        hBoxAuth= new HBox();
+        hBoxAuth = new HBox();
         hBoxAuth.setId("hBoxMenuTop");
         btnsMenu = new Button[5];
 
@@ -70,28 +70,27 @@ public class MenuTop extends BorderPane {
         btnsMenu[4] = new Button(String.format("\uD83D\uDCCB Orders"));
 
 
-
         logout = new Button(String.format("Logout"));
         logout.setId("logoutbtn");
         logout.setVisible(false);
 
-        logout.setPrefSize(80,40);
+        logout.setPrefSize(80, 40);
         logUser = new Button("");
         logUser.setId("logUserbtn");
         logUser.setVisible(false);
-        logUser.setPrefSize(95,40);
+        logUser.setPrefSize(95, 40);
 
         btnsMenu[4].setVisible(logUser.getText().equals("admin@gps"));
 
-        for(int i = 0; i < 5; i++){
-            btnsMenu[i].setPrefSize(100,40);
+        for (int i = 0; i < 5; i++) {
+            btnsMenu[i].setPrefSize(100, 40);
             btnsMenu[i].setId("MenuUIBtn");
             // btns[i].setStyle("");
         }
 
         //style lighting blue
 
-        Lighting lightingBlue = new Lighting(new Light.Distant(45, 90, Color.rgb(51,102,153)));
+        Lighting lightingBlue = new Lighting(new Light.Distant(45, 90, Color.rgb(51, 102, 153)));
         ColorAdjust brightBlue = new ColorAdjust(1, 1, 1, 1);
         lightingBlue.setContentInput(brightBlue);
         lightingBlue.setSurfaceScale(0);
@@ -99,14 +98,14 @@ public class MenuTop extends BorderPane {
 
         //style lighting Black
 
-        Lighting lightingBlack = new Lighting(new Light.Distant(45, 90, Color.rgb(0,0,0)));
+        Lighting lightingBlack = new Lighting(new Light.Distant(45, 90, Color.rgb(0, 0, 0)));
         ColorAdjust brightBlack = new ColorAdjust(1, 1, 1, 1);
         lightingBlack.setContentInput(brightBlack);
         lightingBlack.setSurfaceScale(0);
 
         //style lighting gray
 
-        Lighting lightingGray = new Lighting(new Light.Distant(45, 90, Color.rgb(99,115,121)));
+        Lighting lightingGray = new Lighting(new Light.Distant(45, 90, Color.rgb(99, 115, 121)));
         ColorAdjust brightGray = new ColorAdjust(1, 1, 1, 1);
         lightingGray.setContentInput(brightGray);
         lightingGray.setSurfaceScale(0);
@@ -120,7 +119,6 @@ public class MenuTop extends BorderPane {
         imgView.setStyle("-fx-padding: 0 0 0 10;");
 
 
-
         Image authIconimg = ImageManager.getImage("icons\\icon_user.png");
 
         //png use of images
@@ -130,7 +128,6 @@ public class MenuTop extends BorderPane {
         authIcon.setPreserveRatio(true);
 
         hBoxAuth.getChildren().addAll(authIcon, logout, logUser);
-
 
 
         tMainMenu = new Text();
@@ -143,7 +140,7 @@ public class MenuTop extends BorderPane {
         hBoxLogo.getChildren().addAll(imgView);
         hBoxLogo.setSpacing(5.0);
         //hBoxLogo.setPadding(new Insets(0,0,0,30));
-        hBoxLogo.setPadding(new Insets(0,0,0,0));
+        hBoxLogo.setPadding(new Insets(0, 0, 0, 0));
 
         AnchorPane anchorPane = new AnchorPane();
         // List should stretch as anchorPane is resized
@@ -164,7 +161,7 @@ public class MenuTop extends BorderPane {
         splitPane.setDividerPositions(0.25f, 0.75f); //Important for zoom
 
 
-        splitPane.getDividers().get(0).positionProperty().addListener((observable,oldValue,newValue) -> {
+        splitPane.getDividers().get(0).positionProperty().addListener((observable, oldValue, newValue) -> {
             splitPane.setDividerPositions(0.25f, 0.75f);
         });
         splitPane.setId("splitPaneTop");
@@ -198,7 +195,6 @@ public class MenuTop extends BorderPane {
         });
 
 
-
         btnsMenu[4].setOnAction(actionEvent -> {
             manager.setMenuOpt(MenuOpt.BOOKINGLIST);
             manager.goIdle();
@@ -219,23 +215,22 @@ public class MenuTop extends BorderPane {
         });
     }
 
-    private void update(){
+    private void update() {
 
-        if(manager.isLogged()){
+        if (manager.isLogged()) {
             authIcon.setVisible(false);
             logout.setVisible(true);
             logUser.setVisible(true);
             logout.setText("Logout: \n");
-            logUser.setText(manager.getUsername()+" \n");
-            btnsMenu[4].setVisible(logUser.getText().equals("admin@gps"+" \n"));
-        }
-        else{
+            logUser.setText(manager.getUsername() + " \n");
+            btnsMenu[4].setVisible(logUser.getText().equals("admin@gps" + " \n"));
+        } else {
             authIcon.setVisible(true);
             logout.setVisible(false);
             logUser.setVisible(false);
             btnsMenu[4].setVisible(false);
         }
-        if(manager.getState() == States.MAIN_MENU) {
+        if (manager.getState() == States.MAIN_MENU) {
             btnsMenu[0].setOpacity(0.8);
             btnsMenu[1].setOpacity(1);
             btnsMenu[2].setOpacity(1);
@@ -249,9 +244,7 @@ public class MenuTop extends BorderPane {
             btnsMenu[3].setStyle("-fx-font-weight: 600");
             btnsMenu[4].setStyle("-fx-font-weight: 600");
             logout.setStyle("-fx-font-weight: 600");
-        }
-
-        else if(manager.getState() == States.BOOKING){
+        } else if (manager.getState() == States.BOOKING) {
             btnsMenu[0].setOpacity(1);
             btnsMenu[1].setOpacity(0.8);
             btnsMenu[2].setOpacity(1);
@@ -265,8 +258,7 @@ public class MenuTop extends BorderPane {
             btnsMenu[3].setStyle("-fx-font-weight: 600");
             btnsMenu[4].setStyle("-fx-font-weight: 600");
             logout.setStyle("-fx-font-weight: 600");
-        }
-        else if(manager.getMenuOpt()==MenuOpt.CONTACTS){
+        } else if (manager.getMenuOpt() == MenuOpt.CONTACTS) {
             btnsMenu[0].setOpacity(1);
             btnsMenu[1].setOpacity(1);
             btnsMenu[2].setOpacity(0.8);
@@ -280,9 +272,7 @@ public class MenuTop extends BorderPane {
             btnsMenu[3].setStyle("-fx-font-weight: 600");
             btnsMenu[4].setStyle("-fx-font-weight: 600");
             logout.setStyle("-fx-font-weight: 600");
-        }
-
-        else if(manager.getMenuOpt()==MenuOpt.ABOUTUS){
+        } else if (manager.getMenuOpt() == MenuOpt.ABOUTUS) {
             btnsMenu[0].setOpacity(1);
             btnsMenu[1].setOpacity(1);
             btnsMenu[2].setOpacity(1);
@@ -296,8 +286,7 @@ public class MenuTop extends BorderPane {
             btnsMenu[2].setStyle("-fx-font-weight: 600");
             btnsMenu[3].setStyle("-fx-font-weight: 700");
             logout.setStyle("-fx-font-weight: 600");
-        }
-        else if(manager.getMenuOpt()==MenuOpt.BOOKINGLIST){
+        } else if (manager.getMenuOpt() == MenuOpt.BOOKINGLIST) {
             btnsMenu[0].setOpacity(1);
             btnsMenu[1].setOpacity(1);
             btnsMenu[2].setOpacity(1);
@@ -311,8 +300,7 @@ public class MenuTop extends BorderPane {
             btnsMenu[2].setStyle("-fx-font-weight: 600");
             btnsMenu[3].setStyle("-fx-font-weight: 700");
             logout.setStyle("-fx-font-weight: 600");
-        }
-        else if(manager.getMenuOpt()==MenuOpt.LOGOUT){
+        } else if (manager.getMenuOpt() == MenuOpt.LOGOUT) {
             btnsMenu[0].setOpacity(1);
             btnsMenu[1].setOpacity(1);
             btnsMenu[2].setOpacity(1);

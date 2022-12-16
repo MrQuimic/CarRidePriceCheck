@@ -62,17 +62,16 @@ public class MainPagePane extends BorderPane {
     MenuOpt menuOpt;
 
 
-    public MainPagePane(CRPCManager crpcManager){
+    public MainPagePane(CRPCManager crpcManager) {
         this.crpcManager = crpcManager;
         this.menuOpt = menuOpt;
         createViews();
         registerHandler();
         update();
-
     }
 
     private void createViews() {
-        CSSManager.applyCSS(this,"mystyle.css");
+        CSSManager.applyCSS(this, "mystyle.css");
         vBox = new VBox();
 
 /*
@@ -92,7 +91,7 @@ public class MainPagePane extends BorderPane {
         lbServiceDescription.setStyle("-fx-text-fill: grey; -fx-font-size: 15px;");
 
         lbOurServices.setTextAlignment(TextAlignment.CENTER);
-        VBox vbFirst = new VBox(new Separator(), lbOurServices,lbServiceDescription, new Separator());
+        VBox vbFirst = new VBox(new Separator(), lbOurServices, lbServiceDescription, new Separator());
         vbFirst.setAlignment(Pos.CENTER);
 
         Image imgFirst = ImageManager.getImage("cars/Audi_A3.png");
@@ -120,7 +119,7 @@ public class MainPagePane extends BorderPane {
         img4.setPreserveRatio(true);
         img1.setStyle(cssBordering);
 
-        HBox hbSecond= new HBox(new Separator(), new Separator());
+        HBox hbSecond = new HBox(new Separator(), new Separator());
         hbSecond.getChildren().addAll(img1, img2, img3, img4);
         hbSecond.setSpacing(65);
 
@@ -129,13 +128,13 @@ public class MainPagePane extends BorderPane {
         VBox secondFrag = new VBox();
         HBox hbMiddleText = new HBox();
 
-        VBox [] hbInfo = new VBox[4];
-        Label [] lbTitles = new Label[4];
-        Label [] lbBodys = new Label[4];
+        VBox[] hbInfo = new VBox[4];
+        Label[] lbTitles = new Label[4];
+        Label[] lbBodys = new Label[4];
 
         lbTitles[0] = new Label("Rapid City Secure");
-        lbTitles[1] =  new Label("Rapid City Transfer");
-        lbTitles[2] =  new Label("Baggage Transport");
+        lbTitles[1] = new Label("Rapid City Transfer");
+        lbTitles[2] = new Label("Baggage Transport");
         lbTitles[3] = new Label("Privacy");
 
         lbBodys[0] = new Label("Driving in the city may be hard to navigate, let \nus help you" +
@@ -147,9 +146,9 @@ public class MainPagePane extends BorderPane {
         lbBodys[3] = new Label("Complete privacy, our clients will be always\n protected and can " +
                 "count on our full\n description");
 
-        for(int i = 0; i < hbInfo.length; i++){
+        for (int i = 0; i < hbInfo.length; i++) {
             hbInfo[i] = new VBox();
-            hbInfo[i].getChildren().addAll(lbTitles[i],lbBodys[i]);
+            hbInfo[i].getChildren().addAll(lbTitles[i], lbBodys[i]);
             hbInfo[i].setAlignment(Pos.CENTER);
             lbTitles[i].setStyle("-fx-font-size: 18px");
             lbBodys[i].setStyle("-fx-font-size: 12px");
@@ -162,7 +161,7 @@ public class MainPagePane extends BorderPane {
         btnBook = new Button("Book Now");
         btnBook.setStyle("-fx-background-color: #749f65;");
         btnBook.setFont(new Font(18));
-        btnBook.setPrefSize(120,40);
+        btnBook.setPrefSize(120, 40);
         secondFrag.getChildren().add(btnBook);
         secondFrag.setAlignment(Pos.CENTER);
         btnBook.setId("btnBook");
@@ -173,10 +172,10 @@ public class MainPagePane extends BorderPane {
         lbMiddleOne.setStyle("-fx-text-fill: grey; -fx-font-size: 21px;");
         lbMiddleSecond.setStyle("-fx-text-fill: grey; -fx-font-size: 21px;");
         hbMiddleText.setAlignment(Pos.CENTER);
-        hbMiddleText.getChildren().addAll(lbMiddleOne,lbMiddleSecond);
+        hbMiddleText.getChildren().addAll(lbMiddleOne, lbMiddleSecond);
 
         vBox.setSpacing(50);
-        vBox.getChildren().addAll(vbFirst, hbSecond,secondFrag,hbThird,hbMiddleText,hbFourth);
+        vBox.getChildren().addAll(vbFirst, hbSecond, secondFrag, hbThird, hbMiddleText, hbFourth);
         /*
         vBox.setBackground(new Background(new BackgroundImage(
                 Objects.requireNonNull(ImageManager.getImage("bg1.jpg")),
@@ -198,18 +197,20 @@ public class MainPagePane extends BorderPane {
             crpcManager.setMenuOpt(null);
         });
     }
+
     private void configAdapter() {
     }
+
     private void update() {
 
 
-            if (crpcManager.getState() == States.MAIN_MENU) {
+        if (crpcManager.getState() == States.MAIN_MENU) {
 
-                configAdapter();
-                this.setVisible(true);
-                return;
-            }else{
-                this.setVisible(false);
-            }
-}
+            configAdapter();
+            this.setVisible(true);
+            return;
+        } else {
+            this.setVisible(false);
+        }
+    }
 }

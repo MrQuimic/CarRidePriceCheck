@@ -15,7 +15,7 @@ public class ListTripsPane extends BorderPane {
     private CRPCManager crpcManager;
     private Button btnBooking;
 
-    public ListTripsPane(CRPCManager crpcManager){
+    public ListTripsPane(CRPCManager crpcManager) {
         this.crpcManager = crpcManager;
         createViews();
         registerHandlers();
@@ -31,7 +31,6 @@ public class ListTripsPane extends BorderPane {
         Image imgSecond = ImageManager.getImage("cars/Renault_Space.png");
         Image imgThird = ImageManager.getImage("cars/Seat_Ibiza.png");
         Image imgFourth = ImageManager.getImage("cars/Tesla_Y.png");
-
 
 
     }

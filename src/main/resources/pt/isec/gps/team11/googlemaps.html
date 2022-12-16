@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html>
+<html lang="EN">
 <head>
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places&key=AIzaSyDP1feUTnivFyTntFVr722y7SwOxsit7VQ&units=metric"
             async="" defer="defer" type="text/javascript"></script>
@@ -9,6 +9,7 @@
             src="https://maps.googleapis.com/maps/api/distancematrix/json?destinations=Porto,Portugal&origins=Portimão,Portugal&units=imperial&key=AIzaSyDP1feUTnivFyTntFVr722y7SwOxsit7VQ"></script>
 
     <link rel="stylesheet" href="mystyle.css">
+    <title>Car Ride APP</title>
 
 </head>
 
@@ -189,7 +190,6 @@
                 mapTypeControl: false,
                 scaleControl: false,
                 scrollwheel: false,
-                disableDefaultUI: true,
                 panControl: false,
                 zoomControl: false,
                 draggable: false,
@@ -311,11 +311,11 @@
                     let duration3 = duration.split(" ")[2];
                     let dist = distance.slice(0, -3).replaceAll('', '');
                     let price;
-
+                    let distF2;
 
                     if (params.get('returnTrip') === "One Way") {
-
-                        price = dist * 1.5;
+                        distF2 = dist.replaceAll(',', '');
+                        price = distF2 * 1.5;
 
                     } else {
 

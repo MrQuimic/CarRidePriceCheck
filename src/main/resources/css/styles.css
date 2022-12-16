@@ -223,8 +223,6 @@
 #btnLogin{
     -fx-background-color: rgba(146, 154, 155, 0.75);
     -fx-border-color: rgb(183, 193, 220);
-
-
     -fx-text-fill: #2a2d34;
     -fx-background-radius: 10px 10px 10px 10px;
     -fx-border-width: 1px 1px 1px 1px;

@@ -12,7 +12,6 @@ module pt.isec.gps.team11 {
     requires com.almasb.fxgl.all;
     requires javafx.media;
     requires java.desktop;
-    //requires org.junit.jupiter.api;
     requires google.maps.services;
     requires java.logging;
     requires org.apache.commons.lang3;

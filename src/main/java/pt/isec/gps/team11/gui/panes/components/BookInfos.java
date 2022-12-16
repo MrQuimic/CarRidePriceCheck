@@ -32,9 +32,9 @@ public class BookInfos extends BorderPane {
     VBox vbAdressesAndOptions, vbAdresses, vbOptions, vbAdressesWithTitle, vbOptionsWithTitle;
 
     String returnGoogleStr = "";
-    VBox vbDepartureDate, vbDepartureTime,form;
-    Label lbStartAdress,  tfExtraWaitTime, tfDepartureTime, lbEndAdress, lbDirections, lbExtraWaitTime, lbPassengers, lbSuitcases, lbDepartureDate, lbDepartureTime, lbTolls, lbAdressesTitle, lbOptionsTitle;
-    HBox hbPassengersSuitcases,hbStartAdress, hbEndAdress, hbDepartureDateAndImage, hbDepartureTimeAndImage, hDirectTolls, hbOptions, hbExtraWaitTime, hbPassengers, hbSuitcases, hbDirections, hbTolls;
+    VBox vbDepartureDate, vbDepartureTime, form;
+    Label lbStartAdress, tfExtraWaitTime, tfDepartureTime, lbEndAdress, lbDirections, lbExtraWaitTime, lbPassengers, lbSuitcases, lbDepartureDate, lbDepartureTime, lbTolls, lbAdressesTitle, lbOptionsTitle;
+    HBox hbPassengersSuitcases, hbStartAdress, hbEndAdress, hbDepartureDateAndImage, hbDepartureTimeAndImage, hDirectTolls, hbOptions, hbExtraWaitTime, hbPassengers, hbSuitcases, hbDirections, hbTolls;
 
     Label cbDirections, cbPassengers, cbSuitcases, cbTolls, labelResultGoogle;
     DatePicker dpDepartureDate;
@@ -50,7 +50,8 @@ public class BookInfos extends BorderPane {
     boolean alreadyGotTheCars;
 
     Car currentCar;
-    public BookInfos(CRPCManager crpcManager, MyBrowser myBrowser){
+
+    public BookInfos(CRPCManager crpcManager, MyBrowser myBrowser) {
         this.crpcManager = crpcManager;
         this.myBrowser = myBrowser;
         pcs = new PropertyChangeSupport(this);
@@ -60,7 +61,7 @@ public class BookInfos extends BorderPane {
     }
 
     private void createViews() {
-        CSSManager.applyCSS(this,"styles.css");
+        CSSManager.applyCSS(this, "styles.css");
         Font font = Font.font("Verdana", FontWeight.BOLD, 16);
         Font fontSmall = Font.font("Verdana", FontWeight.BOLD, 10);
         //VBox of the Addresses and the Options
@@ -75,7 +76,7 @@ public class BookInfos extends BorderPane {
         vbAdressesWithTitle.setAlignment(Pos.CENTER);
 
         lbAdressesTitle = new Label("Addresses");
-        lbAdressesTitle.setPadding(new Insets(20,0,5,0));
+        lbAdressesTitle.setPadding(new Insets(20, 0, 5, 0));
         lbAdressesTitle.setFont(font);
         //Adresses VBox
         vbAdresses = new VBox();
@@ -101,12 +102,12 @@ public class BookInfos extends BorderPane {
         Origin1.setPromptText("Origin1");
         Destin1.setPromptText("Destin1");
 
-        if (originA.getText().equals("")){
+        if (originA.getText().equals("")) {
             originA.setText("Coimbra, Portugal");
             destinA.setText("Porto, Portugal");
         }
 
-        hbStartAdress.getChildren().addAll(lbStartAdress,originA);
+        hbStartAdress.getChildren().addAll(lbStartAdress, originA);
 
         //End Adress
         hbEndAdress = new HBox();
@@ -114,15 +115,14 @@ public class BookInfos extends BorderPane {
 
         lbEndAdress = new Label("End address: ");
         lbEndAdress.setAlignment(Pos.CENTER_LEFT);
-        lbEndAdress.setPadding(new Insets(10,0,5,0));
+        lbEndAdress.setPadding(new Insets(10, 0, 5, 0));
         lbEndAdress.setFont(fontSmall);
 
-        hbEndAdress.getChildren().addAll(lbEndAdress,destinA);
+        hbEndAdress.getChildren().addAll(lbEndAdress, destinA);
 
         vbAdresses.getChildren().addAll(hbStartAdress, hbEndAdress);
 
-        vbAdressesWithTitle.getChildren().addAll(lbAdressesTitle,vbAdresses);
-
+        vbAdressesWithTitle.getChildren().addAll(lbAdressesTitle, vbAdresses);
 
 
         //Options VBox With Title
@@ -130,7 +130,7 @@ public class BookInfos extends BorderPane {
         vbOptionsWithTitle.setAlignment(Pos.CENTER);
 
         lbOptionsTitle = new Label("");
-        lbOptionsTitle.setPadding(new Insets(0,0,10,0));
+        lbOptionsTitle.setPadding(new Insets(0, 0, 10, 0));
         lbOptionsTitle.setFont(font);
         //Options VBox
         vbOptions = new VBox();
@@ -141,7 +141,7 @@ public class BookInfos extends BorderPane {
         hbDirections.setAlignment(Pos.CENTER_LEFT);
 
         lbDirections = new Label("Directions: ");
-        lbDirections.setPadding(new Insets(0,0,0,0));
+        lbDirections.setPadding(new Insets(0, 0, 0, 0));
         lbDirections.setFont(fontSmall);
         lbDirections.setAlignment(Pos.CENTER_LEFT);
         cbDirections = new Label();
@@ -155,12 +155,12 @@ public class BookInfos extends BorderPane {
         lbTolls.setAlignment(Pos.CENTER_LEFT);
         cbTolls = new Label();
         cbTolls.setText("Yes");
-        hbTolls.getChildren().addAll(lbTolls,cbTolls);
+        hbTolls.getChildren().addAll(lbTolls, cbTolls);
         hDirectTolls = new HBox();
         hDirectTolls.getChildren().addAll(hbDirections, hbTolls);
         hDirectTolls.setAlignment(Pos.CENTER_LEFT);
         hDirectTolls.setSpacing(20);
-        hbDirections.getChildren().addAll(lbDirections,cbDirections);
+        hbDirections.getChildren().addAll(lbDirections, cbDirections);
 
         //Extra Waiting Time
         hbExtraWaitTime = new HBox();
@@ -171,10 +171,10 @@ public class BookInfos extends BorderPane {
         lbExtraWaitTime.setFont(fontSmall);
         tfExtraWaitTime = new Label();
 
-        if(tfExtraWaitTime.getText().equals(""))
+        if (tfExtraWaitTime.getText().equals(""))
             tfExtraWaitTime.setText("0");
 
-        hbExtraWaitTime.getChildren().addAll(lbExtraWaitTime,tfExtraWaitTime);
+        hbExtraWaitTime.getChildren().addAll(lbExtraWaitTime, tfExtraWaitTime);
 
         //HBox for Passengers and Suitcases
         hbPassengersSuitcases = new HBox();
@@ -189,7 +189,7 @@ public class BookInfos extends BorderPane {
         lbPassengers.setFont(fontSmall);
         cbPassengers = new Label();
         cbPassengers.setText("1");
-        hbPassengers.getChildren().addAll(lbPassengers,cbPassengers);
+        hbPassengers.getChildren().addAll(lbPassengers, cbPassengers);
 
         //Suitcases
         hbSuitcases = new HBox();
@@ -200,9 +200,9 @@ public class BookInfos extends BorderPane {
         lbSuitcases.setFont(fontSmall);
         cbSuitcases = new Label();
         cbSuitcases.setText("0");
-        hbSuitcases.getChildren().addAll(lbSuitcases,cbSuitcases);
+        hbSuitcases.getChildren().addAll(lbSuitcases, cbSuitcases);
 
-        hbPassengersSuitcases.getChildren().addAll(hbPassengers,hbSuitcases);
+        hbPassengersSuitcases.getChildren().addAll(hbPassengers, hbSuitcases);
         hbPassengersSuitcases.setSpacing(10);
 
         //HBox for Departure Date and Image
@@ -215,7 +215,7 @@ public class BookInfos extends BorderPane {
 
         lbDepartureDate = new Label("Departure date");
         lbDepartureDate.setAlignment(Pos.CENTER_LEFT);
-        lbDepartureDate.setPadding(new Insets(0,0,5,0));
+        lbDepartureDate.setPadding(new Insets(0, 0, 5, 0));
         lbDepartureDate.setFont(fontSmall);
         Label lbDepartureDate2 = new Label("");
         lbDepartureDate2.setText(LOCAL_DATE().toString());
@@ -233,9 +233,9 @@ public class BookInfos extends BorderPane {
         hbDepartureTimeAndImage.setAlignment(Pos.CENTER_LEFT);
 
 
-        vbOptions.getChildren().addAll(hDirectTolls,hbExtraWaitTime,hbPassengersSuitcases,hbDepartureDateAndImage);
+        vbOptions.getChildren().addAll(hDirectTolls, hbExtraWaitTime, hbPassengersSuitcases, hbDepartureDateAndImage);
         vbOptions.setSpacing(15);
-        vbOptionsWithTitle.getChildren().addAll(lbOptionsTitle,vbOptions);
+        vbOptionsWithTitle.getChildren().addAll(lbOptionsTitle, vbOptions);
 
 
         cars = new HBox();
@@ -247,20 +247,21 @@ public class BookInfos extends BorderPane {
         cars.getChildren().add(car);
 
         cars.setSpacing(35);
-        cars.setPadding(new Insets(10,0,0,50));
+        cars.setPadding(new Insets(10, 0, 0, 50));
 
         labelResultGoogle = new Label();
-        labelResultGoogle.setPadding(new Insets(10,0,0,0));
+        labelResultGoogle.setPadding(new Insets(10, 0, 0, 0));
         //Adresses VBox
         vbAdressesAndOptions.setSpacing(10);
-        vbAdressesAndOptions.getChildren().addAll(vbAdressesWithTitle,vbOptionsWithTitle, labelResultGoogle, cars);
+        vbAdressesAndOptions.getChildren().addAll(vbAdressesWithTitle, vbOptionsWithTitle, labelResultGoogle, cars);
 
         hbOptions = new HBox(vbAdressesAndOptions);
 
         this.setTop(hbOptions);
     }
-    public static final LocalDate LOCAL_DATE (){
-        SimpleDateFormat formatter= new SimpleDateFormat("dd-MM-yyyy");
+
+    public static final LocalDate LOCAL_DATE() {
+        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
         Date date = new Date(System.currentTimeMillis());
 
         String dataString = formatter.format(date);
@@ -282,7 +283,7 @@ public class BookInfos extends BorderPane {
         });
     }
 
-    void clearForm(){
+    void clearForm() {
         tfExtraWaitTime.setText("0");
         dpDepartureDate.setValue(null);
         tfDepartureTime.setText("Time");
@@ -291,12 +292,12 @@ public class BookInfos extends BorderPane {
     private void update() {
 
         if (crpcManager.getState() == States.CONFIRM_BOOKING) {
-           car.setImage(ImageManager.getImage(crpcManager.getCurrentTripCar().getImage()));
+            car.setImage(ImageManager.getImage(crpcManager.getCurrentTripCar().getImage()));
 
             myBrowser.webEngine.load(myBrowser.urlGoogleMaps.toExternalForm() + "?origin="
-                    + crpcManager.getTripOrigin() + "&destin=" + crpcManager.getTripDestination() +"&style=" +"macDivSmaller" + "&tolls=" + cbTolls.getText()+ "&returnTrip=" + cbDirections.getText());
+                    + crpcManager.getTripOrigin() + "&destin=" + crpcManager.getTripDestination() + "&style=" + "macDivSmaller" + "&tolls=" + cbTolls.getText() + "&returnTrip=" + cbDirections.getText());
 
-            labelResultGoogle.setText("PRICE: " + crpcManager.getCostOfTrip() + "\nDURATION: " +crpcManager.getTimeOfTrip() + "\nDISTANCE : " + crpcManager.getDistanceOfTrip());
+            labelResultGoogle.setText("PRICE: " + crpcManager.getCostOfTrip() + "\nDURATION: " + crpcManager.getTimeOfTrip() + "\nDISTANCE : " + crpcManager.getDistanceOfTrip());
             //System.out.println("Results: " + crpcManager.getGoogleReturn());
         }
     }

@@ -54,8 +54,7 @@ public class Contacts extends BorderPane {
     private Label lbStatus2;
 
 
-
-    public Contacts(CRPCManager crpcManager){
+    public Contacts(CRPCManager crpcManager) {
         this.crpcManager = crpcManager;
         createViews();
         registerHandlers();
@@ -70,10 +69,10 @@ public class Contacts extends BorderPane {
         lbStatus2.setPrefWidth(Integer.MAX_VALUE);
 
         lbStatus2.setBorder(new Border(new BorderStroke(Color.BLACK,
-                BorderStrokeStyle.SOLID,CornerRadii.EMPTY,new BorderWidths(1))));
+                BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(1))));
 
         lbStatus2.setStyle("-fx-background-color: rgba(73,69,69,0.08);-fx-font-family: 'Courrier New'; -fx-font-size: 16;");
-        lbStatus2.setPadding(new Insets(0,0,0,50));
+        lbStatus2.setPadding(new Insets(0, 0, 0, 50));
         this.setTop(lbStatus2);
     }
 
@@ -89,19 +88,16 @@ public class Contacts extends BorderPane {
     private void update() {
 
 
-
-        if(crpcManager.getMenuOpt()==MenuOpt.CONTACTS) {
+        if (crpcManager.getMenuOpt() == MenuOpt.CONTACTS) {
             this.setVisible(true);
             //SoundManager.play("637996__davejf__melody-loop-110-bpm.mp3");
 
-        }else{
+        } else {
             this.setVisible(false);
 
             //crpcManager.play(" ");
 
         }
-
-
 
 
         lbStatus2.setText(String.format("" +
@@ -115,12 +111,11 @@ public class Contacts extends BorderPane {
                 "\t\tLuís Cruz   " +
                 "\t\t\t\ta2020142846@isec.pt\n" +
                 "\t\tRafael Gil " +
-                "\t\t\t\ta2020136741@isec.pt\n\n"+
+                "\t\t\t\ta2020136741@isec.pt\n\n" +
                 "\n ⚑ You can write additional info when booking\n"));
 
 
     }
-
 
 
 }

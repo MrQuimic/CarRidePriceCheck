@@ -15,14 +15,14 @@ import java.beans.PropertyChangeSupport;
 
 public class LoginForm extends BorderPane {
     CRPCManager crpcManager;
-    VBox vBox,vBox2;
+    VBox vBox, vBox2;
     TextField email;
     PasswordField password;
     Button btnLogin;
     Alert loginAlert;
     PropertyChangeSupport pcs;
 
-    public LoginForm(CRPCManager crpcManager){
+    public LoginForm(CRPCManager crpcManager) {
         this.crpcManager = crpcManager;
         pcs = new PropertyChangeSupport(this);
         createViews();
@@ -37,18 +37,17 @@ public class LoginForm extends BorderPane {
             emailAux = email.getText();
             passwordAux = password.getText();
 
-            if(crpcManager.confirmLogin(emailAux, passwordAux)) {
+            if (crpcManager.confirmLogin(emailAux, passwordAux)) {
                 crpcManager.setLogin(emailAux);
 
-                if(crpcManager.getPreviousState()==States.IDLE){
+                if (crpcManager.getPreviousState() == States.IDLE) {
                     crpcManager.goMainMenu();
 
-                }else{
+                } else {
                     crpcManager.goToPreviousState();
                 }
 
-            }
-            else{
+            } else {
                 loginAlert.show();
             }
         });
@@ -83,7 +82,7 @@ public class LoginForm extends BorderPane {
         this.setCenter(vBox2);
     }
 
-    private void update(){
+    private void update() {
 
         this.setVisible(!crpcManager.isLogged());
     }

@@ -32,14 +32,13 @@ public class RegistrationForm extends BorderPane {
     PasswordField confirmPassword;
     Button btnRegister;
 
-    public RegistrationForm(CRPCManager crpcManager){
+    public RegistrationForm(CRPCManager crpcManager) {
         this.crpcManager = crpcManager;
         pcs = new PropertyChangeSupport(this);
         createViews();
         registerHandlers();
         update();
     }
-
 
 
     private void createViews() {
@@ -92,23 +91,20 @@ public class RegistrationForm extends BorderPane {
     private void registerHandlers() {
 
         btnRegister.setOnAction(actionEvent -> {
-            if(email.getText().trim().isEmpty() ||
+            if (email.getText().trim().isEmpty() ||
                     !email.getText().contains("@") ||
-                phoneNumber.getText().trim().isEmpty() ||
-                firstName.getText().trim().isEmpty() ||
-                lastName.getText().trim().isEmpty() ||
-                address.getText().trim().isEmpty() ||
-                nif.getText().trim().isEmpty() ||
-                password.getText().trim().isEmpty())
-            {
+                    phoneNumber.getText().trim().isEmpty() ||
+                    firstName.getText().trim().isEmpty() ||
+                    lastName.getText().trim().isEmpty() ||
+                    address.getText().trim().isEmpty() ||
+                    nif.getText().trim().isEmpty() ||
+                    password.getText().trim().isEmpty()) {
                 registerAlert.show();
-            }
-            else
-            {
+            } else {
                 String emailAux = email.getText();
                 crpcManager.setLogin(emailAux);
                 crpcManager.setIsLogged();
-                if(crpcManager.getState() != States.CHOOSE_CAR)
+                if (crpcManager.getState() != States.CHOOSE_CAR)
                     crpcManager.goToPreviousState();
             }
         });

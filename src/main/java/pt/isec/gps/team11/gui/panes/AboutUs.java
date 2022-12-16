@@ -54,8 +54,7 @@ public class AboutUs extends BorderPane {
     private Label lbStatus2;
 
 
-
-    public AboutUs(CRPCManager crpcManager){
+    public AboutUs(CRPCManager crpcManager) {
         this.crpcManager = crpcManager;
         createViews();
         registerHandlers();
@@ -70,10 +69,10 @@ public class AboutUs extends BorderPane {
         lbStatus2.setPrefWidth(Integer.MAX_VALUE);
 
         lbStatus2.setBorder(new Border(new BorderStroke(Color.BLACK,
-                BorderStrokeStyle.SOLID,CornerRadii.EMPTY,new BorderWidths(1))));
+                BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(1))));
 
         lbStatus2.setStyle("-fx-background-color: rgba(73,69,69,0.08);-fx-font-family: 'Courrier New'; -fx-font-size: 16;");
-        lbStatus2.setPadding(new Insets(0,0,0,50));
+        lbStatus2.setPadding(new Insets(0, 0, 0, 50));
         this.setTop(lbStatus2);
     }
 
@@ -89,20 +88,16 @@ public class AboutUs extends BorderPane {
     private void update() {
 
 
-
-        if(crpcManager.getMenuOpt()==MenuOpt.ABOUTUS) {
+        if (crpcManager.getMenuOpt() == MenuOpt.ABOUTUS) {
             this.setVisible(true);
             //SoundManager.play("637996__davejf__melody-loop-110-bpm.mp3");
 
-        }else{
+        } else {
             this.setVisible(false);
 
             //crpcManager.play(" ");
 
         }
-
-
-
 
         lbStatus2.setText(String.format("" +
                 "\n\n ✎ Authors:\n" +
@@ -110,14 +105,13 @@ public class AboutUs extends BorderPane {
                 "\tHugo Ferreira  {Email: a2020128305@isec.pt}\n" +
                 "\tLeonardo Sousa {Email: a2019129243@isec.pt }\n" +
                 "\tLuís Cruz  {Email: a2020142846@isec.pt}\n" +
-                "\tRafael Gil {Email: a2020136741@isec.pt}\n\n"+
-                "\n ⚑ Application Car Ride Price Check\n"+
+                "\tRafael Gil {Email: a2020136741@isec.pt}\n\n" +
+                "\n ⚑ Application Car Ride Price Check\n" +
                 " ⌛ Date 2022/11/27\n\n" +
                 " ⚑ This pratical assignment was carried out in an academic context for the subject of GPS at ISEC!"));
 
 
     }
-
 
 
 }

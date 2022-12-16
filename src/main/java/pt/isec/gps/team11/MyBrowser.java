@@ -1,32 +1,16 @@
 package pt.isec.gps.team11;
 
-import com.google.maps.model.AddressComponentType;
-import com.google.maps.model.PlaceDetails;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.concurrent.Worker;
-import javafx.event.ActionEvent;
-import javafx.event.Event;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.ScrollEvent;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-import pt.isec.gps.team11.model.CRPCManager;
-import pt.isec.gps.team11.utils.AutoCompleteAddressField;
 
-import org.apache.commons.lang3.StringUtils;
-import pt.isec.gps.team11.utils.AutoCompleteTextField;
+import pt.isec.gps.team11.model.CRPCManager;
+
 
 import java.beans.PropertyChangeSupport;
 import java.net.URL;

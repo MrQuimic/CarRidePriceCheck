@@ -34,8 +34,8 @@ public class CRPCManager {
     public CRPCManager() {
         this.fsm = new StatesContext();
         pcs = new PropertyChangeSupport(this);
-       this.menuOpt = null;
-       this.previousState = null;
+        this.menuOpt = null;
+        this.previousState = null;
     }
 
     /**
@@ -47,7 +47,7 @@ public class CRPCManager {
         return fsm.getState();
     }
 
-    public States getPreviousState(){
+    public States getPreviousState() {
         return this.previousState;
     }
 
@@ -58,6 +58,7 @@ public class CRPCManager {
     private void configAdapter() {
 
     }
+
     /**
      * Add property change listener.
      *
@@ -66,21 +67,23 @@ public class CRPCManager {
     public void addPropertyChangeListener(PropertyChangeListener listener) {
         pcs.addPropertyChangeListener(listener);
     }
-    public void addPropertyChangeListener(String property, PropertyChangeListener listener){
+
+    public void addPropertyChangeListener(String property, PropertyChangeListener listener) {
         pcs.addPropertyChangeListener(property, listener);
     }
+
     public void setMenuOpt(MenuOpt menuOpt) {
         this.previousState = fsm.getState();
         this.menuOpt = menuOpt;
-        System.out.println(menuOpt);
+        //System.out.println(menuOpt);
 
         pcs.firePropertyChange(null, null, null);
     }
 
-    public  void goToPreviousState(){
+    public void goToPreviousState() {
         this.menuOpt = null;
 
-        switch (previousState){
+        switch (previousState) {
             case BOOKING -> goBooking();
             case MAIN_MENU -> goMainMenu();
             case CHOOSE_CAR -> goChooseCAr();
@@ -92,78 +95,78 @@ public class CRPCManager {
         this.previousState = null;
     }
 
-    public boolean goIdle(){
-        if(this.fsm.goIdle()){
+    public boolean goIdle() {
+        if (this.fsm.goIdle()) {
             pcs.firePropertyChange(null, null, null);
             return true;
         }
         return false;
     }
 
-    public boolean goMainMenu(){
-        if(this.menuOpt != null){
+    public boolean goMainMenu() {
+        if (this.menuOpt != null) {
             goToPreviousState();
         }
-        if(this.fsm.goMainMenu()){
+        if (this.fsm.goMainMenu()) {
             pcs.firePropertyChange(null, null, null);
             return true;
         }
         return false;
     }
-    
-    public void setIsLogged(){
+
+    public void setIsLogged() {
         this.fsm.setIsLogged();
         pcs.firePropertyChange(null, null, null);
     }
 
-    public boolean goBooking(){
-        if(this.menuOpt != null){
+    public boolean goBooking() {
+        if (this.menuOpt != null) {
             goToPreviousState();
         }
-        if(this.fsm.goBooking()){
-            pcs.firePropertyChange(null, null, null);
-            return true;
-        }
-        return false;
-    }
-    
-    public boolean goChooseCAr(){
-        if(this.fsm.goChooseCar()){
+        if (this.fsm.goBooking()) {
             pcs.firePropertyChange(null, null, null);
             return true;
         }
         return false;
     }
 
-    public boolean goListTrips(){
-        if(this.fsm.goListTrips()){
+    public boolean goChooseCAr() {
+        if (this.fsm.goChooseCar()) {
             pcs.firePropertyChange(null, null, null);
             return true;
         }
         return false;
     }
 
-    public boolean goConfirmBooking(){
-        if(this.fsm.goConfirmBooking()){
+    public boolean goListTrips() {
+        if (this.fsm.goListTrips()) {
             pcs.firePropertyChange(null, null, null);
             return true;
         }
         return false;
     }
 
-    public boolean goTripDetails(){
-        if(this.fsm.goTripDetails()){
+    public boolean goConfirmBooking() {
+        if (this.fsm.goConfirmBooking()) {
             pcs.firePropertyChange(null, null, null);
             return true;
         }
         return false;
     }
 
-    public boolean confirmLogin(String username, String password){
+    public boolean goTripDetails() {
+        if (this.fsm.goTripDetails()) {
+            pcs.firePropertyChange(null, null, null);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean confirmLogin(String username, String password) {
         return this.fsm.confirmLogin(username, password);
     }
 
-    public boolean isLogged(){
+    public boolean isLogged() {
         return this.fsm.isLogged();
     }
 
@@ -172,7 +175,7 @@ public class CRPCManager {
     }
 
     public boolean setLogin(String username) {
-        if(username.contains("@")) {
+        if (username.contains("@")) {
             this.username = username;
             pcs.firePropertyChange(null, null, null);
             return true;
@@ -180,24 +183,24 @@ public class CRPCManager {
         return false;
     }
 
-    public boolean book(boolean oneWay, String date, int extraWaitingTime, int numberOfLuggage, int numberOfPassengers, String departureTime, boolean highway){
+    public boolean book(boolean oneWay, String date, int extraWaitingTime, int numberOfLuggage, int numberOfPassengers, String departureTime, boolean highway) {
         return fsm.book(oneWay, date, extraWaitingTime, numberOfLuggage, numberOfPassengers, departureTime, highway);
     }
 
-    public Trip getCurrentTrip(){
+    public Trip getCurrentTrip() {
         return fsm.getCurrentTrip();
     }
 
-    public void logout(){
+    public void logout() {
         pcs.firePropertyChange(null, null, null);
         fsm.logout();
     }
 
-    public void saveTripResults(String result){
+    public void saveTripResults(String result) {
         fsm.saveTripResult(result);
     }
 
-    public void resetTripResults(){
+    public void resetTripResults() {
         fsm.resetTripResults();
     }
 
@@ -237,28 +240,28 @@ public class CRPCManager {
         return googleReturnValue;
     }
 
-    public ArrayList<Car> getSuitableCars(){
+    public ArrayList<Car> getSuitableCars() {
         return this.fsm.getSuitableCars();
     }
 
-    public ArrayList<Trip> getSuitableTrips(){
+    public ArrayList<Trip> getSuitableTrips() {
         return this.fsm.getSuitableTrips();
     }
 
-    public ArrayList<Trip> getTripsMap(){
+    public ArrayList<Trip> getTripsMap() {
         return fsm.getTripsMap();
     }
 
 
-    public void saveCar(Car car){
+    public void saveCar(Car car) {
         this.fsm.saveCurrentCar(car);
     }
 
-    public void confirmTrip(){
+    public void confirmTrip() {
         this.fsm.confirmTrip();
     }
 
-    public Car getCurrentTripCar(){
+    public Car getCurrentTripCar() {
         return fsm.getCurrentTripCar();
     }
 }

@@ -12,7 +12,8 @@ import java.nio.file.Paths;
  * The type Css manager.
  */
 public class CSSManager {
-    private CSSManager() { }
+    private CSSManager() {
+    }
 
     /**
      * Apply css.
@@ -21,7 +22,7 @@ public class CSSManager {
      * @param filename the filename
      */
     public static void applyCSS(Parent parent, String filename) {
-        var url = CSSManager.class.getResource("/css/"+filename);
+        var url = CSSManager.class.getResource("/css/" + filename);
         //System.out.println(url);
         if (url == null)
             return;
@@ -34,7 +35,7 @@ public class CSSManager {
         String s = currentRelativePath.toAbsolutePath().toString();
         URL url = null;
         try {
-            url = new File(s+"\\src\\main\\java\\pt\\isec\\gps\\team11\\gui\\resources\\css\\mystyle.css").toURI().toURL();
+            url = new File(s + "\\src\\main\\java\\pt\\isec\\gps\\team11\\gui\\resources\\css\\mystyle.css").toURI().toURL();
         } catch (MalformedURLException e) {
             throw new RuntimeException(e);
         }

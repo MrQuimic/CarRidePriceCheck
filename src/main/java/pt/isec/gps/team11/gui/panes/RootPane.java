@@ -40,7 +40,8 @@ public class RootPane extends BorderPane {
     Text tMainMenu;
     /**
      * The Btns.
-     */    String username;
+     */
+    String username;
     Button[] btns;
     private static final int NRB = 7;
     private static final int BW = 7;
@@ -63,7 +64,7 @@ public class RootPane extends BorderPane {
     private MyBrowser myBrowser;
 
 
-    public RootPane(CRPCManager crpcManager){
+    public RootPane(CRPCManager crpcManager) {
         this.crpcManager = crpcManager;
         this.username = new String("");
         createViews();
@@ -73,9 +74,8 @@ public class RootPane extends BorderPane {
     }
 
     private void createViews() {
-        CSSManager.applyCSS(this,"styles.css");
+        CSSManager.applyCSS(this, "styles.css");
         vBox = new VBox();
-
 
 
         MenuTop bp = new MenuTop(crpcManager, username);
@@ -92,11 +92,6 @@ public class RootPane extends BorderPane {
                 new ChooseCarPane(crpcManager),
                 new BookingListPane(crpcManager)
         );
-
-
-
-        //stackPane.setBackground(new Background(new BackgroundFill(Color.GAINSBORO, CornerRadii.EMPTY, Insets.EMPTY)));
-
 
         HBox hBox = new HBox(bp);
 

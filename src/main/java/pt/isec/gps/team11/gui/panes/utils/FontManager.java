@@ -10,7 +10,8 @@ import java.nio.file.Paths;
  * The type Font manager.
  */
 public class FontManager {
-    private FontManager() { }
+    private FontManager() {
+    }
 
     /**
      * Load font font.
@@ -22,8 +23,8 @@ public class FontManager {
     public static Font loadFont(String filename, int size) {
         Path currentRelativePath = Paths.get("");
         String s = currentRelativePath.toAbsolutePath().toString();
-        try(InputStream inputStreamFont =
-                    FontManager.class.getResourceAsStream(s+"\\src\\main\\java\\pt\\isec\\gps\\team11\\gui\\resources\\fonts\\" + filename)) {
+        try (InputStream inputStreamFont =
+                     FontManager.class.getResourceAsStream(s + "\\src\\main\\java\\pt\\isec\\gps\\team11\\gui\\resources\\fonts\\" + filename)) {
             return Font.loadFont(inputStreamFont, size);
         } catch (Exception e) {
             return null;

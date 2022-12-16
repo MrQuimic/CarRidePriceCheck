@@ -27,7 +27,7 @@ public class BookingPane extends BorderPane {
     MyBrowser myBrowser;
     BookForm bookForm;
 
-    public BookingPane(CRPCManager crpcManager, MyBrowser myBrowser){
+    public BookingPane(CRPCManager crpcManager, MyBrowser myBrowser) {
         this.crpcManager = crpcManager;
         this.myBrowser = myBrowser;
 
@@ -38,13 +38,12 @@ public class BookingPane extends BorderPane {
 
     private void createViews() {
 
-        VBox vBox= new VBox();
-        VBox vBox2= new VBox();
+        VBox vBox = new VBox();
+        VBox vBox2 = new VBox();
         SplitPane splitPane = new SplitPane();
 
 
-
-        BookForm bookForm = new BookForm(crpcManager, myBrowser);
+        bookForm = new BookForm(crpcManager, myBrowser);
         HBox hBox = new HBox(bookForm);
         hBox.setAlignment(Pos.CENTER);
         hBox.setSpacing(50);
@@ -60,7 +59,7 @@ public class BookingPane extends BorderPane {
 
         splitPane.getItems().addAll(hBox, hBoxMap);
         splitPane.setDividerPositions(0.25f, 0.75f); //Important for zoom
-        splitPane.getDividers().get(0).positionProperty().addListener((observable,oldValue,newValue) -> {
+        splitPane.getDividers().get(0).positionProperty().addListener((observable, oldValue, newValue) -> {
             splitPane.setDividerPositions(0.25f, 0.75f);
         });
 
@@ -86,8 +85,7 @@ public class BookingPane extends BorderPane {
             crpcManager.resetTripResults();
 
             this.setVisible(true);
-            return;
-        }else{
+        } else {
             this.setVisible(false);
         }
 

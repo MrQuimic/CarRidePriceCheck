@@ -43,7 +43,7 @@ public class ConfirmPane extends BorderPane {
     Button btnConfirm;
     MyBrowser myBrowser;
 
-    public ConfirmPane(CRPCManager crpcManager, MyBrowser myBrowser){
+    public ConfirmPane(CRPCManager crpcManager, MyBrowser myBrowser) {
         this.crpcManager = crpcManager;
         this.myBrowser = myBrowser;
         this.myBrowser = new MyBrowser(crpcManager);
@@ -53,12 +53,12 @@ public class ConfirmPane extends BorderPane {
     }
 
     private void createViews() {
-        CSSManager.applyCSS(this,"styles.css");
+        CSSManager.applyCSS(this, "styles.css");
         Font font = Font.font("Verdana", FontWeight.BOLD, 16);
         Font fontSmall = Font.font("Verdana", FontWeight.BOLD, 14);
-        VBox vBox= new VBox();
-        VBox vBox2= new VBox();
-        submitBtns= new HBox();
+        VBox vBox = new VBox();
+        VBox vBox2 = new VBox();
+        submitBtns = new HBox();
         SplitPane splitPane = new SplitPane();
 
 
@@ -66,10 +66,10 @@ public class ConfirmPane extends BorderPane {
         HBox hBox = new HBox(bookInfos);
         hBox.setAlignment(Pos.CENTER_LEFT);
         hBox.setSpacing(50);
-        bookInfos.setPadding(new Insets(0,0,0,50));
+        bookInfos.setPadding(new Insets(0, 0, 0, 50));
 
         lbInfoLabel = new Label("Trip Information");
-        lbInfoLabel.setPadding(new Insets(20,0,5,0));
+        lbInfoLabel.setPadding(new Insets(20, 0, 5, 0));
         lbInfoLabel.setFont(font);
         lbInfoLabel.setAlignment(Pos.CENTER);
         lbInfo = new TextArea();
@@ -93,13 +93,12 @@ public class ConfirmPane extends BorderPane {
 
         splitPane.getItems().addAll(hBox, vBoxMap);
         splitPane.setDividerPositions(0.40f, 0.55f); //Important for zoom
-        splitPane.getDividers().get(0).positionProperty().addListener((observable,oldValue,newValue) -> {
+        splitPane.getDividers().get(0).positionProperty().addListener((observable, oldValue, newValue) -> {
             splitPane.setDividerPositions(0.40f, 0.55f);
         });
 
         splitPane.setId("splitPaneContent");
         scene = new Scene(splitPane);
-
 
 
         vBox.getChildren().addAll(splitPane);
@@ -133,12 +132,10 @@ public class ConfirmPane extends BorderPane {
 
             this.setVisible(true);
             return;
-        }else{
+        } else {
             this.setVisible(false);
         }
     }
-
-
 
 
 }
