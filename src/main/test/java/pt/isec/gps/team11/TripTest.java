@@ -1,6 +1,5 @@
 package pt.isec.gps.team11;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import pt.isec.gps.team11.model.CRPCManager;

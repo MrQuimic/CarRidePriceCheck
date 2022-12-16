@@ -41,15 +41,12 @@ public class BookForm extends BorderPane {
     HBox hbPassengersSuitcases, hbDepartureDateAndImage, hbDepartureTimeHourMinutes, submitBtns, hDirectTolls;
     Button btnSubmit, btnReset, btnMapUpdate;
     TextField tfExtraWaitTime;
-    ChoiceBox cbDirections;
-    ChoiceBox cbPassengers;
+    ChoiceBox cbDirections, cbPassengers;
     ChoiceBox<String> cbSuitcases;
     ChoiceBox<String> cbTolls;
     DatePicker dpDepartureDate;
-
     ComboBox<String> cbHour;
     ComboBox<String> cbMinute;
-
 
     AutoCompleteAddressField originA = new AutoCompleteAddressField();
     AutoCompleteAddressField destinA = new AutoCompleteAddressField();

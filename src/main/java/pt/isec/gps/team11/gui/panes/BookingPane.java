@@ -1,29 +1,18 @@
 package pt.isec.gps.team11.gui.panes;
 
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import pt.isec.gps.team11.MyBrowser;
-import pt.isec.gps.team11.gui.MenuOpt;
 import pt.isec.gps.team11.gui.panes.components.BookForm;
 import pt.isec.gps.team11.gui.panes.components.MapDisplay;
-import pt.isec.gps.team11.gui.panes.components.MenuTop;
 import pt.isec.gps.team11.model.CRPCManager;
 import javafx.scene.control.SplitPane;
 import javafx.scene.layout.*;
 import pt.isec.gps.team11.model.fsm.States;
 
-import java.time.LocalDate;
-
 public class BookingPane extends BorderPane {
 
     CRPCManager crpcManager;
-
-    private Scene scene;
-
     MyBrowser myBrowser;
     BookForm bookForm;
 
@@ -39,7 +28,6 @@ public class BookingPane extends BorderPane {
     private void createViews() {
 
         VBox vBox = new VBox();
-        VBox vBox2 = new VBox();
         SplitPane splitPane = new SplitPane();
 
 
@@ -64,7 +52,6 @@ public class BookingPane extends BorderPane {
         });
 
         splitPane.setId("splitPaneContent");
-        scene = new Scene(splitPane);
         vBox.getChildren().addAll(splitPane);
 
         this.setCenter(vBox);

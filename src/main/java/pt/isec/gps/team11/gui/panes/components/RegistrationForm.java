@@ -16,16 +16,8 @@ import java.beans.PropertyChangeSupport;
 public class RegistrationForm extends BorderPane {
     CRPCManager crpcManager;
     VBox vbox;
-    HBox hbox1;
-    HBox hBox2;
-    HBox hBox3;
-    HBox hBox4;
-    TextField email;
-    TextField phoneNumber;
-    TextField firstName;
-    TextField lastName;
-    TextField address;
-    TextField nif;
+    HBox hbox1, hBox2, hBox3, hBox4;
+    TextField email, phoneNumber, firstName, lastName, address, nif;
     PasswordField password;
     Alert registerAlert;
     PropertyChangeSupport pcs;

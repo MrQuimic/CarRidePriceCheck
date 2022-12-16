@@ -10,47 +10,8 @@ import pt.isec.gps.team11.gui.MenuOpt;
 import pt.isec.gps.team11.model.CRPCManager;
 
 public class Contacts extends BorderPane {
-    StackPane stackPane;
     CRPCManager crpcManager;
 
-
-    /**
-     * The Background.
-     */
-    Color background = Color.LIGHTGRAY;
-    /**
-     * The Nr meta 1.
-     */
-    int nrMeta1,
-    /**
-     * The Nr meta 2.
-     */
-    nrMeta2,
-    /**
-     * The Nr custom.
-     */
-    nrCustom;
-    /**
-     * The Button meta 1.
-     */
-    Button buttonMeta1,
-    /**
-     * The Button meta 2.
-     */
-    buttonMeta2,
-    /**
-     * The Button custom.
-     */
-    buttonCustom,
-    /**
-     * The Btn menu.
-     */
-    btnMenu;
-    /**
-     * The Text field.
-     */
-    TextField textField;
-    private Label lbStatus;
     private Label lbStatus2;
 
 
@@ -90,12 +51,8 @@ public class Contacts extends BorderPane {
 
         if (crpcManager.getMenuOpt() == MenuOpt.CONTACTS) {
             this.setVisible(true);
-            //SoundManager.play("637996__davejf__melody-loop-110-bpm.mp3");
-
         } else {
             this.setVisible(false);
-
-            //crpcManager.play(" ");
 
         }
 

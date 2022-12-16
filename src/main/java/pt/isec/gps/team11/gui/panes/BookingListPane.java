@@ -1,21 +1,16 @@
 package pt.isec.gps.team11.gui.panes;
 
 import javafx.geometry.Insets;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
-import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import pt.isec.gps.team11.gui.MenuOpt;
-import pt.isec.gps.team11.gui.panes.utils.ImageManager;
 import pt.isec.gps.team11.model.CRPCManager;
 import pt.isec.gps.team11.model.data.Trip;
-import pt.isec.gps.team11.model.fsm.States;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class BookingListPane extends BorderPane {
     CRPCManager crpcManager;

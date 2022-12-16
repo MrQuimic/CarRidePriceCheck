@@ -7,7 +7,6 @@ import pt.isec.gps.team11.model.CRPCManager;
 import pt.isec.gps.team11.model.data.Car;
 import pt.isec.gps.team11.model.data.Company;
 import pt.isec.gps.team11.model.data.Trip;
-import pt.isec.gps.team11.utils.Files;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;

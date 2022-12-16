@@ -24,10 +24,6 @@ public class Driver extends Person {
     }
 
 
-
-
-    /* Não está no diagrama de classes*/
-
     public void setId(int id) {
         this.id = id;
     }

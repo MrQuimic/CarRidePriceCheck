@@ -25,8 +25,6 @@ public class MyBrowser extends Region {
     public WebView webView = new WebView();
     public WebEngine webEngine = webView.getEngine();
 
-    String initiate, returnValue, origin, destin;
-
     public final URL urlGoogleMaps = getClass().getResource("googlemaps.html");
 
     public MyBrowser(CRPCManager crpcManager) {

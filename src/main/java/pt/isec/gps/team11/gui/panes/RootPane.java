@@ -1,21 +1,14 @@
 package pt.isec.gps.team11.gui.panes;
 
 import javafx.geometry.Pos;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
 import pt.isec.gps.team11.MyBrowser;
-import pt.isec.gps.team11.gui.MenuOpt;
 import pt.isec.gps.team11.gui.panes.components.MenuTop;
 import pt.isec.gps.team11.gui.panes.utils.CSSManager;
 import pt.isec.gps.team11.model.CRPCManager;
 
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
+
 
 
 /**
@@ -23,50 +16,18 @@ import java.beans.PropertyChangeSupport;
  */
 public class RootPane extends BorderPane {
     CRPCManager crpcManager;
-    MenuOpt menuOpt;
-    /**
-     * The background color of the main window.
-     * <p>
-     * The Background.
-     */
-    /**
-     * The Background.
-     */
-    Color background = Color.LIGHTGRAY;
 
-    /**
-     * The T main menu.
-     */
-    Text tMainMenu;
     /**
      * The Btns.
      */
     String username;
-    Button[] btns;
-    private static final int NRB = 7;
-    private static final int BW = 7;
-    private static final int BH = 7;
-    /**
-     * The Canvas.
-     */
-    Canvas canvas;
+
     VBox vBox;
-    /**
-     * The Predef table width.
-     */
-    int predefTableWidth = 1050;
-
-    /**
-     * The Canvas pane.
-     */
-    ScrollPane canvasPane;
-
-    private MyBrowser myBrowser;
 
 
     public RootPane(CRPCManager crpcManager) {
         this.crpcManager = crpcManager;
-        this.username = new String("");
+
         createViews();
         registerHandler();
         update();
@@ -79,7 +40,7 @@ public class RootPane extends BorderPane {
 
 
         MenuTop bp = new MenuTop(crpcManager, username);
-        this.myBrowser = new MyBrowser(crpcManager);
+        MyBrowser myBrowser = new MyBrowser(crpcManager);
 
         StackPane stackPane;
         stackPane = new StackPane(

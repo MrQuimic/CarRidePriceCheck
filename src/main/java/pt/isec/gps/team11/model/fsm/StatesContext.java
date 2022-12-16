@@ -3,7 +3,6 @@ package pt.isec.gps.team11.model.fsm;
 import pt.isec.gps.team11.model.data.Car;
 import pt.isec.gps.team11.model.data.Data;
 import pt.isec.gps.team11.model.data.Trip;
-import pt.isec.gps.team11.model.fsm.implementation.BookingState;
 import pt.isec.gps.team11.model.fsm.implementation.MainMenuState;
 
 import java.util.ArrayList;

@@ -1,8 +1,5 @@
 package pt.isec.gps.team11.model.data;
 
-import javafx.scene.image.Image;
-
-import javafx.scene.image.Image;
 
 /**
  * The type Car.

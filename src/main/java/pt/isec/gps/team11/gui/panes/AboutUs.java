@@ -1,56 +1,15 @@
 package pt.isec.gps.team11.gui.panes;
 
 import javafx.geometry.Insets;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import pt.isec.gps.team11.gui.MenuOpt;
 import pt.isec.gps.team11.model.CRPCManager;
 
 public class AboutUs extends BorderPane {
-    StackPane stackPane;
     CRPCManager crpcManager;
 
-
-    /**
-     * The Background.
-     */
-    Color background = Color.LIGHTGRAY;
-    /**
-     * The Nr meta 1.
-     */
-    int nrMeta1,
-    /**
-     * The Nr meta 2.
-     */
-    nrMeta2,
-    /**
-     * The Nr custom.
-     */
-    nrCustom;
-    /**
-     * The Button meta 1.
-     */
-    Button buttonMeta1,
-    /**
-     * The Button meta 2.
-     */
-    buttonMeta2,
-    /**
-     * The Button custom.
-     */
-    buttonCustom,
-    /**
-     * The Btn menu.
-     */
-    btnMenu;
-    /**
-     * The Text field.
-     */
-    TextField textField;
-    private Label lbStatus;
     private Label lbStatus2;
 
 
@@ -90,13 +49,9 @@ public class AboutUs extends BorderPane {
 
         if (crpcManager.getMenuOpt() == MenuOpt.ABOUTUS) {
             this.setVisible(true);
-            //SoundManager.play("637996__davejf__melody-loop-110-bpm.mp3");
 
         } else {
             this.setVisible(false);
-
-            //crpcManager.play(" ");
-
         }
 
         lbStatus2.setText(String.format("" +
@@ -109,9 +64,5 @@ public class AboutUs extends BorderPane {
                 "\n ⚑ Application Car Ride Price Check\n" +
                 " ⌛ Date 2022/11/27\n\n" +
                 " ⚑ This pratical assignment was carried out in an academic context for the subject of GPS at ISEC!"));
-
-
     }
-
-
 }

@@ -2,44 +2,25 @@ package pt.isec.gps.team11.gui.panes;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import pt.isec.gps.team11.MyBrowser;
-import pt.isec.gps.team11.gui.MenuOpt;
-import pt.isec.gps.team11.gui.panes.components.BookForm;
 import pt.isec.gps.team11.gui.panes.components.BookInfos;
 import pt.isec.gps.team11.gui.panes.components.MapDisplay;
-import pt.isec.gps.team11.gui.panes.components.MenuTop;
 import pt.isec.gps.team11.gui.panes.utils.CSSManager;
-import pt.isec.gps.team11.gui.panes.utils.ImageManager;
 import pt.isec.gps.team11.model.CRPCManager;
 import javafx.scene.layout.*;
-import pt.isec.gps.team11.model.data.Car;
 import pt.isec.gps.team11.model.fsm.States;
-
-import java.util.ArrayList;
 
 public class ConfirmPane extends BorderPane {
 
     CRPCManager crpcManager;
-
-    private Scene scene;
-    TextField tf_origin = new TextField();
-    TextField tf_destination = new TextField();
-    Button btnSubmit = new Button("Submit");
-    Button btnReset = new Button("Reset");
-
-    VBox vbox, leftControl, rightControl;
-    HBox submitBtns, hBoxMap;
+    HBox submitBtns;
 
     Label lbInfoLabel;
-    MenuTop bp;
     TextArea lbInfo;
-    MenuOpt menuOpt;
     Button btnConfirm;
     MyBrowser myBrowser;
 
@@ -57,7 +38,6 @@ public class ConfirmPane extends BorderPane {
         Font font = Font.font("Verdana", FontWeight.BOLD, 16);
         Font fontSmall = Font.font("Verdana", FontWeight.BOLD, 14);
         VBox vBox = new VBox();
-        VBox vBox2 = new VBox();
         submitBtns = new HBox();
         SplitPane splitPane = new SplitPane();
 
@@ -86,7 +66,6 @@ public class ConfirmPane extends BorderPane {
         hBox.setSpacing(50);
         vBoxMap.setSpacing(20);
 
-//admin@gps
 
         hBox.setAlignment(Pos.CENTER_LEFT);
         vBoxMap.setAlignment(Pos.CENTER_LEFT);
@@ -98,7 +77,6 @@ public class ConfirmPane extends BorderPane {
         });
 
         splitPane.setId("splitPaneContent");
-        scene = new Scene(splitPane);
 
 
         vBox.getChildren().addAll(splitPane);
@@ -131,7 +109,6 @@ public class ConfirmPane extends BorderPane {
             configAdapter();
 
             this.setVisible(true);
-            return;
         } else {
             this.setVisible(false);
         }

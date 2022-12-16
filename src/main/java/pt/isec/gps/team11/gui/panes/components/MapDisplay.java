@@ -12,16 +12,10 @@ import pt.isec.gps.team11.model.CRPCManager;
 public class MapDisplay extends BorderPane {
 
     CRPCManager crpcManager;
-
-    private Scene scene;
     MyBrowser myBrowser;
-    TextField tf_origin = new TextField();
-    TextField tf_destination = new TextField();
     Label origin, destination;
 
-    VBox vbox, leftControl, rightControl;
-    HBox submitBtns;
-    MenuTop bp;
+    VBox rightControl;
 
     public MapDisplay(CRPCManager crpcManager, MyBrowser myBrowser) {
         this.crpcManager = crpcManager;

@@ -3,16 +3,11 @@ package pt.isec.gps.team11;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import pt.isec.gps.team11.gui.panes.utils.CSSManager;
-import pt.isec.gps.team11.model.CRPCManager;
 import pt.isec.gps.team11.model.data.Car;
 import pt.isec.gps.team11.model.data.Company;
 import pt.isec.gps.team11.model.data.Trip;
 import pt.isec.gps.team11.utils.Files;
 
-import java.io.File;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;

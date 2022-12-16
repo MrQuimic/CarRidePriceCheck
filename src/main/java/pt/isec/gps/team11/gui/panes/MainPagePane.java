@@ -1,70 +1,30 @@
 package pt.isec.gps.team11.gui.panes;
 
 import javafx.geometry.Pos;
-import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Separator;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
-import pt.isec.gps.team11.gui.MenuOpt;
 import pt.isec.gps.team11.gui.panes.utils.CSSManager;
 import pt.isec.gps.team11.gui.panes.utils.ImageManager;
 import pt.isec.gps.team11.model.CRPCManager;
 import pt.isec.gps.team11.model.fsm.States;
 
-import java.util.Objects;
 
 public class MainPagePane extends BorderPane {
     CRPCManager crpcManager;
 
-    /**
-     * The background color of the main window.
-     * <p>
-     * The Background.
-     */
-    /**
-     * The Background.
-     */
-    Color background = Color.LIGHTGRAY;
-
-    /**
-     * The T main menu.
-     */
-    Text tMainMenu;
-    /**
-     * The Btns.
-     */
-    Button[] btns;
-
     private Button btnBook;
-    private static final int NRB = 7;
-    private static final int BW = 7;
-    private static final int BH = 7;
-    /**
-     * The Canvas.
-     */
-    Canvas canvas;
+
     VBox vBox;
-
-
-    /**
-     * The Canvas pane.
-     */
-    ScrollPane canvasPane;
-
-    MenuOpt menuOpt;
 
 
     public MainPagePane(CRPCManager crpcManager) {
         this.crpcManager = crpcManager;
-        this.menuOpt = menuOpt;
         createViews();
         registerHandler();
         update();
@@ -74,19 +34,11 @@ public class MainPagePane extends BorderPane {
         CSSManager.applyCSS(this, "mystyle.css");
         vBox = new VBox();
 
-/*
-        vBox.setBackground(new Background(new BackgroundImage(
-                Objects.requireNonNull(ImageManager.getImage("bg1.jpg")),
-                BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT,
-                BackgroundPosition.CENTER,
-                new BackgroundSize(1,1,true,true,true,false)
-        )));
-*/
+
         Label lbOurServices = new Label("Our Services");
         Label lbServiceDescription = new Label("    It is our privilege to be a part of the journey" +
                 " and taling you where you need to be\n");
-        //lbOurServices.setFont(new Font(30));
-        //lbOurServices.set
+
         lbOurServices.setStyle("-fx-text-fill: #335ebe; -fx-font-size: 24px; -fx-font-weight: 700");
         lbServiceDescription.setStyle("-fx-text-fill: grey; -fx-font-size: 15px;");
 
@@ -176,13 +128,7 @@ public class MainPagePane extends BorderPane {
 
         vBox.setSpacing(50);
         vBox.getChildren().addAll(vbFirst, hbSecond, secondFrag, hbThird, hbMiddleText, hbFourth);
-        /*
-        vBox.setBackground(new Background(new BackgroundImage(
-                Objects.requireNonNull(ImageManager.getImage("bg1.jpg")),
-                BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT,
-                BackgroundPosition.CENTER,
-                new BackgroundSize(1,1,true,true,true,false)
-        )));*/
+
         this.setCenter(vBox);
     }
 
@@ -208,7 +154,6 @@ public class MainPagePane extends BorderPane {
 
             configAdapter();
             this.setVisible(true);
-            return;
         } else {
             this.setVisible(false);
         }
