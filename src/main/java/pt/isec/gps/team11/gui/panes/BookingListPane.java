@@ -34,7 +34,6 @@ public class BookingListPane extends BorderPane {
 
         this.trips = crpcManager.getTripsMap();
         this.tripsInfos = new HBox[trips.size()];
-        System.out.println("Tam: " + trips.size());
         Label lbOurServices = new Label("Booking List");
         lbOurServices.setStyle("-fx-text-fill: rgba(35,34,34,0.51); -fx-font-size: 20px; -fx-font-weight: 700");
         vbFirst = new VBox(new Separator(), lbOurServices, new Separator());
