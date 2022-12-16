@@ -16,6 +16,8 @@ import javafx.scene.control.SplitPane;
 import javafx.scene.layout.*;
 import pt.isec.gps.team11.model.fsm.States;
 
+import java.time.LocalDate;
+
 public class BookingPane extends BorderPane {
 
     CRPCManager crpcManager;
@@ -23,6 +25,7 @@ public class BookingPane extends BorderPane {
     private Scene scene;
 
     MyBrowser myBrowser;
+    BookForm bookForm;
 
     public BookingPane(CRPCManager crpcManager, MyBrowser myBrowser){
         this.crpcManager = crpcManager;
@@ -79,10 +82,9 @@ public class BookingPane extends BorderPane {
     }
 
     private void update() {
-
-
         if (crpcManager.getState() == States.BOOKING) {
-            configAdapter();
+            crpcManager.resetTripResults();
+
             this.setVisible(true);
             return;
         }else{

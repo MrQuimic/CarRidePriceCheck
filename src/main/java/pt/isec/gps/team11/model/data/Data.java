@@ -194,5 +194,9 @@ public class Data {
         }catch (IOException e){
             e.printStackTrace();
         }
+
+        resetTripResults();
+        currentTrip = null;
+        currentTripCar = null;
     }
 }

@@ -512,7 +512,6 @@ public class BookForm extends BorderPane {
 
                                     String returnValue = (String) myBrowser.webEngine.executeScript("results()");
 
-
                                     try {
                                         crpcManager.saveTripResults(returnValue);
 
@@ -523,13 +522,14 @@ public class BookForm extends BorderPane {
 
 
                                     } catch (ArrayIndexOutOfBoundsException e) {
-                                        myBrowser.webEngine.getLoadWorker().stateProperty().removeListener(this);
+
                                         originA.setText("Coimbra, Portugal");
                                         destinA.setText("Porto, Portugal");
                                         alert("Set a valid origin/destination");
 
-                                        return;
                                     }
+
+                                    myBrowser.webEngine.getLoadWorker().stateProperty().removeListener(this);
                                 }
                             }
                     );
