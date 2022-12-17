@@ -333,7 +333,7 @@ public class BookForm extends BorderPane {
                 cbHour.setValue(String.valueOf(calendar.get(Calendar.HOUR_OF_DAY) + 1));
             } else {
                 dpDepartureDate.setValue(checkInDatePicker.getValue().plusDays(1));
-                cbHour.setValue(String.valueOf(calendar.get(Calendar.HOUR_OF_DAY)));
+                cbHour.setValue("0");
             }
         }
 
@@ -446,6 +446,29 @@ public class BookForm extends BorderPane {
                         clearForm();
                         return;
                     }
+
+                    Date date = new Date();   // given date
+                    Calendar calendar = GregorianCalendar.getInstance(); // creates a new calendar instance
+                    calendar.setTime(date);   // assigns calendar to given date
+
+
+                    int year = calendar.get(Calendar.YEAR);
+                    int month = calendar.get(Calendar.MONTH) + 1; // Jan = 0, dec = 11
+                    int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
+                    int hourT = calendar.get(Calendar.HOUR_OF_DAY);
+                    int minuteT = calendar.get(Calendar.MINUTE);
+                    if ( dpDepartureDate.getValue().toString().equals(year + "-" + month + "-" + (dayOfMonth))) {
+                        if ((hourT > Integer.parseInt(cbHour.getValue()))  || ( calendar.get(Calendar.HOUR_OF_DAY) == Integer.parseInt(cbHour.getValue()) && minuteT>= Integer.parseInt(cbMinute.getValue()))) {
+                            Alert alert = new Alert(Alert.AlertType.WARNING);
+                            alert.setTitle("Alert");
+                            alert.setHeaderText(null);
+                            alert.setContentText("The departure time is invalid");
+                            alert.showAndWait();
+                            clearForm();
+                            return;
+                        }
+                    }
+
 
                     departureDate = dpDepartureDate.getValue().toString();
 
