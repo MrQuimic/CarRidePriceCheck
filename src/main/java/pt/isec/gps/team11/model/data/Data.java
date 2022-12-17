@@ -72,12 +72,6 @@ public class Data {
             }
         }
 
-        if(suitableCars.isEmpty()){
-            for(Map.Entry<String, Car> entry : cars.entrySet()){
-                suitableCars.add(new Car(entry.getValue()));
-            }
-        }
-
         return suitableCars;
     }
 
