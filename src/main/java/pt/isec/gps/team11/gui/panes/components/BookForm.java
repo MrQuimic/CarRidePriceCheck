@@ -431,6 +431,9 @@ public class BookForm extends BorderPane {
                     } else {
                         try {
                             extraWaitTime = Integer.parseInt(tfExtraWaitTime.getText());
+                            if(extraWaitTime < 0){
+                                throw new Exception("Negative value");
+                            }
                         } catch (Exception e) {
                             alert("Insert a valid extra waiting minute!");
                             tfExtraWaitTime.setText("0");
