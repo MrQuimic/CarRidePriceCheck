@@ -339,7 +339,7 @@ public class BookForm extends BorderPane {
         }
 
 
-        for (int i = hourStart; i < 24; i++)
+        for (int i = 0; i < 24; i++)
             cbHour.getItems().add(String.valueOf(i));
 
 
