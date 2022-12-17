@@ -330,6 +330,7 @@ public class BookForm extends BorderPane {
 
             if (calendar.get(Calendar.HOUR_OF_DAY) < 23) {
                 hourStart = calendar.get(Calendar.HOUR_OF_DAY) + 1;
+                cbHour.setValue(String.valueOf(hourStart));
                 cbHour.setValue(String.valueOf(calendar.get(Calendar.HOUR_OF_DAY) + 1));
             } else {
                 dpDepartureDate.setValue(checkInDatePicker.getValue().plusDays(1));
