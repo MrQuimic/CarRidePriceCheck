@@ -41,7 +41,7 @@ public class Trip {
     }
 
     public Trip (boolean oneWay, String date, int extraWaitingTime,int numberOfLuggage, int numberOfPassengers, String departureTime, boolean highway) {
-        System.out.println("DATE " + date);
+        //System.out.println("DATE " + date);
         this.id=++idGlobal;
         this.oneWay = oneWay;
         this.date = setStringToDate(date);
