@@ -71,10 +71,10 @@ public class MainPagePane extends BorderPane {
         img4.setPreserveRatio(true);
         img1.setStyle(cssBordering);
 
-        HBox hbSecond = new HBox(new Separator(), new Separator());
+        HBox hbSecond = new HBox();
         hbSecond.getChildren().addAll(img1, img2, img3, img4);
         hbSecond.setSpacing(65);
-
+        hbSecond.setAlignment(Pos.CENTER);
         HBox hbThird = new HBox();
         HBox hbFourth = new HBox();
         VBox secondFrag = new VBox();

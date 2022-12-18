@@ -111,7 +111,6 @@ public class AutoCompleteTextField<S> extends TextField
     /**
      * Construct a new AutoCompleteTextField.
      *
-     * @param entrySet
      */
     public AutoCompleteTextField(SortedSet<S> entrySet)
     {

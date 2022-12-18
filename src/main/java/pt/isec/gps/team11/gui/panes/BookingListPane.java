@@ -2,6 +2,7 @@ package pt.isec.gps.team11.gui.panes;
 
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Separator;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -17,12 +18,14 @@ public class BookingListPane extends BorderPane {
     private ArrayList<Trip> trips;
     private HBox[] tripsInfos;
     private VBox vbFirst, vbox1, vbox2, vbox3;
-
-    public BookingListPane(CRPCManager crpcManager) {
+    ScrollPane scrollPane, scrollPaneParent;
+    public BookingListPane(CRPCManager crpcManager, ScrollPane scrollPaneParent) {
         this.crpcManager = crpcManager;
+        this.scrollPaneParent = scrollPaneParent;
         createViews();
         registerHandlers();
         update();
+
     }
 
     private void createViews() {
@@ -37,8 +40,24 @@ public class BookingListPane extends BorderPane {
         createLists();
 
 
-        this.setTop(vbFirst);
-    }
+
+        scrollPane = new ScrollPane();
+        scrollPane.setContent(vbFirst);
+
+
+
+
+
+
+            scrollPane.setPannable(true);
+            scrollPane.setId("scrollPaneMain");
+            this.setCenter(scrollPane);
+            scrollPane.setFitToHeight(true);
+            scrollPane.setFitToWidth(true);
+
+            scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+            scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+        }
 
     private void registerHandlers() {
         crpcManager.addPropertyChangeListener(evt -> {
@@ -99,7 +118,10 @@ public class BookingListPane extends BorderPane {
 
     private void update() {
 
+
         if (crpcManager.getMenuOpt() == MenuOpt.BOOKINGLIST) {
+
+            scrollPaneParent.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
             this.trips = crpcManager.getTripsMap();
 
             this.tripsInfos = new HBox[trips.size()];
@@ -110,6 +132,8 @@ public class BookingListPane extends BorderPane {
             configAdapter();
             this.setVisible(true);
         } else {
+            scrollPaneParent.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+
             this.setVisible(false);
         }
     }

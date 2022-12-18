@@ -45,11 +45,9 @@ public class MainApplication extends Application {
         primaryStage.setScene(scene);
 
         primaryStage.setTitle("DEIS-ISEC");
-        primaryStage.setMinWidth(300);
+        primaryStage.setMinWidth(880);
         primaryStage.setWidth(1250);
-        primaryStage.setMinHeight(600);
-        primaryStage.setMaxHeight(900);
-        primaryStage.setMaxWidth(1600);
+        primaryStage.setMinHeight(700);
         primaryStage.setResizable(true);
         primaryStage.setMaximized(true);
         primaryStage.setMaximized(false);

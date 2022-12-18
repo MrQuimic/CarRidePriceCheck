@@ -4,6 +4,7 @@ import javafx.geometry.Pos;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.*;
 import pt.isec.gps.team11.MyBrowser;
+import pt.isec.gps.team11.gui.MenuOpt;
 import pt.isec.gps.team11.gui.panes.components.MenuTop;
 import pt.isec.gps.team11.gui.panes.utils.CSSManager;
 import pt.isec.gps.team11.model.CRPCManager;
@@ -23,7 +24,7 @@ public class RootPane extends BorderPane {
     String username;
 
     VBox vBox;
-
+    ScrollPane scrollPane;
 
     public RootPane(CRPCManager crpcManager) {
         this.crpcManager = crpcManager;
@@ -37,7 +38,7 @@ public class RootPane extends BorderPane {
     private void createViews() {
         CSSManager.applyCSS(this, "styles.css");
         vBox = new VBox();
-
+        scrollPane = new ScrollPane();
 
         MenuTop bp = new MenuTop(crpcManager, username);
         MyBrowser myBrowser = new MyBrowser(crpcManager);
@@ -51,7 +52,7 @@ public class RootPane extends BorderPane {
                 new AuthenticationPane(crpcManager),
                 new ConfirmPane(crpcManager, myBrowser),
                 new ChooseCarPane(crpcManager),
-                new BookingListPane(crpcManager)
+                new BookingListPane(crpcManager, scrollPane)
         );
 
         HBox hBox = new HBox(bp);
@@ -60,7 +61,7 @@ public class RootPane extends BorderPane {
         vBox.getChildren().addAll(hBox, stackPane);
 
 
-        ScrollPane scrollPane = new ScrollPane();
+
         scrollPane.setContent(vBox);
         stackPane.setAlignment(Pos.TOP_CENTER);
 

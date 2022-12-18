@@ -55,7 +55,6 @@ public class BookingPane extends BorderPane {
         vBox.getChildren().addAll(splitPane);
 
         this.setCenter(vBox);
-
     }
 
     private void registerHandlers() {
