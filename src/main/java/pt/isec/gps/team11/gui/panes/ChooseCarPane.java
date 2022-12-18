@@ -131,10 +131,14 @@ public class ChooseCarPane extends BorderPane {
         waitingTime.setFont(timesNewRomanNormal);
         waitingTime.setTextFill(Color.BLACK);
         waitingTime.setPadding(new Insets(0, 0, 30, 0));
+        btnBack = new Button("Go back");
+        btnBack.setId("mbtnSubmit");
         btnConfirm = new Button("Submit Car");
         btnConfirm.setId("mbtnSubmit");
 
-        tripInfo.getChildren().addAll(tripsInfos, startAddress, endAddress, carChoosen, directions, passengers, suitcases, departureDate, departureTime, waitingTime, btnConfirm);
+        hboxButtons = new HBox(btnBack, btnConfirm);
+        hboxButtons.setSpacing(2);
+        tripInfo.getChildren().addAll(tripsInfos, startAddress, endAddress, carChoosen, directions, passengers, suitcases, departureDate, departureTime, waitingTime, hboxButtons);
 
         VBox tripPriceInfo = new VBox();
 
@@ -175,6 +179,10 @@ public class ChooseCarPane extends BorderPane {
     private void registerHandlers() {
         crpcManager.addPropertyChangeListener(evt -> {
             update();
+        });
+
+        btnBack.setOnAction(actionEvent -> {
+            crpcManager.goBooking();
         });
 
         btnConfirm.setOnAction(actionEvent -> {

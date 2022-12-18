@@ -63,7 +63,8 @@ public class BookInfos extends BorderPane {
     private void createViews() {
         CSSManager.applyCSS(this, "styles.css");
         Font font = Font.font("Verdana", FontWeight.BOLD, 16);
-        Font fontSmall = Font.font("Verdana", FontWeight.BOLD, 10);
+        Font fontSmallB = Font.font("Verdana", FontWeight.BOLD, 14);
+        Font fontSmall = Font.font("Verdana", 14);
         //VBox of the Addresses and the Options
         originA = new Label();
         destinA = new Label();
@@ -77,7 +78,7 @@ public class BookInfos extends BorderPane {
 
         lbAdressesTitle = new Label("Addresses");
         lbAdressesTitle.setPadding(new Insets(20, 0, 5, 0));
-        lbAdressesTitle.setFont(font);
+        lbAdressesTitle.setFont(fontSmallB);
         //Adresses VBox
         vbAdresses = new VBox();
         vbAdresses.setAlignment(Pos.CENTER);
@@ -88,7 +89,7 @@ public class BookInfos extends BorderPane {
 
         lbStartAdress = new Label("Start address: ");
         lbStartAdress.setAlignment(Pos.CENTER_LEFT);
-        lbStartAdress.setFont(fontSmall);
+        lbStartAdress.setFont(fontSmallB);
 
 
         originA.setId("originA");
@@ -96,12 +97,14 @@ public class BookInfos extends BorderPane {
         originA.setMaxWidth(250);
         destinA.setMaxWidth(250);
 
-
+        originA.setFont(fontSmall);
+        destinA.setFont(fontSmall);
         String returnGoogleStr = "";
 
         Origin1.setPromptText("Origin1");
+        Origin1.setFont(fontSmall);
         Destin1.setPromptText("Destin1");
-
+        Destin1.setFont(fontSmall);
         if (originA.getText().equals("")) {
             originA.setText("Coimbra, Portugal");
             destinA.setText("Porto, Portugal");
@@ -116,7 +119,7 @@ public class BookInfos extends BorderPane {
         lbEndAdress = new Label("End address: ");
         lbEndAdress.setAlignment(Pos.CENTER_LEFT);
         lbEndAdress.setPadding(new Insets(10, 0, 5, 0));
-        lbEndAdress.setFont(fontSmall);
+        lbEndAdress.setFont(fontSmallB);
 
         hbEndAdress.getChildren().addAll(lbEndAdress, destinA);
 
@@ -142,19 +145,21 @@ public class BookInfos extends BorderPane {
 
         lbDirections = new Label("Directions: ");
         lbDirections.setPadding(new Insets(0, 0, 0, 0));
-        lbDirections.setFont(fontSmall);
+        lbDirections.setFont(fontSmallB);
         lbDirections.setAlignment(Pos.CENTER_LEFT);
         cbDirections = new Label();
         cbDirections.setText("One Way");
+        cbDirections.setFont(fontSmall);
         //Tolls
         hbTolls = new HBox();
         hbTolls.setAlignment(Pos.CENTER_LEFT);
 
         lbTolls = new Label("Tolls: ");
-        lbTolls.setFont(fontSmall);
+        lbTolls.setFont(fontSmallB);
         lbTolls.setAlignment(Pos.CENTER_LEFT);
         cbTolls = new Label();
         cbTolls.setText("Yes");
+        cbTolls.setFont(fontSmall);
         hbTolls.getChildren().addAll(lbTolls, cbTolls);
         hDirectTolls = new HBox();
         hDirectTolls.getChildren().addAll(hbDirections, hbTolls);
@@ -170,10 +175,11 @@ public class BookInfos extends BorderPane {
         lbExtraWaitTime.setAlignment(Pos.CENTER_LEFT);
         lbExtraWaitTime.setFont(fontSmall);
         tfExtraWaitTime = new Label();
-
+        cbTolls.setFont(fontSmall);
         if (tfExtraWaitTime.getText().equals(""))
             tfExtraWaitTime.setText("0");
 
+        tfExtraWaitTime.setFont(fontSmall);
         hbExtraWaitTime.getChildren().addAll(lbExtraWaitTime, tfExtraWaitTime);
 
         //HBox for Passengers and Suitcases
@@ -186,20 +192,22 @@ public class BookInfos extends BorderPane {
 
         lbPassengers = new Label("Passengers: ");
         lbPassengers.setAlignment(Pos.CENTER_LEFT);
-        lbPassengers.setFont(fontSmall);
+        lbPassengers.setFont(fontSmallB);
         cbPassengers = new Label();
         cbPassengers.setText("1");
+        cbPassengers.setFont(fontSmall);
         hbPassengers.getChildren().addAll(lbPassengers, cbPassengers);
-
+        cbPassengers = new Label();
         //Suitcases
         hbSuitcases = new HBox();
         hbSuitcases.setAlignment(Pos.CENTER);
 
         lbSuitcases = new Label("Suitcases: ");
         lbSuitcases.setAlignment(Pos.CENTER_RIGHT);
-        lbSuitcases.setFont(fontSmall);
+        lbSuitcases.setFont(fontSmallB);
         cbSuitcases = new Label();
         cbSuitcases.setText("0");
+        cbSuitcases.setFont(fontSmall);
         hbSuitcases.getChildren().addAll(lbSuitcases, cbSuitcases);
 
         hbPassengersSuitcases.getChildren().addAll(hbPassengers, hbSuitcases);
@@ -216,10 +224,10 @@ public class BookInfos extends BorderPane {
         lbDepartureDate = new Label("Departure date");
         lbDepartureDate.setAlignment(Pos.CENTER_LEFT);
         lbDepartureDate.setPadding(new Insets(0, 0, 5, 0));
-        lbDepartureDate.setFont(fontSmall);
+        lbDepartureDate.setFont(fontSmallB);
         Label lbDepartureDate2 = new Label("");
         lbDepartureDate2.setText(LOCAL_DATE().toString());
-
+        lbDepartureDate2.setFont(fontSmall);
 
         vbDepartureDate.getChildren().addAll(lbDepartureDate, lbDepartureDate2);
 
@@ -236,7 +244,7 @@ public class BookInfos extends BorderPane {
         vbOptions.getChildren().addAll(hDirectTolls, hbExtraWaitTime, hbPassengersSuitcases, hbDepartureDateAndImage);
         vbOptions.setSpacing(15);
         vbOptionsWithTitle.getChildren().addAll(lbOptionsTitle, vbOptions);
-
+        lbOptionsTitle.setFont(fontSmall);
 
         cars = new HBox();
 
@@ -254,7 +262,7 @@ public class BookInfos extends BorderPane {
         //Adresses VBox
         vbAdressesAndOptions.setSpacing(10);
         vbAdressesAndOptions.getChildren().addAll(vbAdressesWithTitle, vbOptionsWithTitle, labelResultGoogle, cars);
-
+        labelResultGoogle.setFont(fontSmall);
         hbOptions = new HBox(vbAdressesAndOptions);
 
         this.setTop(hbOptions);

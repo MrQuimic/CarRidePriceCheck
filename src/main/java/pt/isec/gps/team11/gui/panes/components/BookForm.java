@@ -608,6 +608,10 @@ public class BookForm extends BorderPane {
         cbPassengers.setValue(1);
         cbSuitcases.setValue("0");
         cbTolls.setValue("Yes");
+        originA.setText("Coimbra, Portugal");
+        destinA.setText("Porto, Portugal");
+        checkInDatePicker.setValue(LocalDate.now());
+        myBrowser.webEngine.load(myBrowser.urlGoogleMaps.toExternalForm());
     }
 
 

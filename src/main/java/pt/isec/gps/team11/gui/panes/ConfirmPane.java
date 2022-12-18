@@ -57,11 +57,18 @@ public class ConfirmPane extends BorderPane {
         lbInfo.setMaxHeight(50);
 
         MapDisplay mapDisplay = new MapDisplay(crpcManager, myBrowser);
+
+
+
+
+        btnBack = new Button("Go back");
+        btnBack.setId("mbtnSubmit");
         btnConfirm = new Button("Confirm Trip");
         btnConfirm.setId("mbtnSubmit");
 
-
-        VBox vBoxMap = new VBox(lbInfoLabel, lbInfo, btnConfirm, mapDisplay);
+        hboxButtons = new HBox(btnBack, btnConfirm);
+        hboxButtons.setSpacing(2);
+        VBox vBoxMap = new VBox(lbInfoLabel, lbInfo, hboxButtons, mapDisplay);
         hBox.setAlignment(Pos.CENTER_LEFT);
         hBox.setSpacing(50);
         vBoxMap.setSpacing(20);
@@ -90,7 +97,10 @@ public class ConfirmPane extends BorderPane {
             update();
         });
 
+        btnBack.setOnAction(actionEvent -> {
 
+            crpcManager.goChooseCAr();
+        });
         btnConfirm.setOnAction(actionEvent -> {
             crpcManager.confirmTrip();
             crpcManager.goMainMenu();
