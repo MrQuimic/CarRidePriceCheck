@@ -72,6 +72,7 @@ public class ChooseCarPane extends BorderPane {
 
         registrationForm = new RegistrationForm(crpcManager);
         loginForm = new LoginForm(crpcManager);
+
         loginForm.setPadding(new Insets(20, 0, 0, 0));
 
         loggedIn = new Alert(Alert.AlertType.ERROR);

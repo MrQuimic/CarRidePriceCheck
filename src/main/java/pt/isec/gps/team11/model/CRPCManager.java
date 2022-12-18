@@ -83,13 +83,15 @@ public class CRPCManager {
     public void goToPreviousState() {
         this.menuOpt = null;
 
-        switch (previousState) {
-            case BOOKING -> goBooking();
-            case MAIN_MENU -> goMainMenu();
-            case CHOOSE_CAR -> goChooseCAr();
-            case LIST_TRIPS -> goListTrips();
-            case TRIP_DETAILS -> goTripDetails();
-            case CONFIRM_BOOKING -> goConfirmBooking();
+        if(getState() == States.IDLE){
+            switch (previousState) {
+                case BOOKING -> goBooking();
+                case MAIN_MENU -> goMainMenu();
+                case CHOOSE_CAR -> goChooseCAr();
+                case LIST_TRIPS -> goListTrips();
+                case TRIP_DETAILS -> goTripDetails();
+                case CONFIRM_BOOKING -> goConfirmBooking();
+            }
         }
 
         this.previousState = null;
@@ -109,6 +111,7 @@ public class CRPCManager {
         }
         if (this.fsm.goMainMenu()) {
             pcs.firePropertyChange(null, null, null);
+            pcs.firePropertyChange("CONFIRM", null, null);
             return true;
         }
         return false;

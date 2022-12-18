@@ -25,6 +25,12 @@ public class ChooseCarState extends StateAdapter {
     }
 
     @Override
+    public boolean goBooking() {
+        setState(States.BOOKING);
+        return true;
+    }
+
+    @Override
     public boolean goMainMenu() {
         setState(States.MAIN_MENU);
         return true;

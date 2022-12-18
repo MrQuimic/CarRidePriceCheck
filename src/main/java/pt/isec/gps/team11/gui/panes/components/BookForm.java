@@ -401,10 +401,6 @@ public class BookForm extends BorderPane {
             crpcManager.resetTripResults();
 
             clearForm();
-
-            originA.setText("Coimbra, Portugal");
-            destinA.setText("Porto, Portugal");
-            checkInDatePicker.setValue(LocalDate.now());
         });
         btnMapUpdate.setOnAction(actionEvent -> {
 
@@ -606,7 +602,7 @@ public class BookForm extends BorderPane {
         });
     }
 
-    void clearForm() {
+    public void clearForm() {
         cbDirections.setValue("One way");
         tfExtraWaitTime.setText("0");
         cbPassengers.setValue(1);

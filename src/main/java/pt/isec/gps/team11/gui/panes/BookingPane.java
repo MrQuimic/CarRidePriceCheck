@@ -70,7 +70,7 @@ public class BookingPane extends BorderPane {
 
     private void resetForm(){
         myBrowser.webEngine.load(myBrowser.urlGoogleMaps.toExternalForm());
-        bookForm = new BookForm(crpcManager, myBrowser);
+        bookForm.clearForm();
     }
 
 
