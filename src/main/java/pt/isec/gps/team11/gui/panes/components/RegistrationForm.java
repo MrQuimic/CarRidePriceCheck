@@ -19,7 +19,7 @@ public class RegistrationForm extends BorderPane {
     HBox hbox1, hBox2, hBox3, hBox4;
     TextField email, phoneNumber, firstName, lastName, address, nif;
     PasswordField password;
-    Alert registerAlert;
+    Alert registerAlert, numberAlert;
     PropertyChangeSupport pcs;
     PasswordField confirmPassword;
     Button btnRegister;
@@ -45,6 +45,10 @@ public class RegistrationForm extends BorderPane {
         registerAlert = new Alert(Alert.AlertType.ERROR);
         registerAlert.setTitle("Register error");
         registerAlert.setContentText("Please fulfill all the parameters.");
+
+        numberAlert = new Alert(Alert.AlertType.ERROR);
+        numberAlert.setTitle("Register error");
+        numberAlert.setContentText("Please insert a numeric value for the phone number and nif.");
 
         email = new TextField();
         email.setPromptText("Your email here...");
@@ -90,9 +94,19 @@ public class RegistrationForm extends BorderPane {
                     lastName.getText().trim().isEmpty() ||
                     address.getText().trim().isEmpty() ||
                     nif.getText().trim().isEmpty() ||
-                    password.getText().trim().isEmpty()) {
+                    password.getText().trim().isEmpty() || !password.getText().equals(confirmPassword.getText()) ||
+                    phoneNumber.getText().length() != 9 || nif.getText().length() != 9)
+            {
                 registerAlert.show();
             } else {
+                try {
+                    Integer.parseInt(phoneNumber.getText());
+                    Integer.parseInt(nif.getText());
+
+                } catch(NumberFormatException e) {
+                    numberAlert.show();
+                    return;
+                }
                 String emailAux = email.getText();
                 crpcManager.setLogin(emailAux);
                 crpcManager.setIsLogged();
