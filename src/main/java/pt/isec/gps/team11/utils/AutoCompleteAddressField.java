@@ -45,7 +45,9 @@ public class AutoCompleteAddressField extends AutoCompleteTextField
                         for (AutocompletePrediction prediction : predictions)
                         {
                             getEntries().add(new AddressPrediction(prediction));
+
                         }
+
                     });
                 }).start();
 
@@ -60,6 +62,7 @@ public class AutoCompleteAddressField extends AutoCompleteTextField
 
         public AddressPrediction(AutocompletePrediction prediction) {
             this.prediction = prediction;
+
         }
 
         @Override
@@ -73,15 +76,20 @@ public class AutoCompleteAddressField extends AutoCompleteTextField
             return this.prediction;
         }
 
+
     }
 
     public static PlaceDetails getPlace(AddressPrediction prediction)
     {
+        try {
+
+
         if (prediction != null && prediction.getPrediction() != null && !prediction.getPrediction().placeId.isEmpty())
         {
             PlaceDetailsRequest query = PlacesApi.placeDetails(new GeoApiContext.Builder().apiKey(API_KEY).build(), prediction.getPrediction().placeId);
             return query.awaitIgnoreError();
         }
+        }catch (Exception ignored){}
         return null;
     }
 

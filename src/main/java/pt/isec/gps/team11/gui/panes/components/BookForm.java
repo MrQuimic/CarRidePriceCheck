@@ -28,6 +28,7 @@ import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.SortedSet;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class BookForm extends BorderPane {
@@ -48,10 +49,17 @@ public class BookForm extends BorderPane {
     ComboBox<String> cbHour;
     ComboBox<String> cbMinute;
 
-    AutoCompleteAddressField originA = new AutoCompleteAddressField();
-    AutoCompleteAddressField destinA = new AutoCompleteAddressField();
+
+    AutoCompleteAddressField originA;
+    AutoCompleteAddressField destinA;
     TextField Destin1 = new TextField();
     TextField Origin1 = new TextField();
+
+    Date date;
+
+    Calendar calendar;
+
+    int year, month, dayOfMonth, hourStart = 0;
 
     MyBrowser myBrowser;
 
@@ -69,6 +77,11 @@ public class BookForm extends BorderPane {
         CSSManager.applyCSS(this, "styles.css");
         Font font = Font.font("Verdana", FontWeight.BOLD, 12);
         Font fontSmall = Font.font("Verdana", FontWeight.BOLD, 10);
+
+        originA = new AutoCompleteAddressField();
+        destinA = new AutoCompleteAddressField();
+
+
         //VBox of the Addresses and the Options
         vbAdressesAndOptions = new VBox();
         vbAdressesAndOptions.setAlignment(Pos.CENTER_LEFT);
@@ -106,6 +119,7 @@ public class BookForm extends BorderPane {
             originA.setText("Coimbra, Portugal");
             destinA.setText("Porto, Portugal");
         }
+
 
         vbStartAdress.getChildren().addAll(lbStartAdress, originA);
 
@@ -304,13 +318,13 @@ public class BookForm extends BorderPane {
         hbDepartureTimeHourMinutes.setAlignment(Pos.CENTER_LEFT);
         lbDepartureDate = new Label("Departure time");
 
-        Date date = new Date();   // given date
-        Calendar calendar = GregorianCalendar.getInstance(); // creates a new calendar instance
+        date = new Date();   // given date
+        calendar = GregorianCalendar.getInstance(); // creates a new calendar instance
         calendar.setTime(date);   // assigns calendar to given date
 
-        int year = calendar.get(Calendar.YEAR);
-        int month = calendar.get(Calendar.MONTH) + 1; // Jan = 0, dec = 11
-        int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
+        year = calendar.get(Calendar.YEAR);
+        month = calendar.get(Calendar.MONTH) + 1; // Jan = 0, dec = 11
+        dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
 
         //Hour
         vbDepartureTimeHour = new VBox();
@@ -322,7 +336,7 @@ public class BookForm extends BorderPane {
         lbHour.setPadding(new Insets(0, 0, 5, 0));
         lbHour.setFont(fontSmall);
         cbHour = new ComboBox<>();
-        int hourStart = 0;
+        hourStart = 0;
 
         if (dpDepartureDate.getValue().toString().equals(year + "-" + month + "-" + (dayOfMonth))) {
 
@@ -426,7 +440,7 @@ public class BookForm extends BorderPane {
                     } else {
                         try {
                             extraWaitTime = Integer.parseInt(tfExtraWaitTime.getText());
-                            if(extraWaitTime < 0){
+                            if (extraWaitTime < 0) {
                                 throw new Exception("Negative value");
                             }
                         } catch (Exception e) {
@@ -456,8 +470,8 @@ public class BookForm extends BorderPane {
                     int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
                     int hourT = calendar.get(Calendar.HOUR_OF_DAY);
                     int minuteT = calendar.get(Calendar.MINUTE);
-                    if ( dpDepartureDate.getValue().toString().equals(year + "-" + month + "-" + (dayOfMonth))) {
-                        if ((hourT > Integer.parseInt(cbHour.getValue()))  || ( calendar.get(Calendar.HOUR_OF_DAY) == Integer.parseInt(cbHour.getValue()) && minuteT>= Integer.parseInt(cbMinute.getValue()))) {
+                    if (dpDepartureDate.getValue().toString().equals(year + "-" + month + "-" + (dayOfMonth))) {
+                        if ((hourT > Integer.parseInt(cbHour.getValue())) || (calendar.get(Calendar.HOUR_OF_DAY) == Integer.parseInt(cbHour.getValue()) && minuteT >= Integer.parseInt(cbMinute.getValue()))) {
                             Alert alert = new Alert(Alert.AlertType.WARNING);
                             alert.setTitle("Alert");
                             alert.setHeaderText(null);
@@ -543,20 +557,17 @@ public class BookForm extends BorderPane {
             {
                 if (originA.getLastSelectedObject() != null) {
                     originA.setText(originA.getLastSelectedObject().toString());
+
                     PlaceDetails place = AutoCompleteAddressField.getPlace((AutoCompleteAddressField.AddressPrediction) originA.getLastSelectedObject());
+
                     if (place != null) {
-                        StringUtils StringUtils = null;
-                        Destin1.setText(
-                                StringUtils.join(
-                                        AutoCompleteAddressField.getComponentLongName(place.addressComponents, AddressComponentType.STREET_NUMBER),
-                                        " ",
-                                        AutoCompleteAddressField.getComponentLongName(place.addressComponents, AddressComponentType.ROUTE))
-                        );
-
+                        String stringUtils = StringUtils.join(
+                                AutoCompleteAddressField.getComponentLongName(place.addressComponents, AddressComponentType.STREET_NUMBER),
+                                " ",
+                                AutoCompleteAddressField.getComponentLongName(place.addressComponents, AddressComponentType.ROUTE));
+                        Destin1.setText(stringUtils);
                     } else {
-
                         Destin1.setText("Porto, Portugal");
-
                     }
                 }
             });
@@ -570,22 +581,20 @@ public class BookForm extends BorderPane {
                 if (destinA.getLastSelectedObject() != null) {
                     destinA.setText(destinA.getLastSelectedObject().toString());
                     PlaceDetails place = AutoCompleteAddressField.getPlace((AutoCompleteAddressField.AddressPrediction) destinA.getLastSelectedObject());
-                    if (place != null) {
-                        StringUtils StringUtils = null;
-                        Origin1.setText(
-                                StringUtils.join(
-                                        AutoCompleteAddressField.getComponentLongName(place.addressComponents, AddressComponentType.STREET_NUMBER),
-                                        " ",
-                                        AutoCompleteAddressField.getComponentLongName(place.addressComponents, AddressComponentType.ROUTE))
-                        );
 
+
+                    if (place != null) {
+                        String stringUtils = StringUtils.join(AutoCompleteAddressField.getComponentLongName(place.addressComponents, AddressComponentType.STREET_NUMBER),
+                                " ", AutoCompleteAddressField.getComponentLongName(place.addressComponents, AddressComponentType.ROUTE));
+                        Origin1.setText(stringUtils);
                     } else {
                         Origin1.setText("Coimbra, Portugal");
-
                     }
                 }
             });
         });
+
+
 
 
         cbDirections.setOnAction(actionEvent -> {
@@ -612,6 +621,32 @@ public class BookForm extends BorderPane {
         destinA.setText("Porto, Portugal");
         checkInDatePicker.setValue(LocalDate.now());
         myBrowser.webEngine.load(myBrowser.urlGoogleMaps.toExternalForm());
+
+
+        date = new Date();   // given date
+        calendar = GregorianCalendar.getInstance(); // creates a new calendar instance
+        calendar.setTime(date);   // assigns calendar to given date
+
+        year = calendar.get(Calendar.YEAR);
+        month = calendar.get(Calendar.MONTH) + 1; // Jan = 0, dec = 11
+        dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
+        dpDepartureDate.setValue(LocalDate.parse(year + "-" + month + "-" + (dayOfMonth)));
+
+        hourStart = 0;
+
+        if (dpDepartureDate.getValue().toString().equals(year + "-" + month + "-" + (dayOfMonth))) {
+
+
+            if (calendar.get(Calendar.HOUR_OF_DAY) < 23) {
+                hourStart = calendar.get(Calendar.HOUR_OF_DAY) + 1;
+                cbHour.setValue(String.valueOf(hourStart));
+                cbHour.setValue(String.valueOf(calendar.get(Calendar.HOUR_OF_DAY) + 1));
+            } else {
+                dpDepartureDate.setValue(checkInDatePicker.getValue().plusDays(1));
+                cbHour.setValue("0");
+            }
+        }
+        cbMinute.setValue("0");
     }
 
 

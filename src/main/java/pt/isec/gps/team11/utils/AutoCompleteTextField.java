@@ -126,11 +126,15 @@ public class AutoCompleteTextField<S> extends TextField
 
             if (getText() == null || getText().length() == 0)
             {
+
                 filteredEntries.clear();
                 filteredEntries.addAll(entries);
                 entriesPopup.hide();
+
+
             } else
             {
+
                 LinkedList<S> searchResult = new LinkedList<>();
                 //Check if the entered Text is part of some entry
                 String text1 = getText();
@@ -152,8 +156,10 @@ public class AutoCompleteTextField<S> extends TextField
                 }
                 if (!entries.isEmpty())
                 {
+
                     filteredEntries.clear();
                     filteredEntries.addAll(searchResult);
+                    entriesPopup.requestFocus();
                     //Only show popup if not in filter mode
                     if (!isPopupHidden())
                     {
@@ -161,6 +167,7 @@ public class AutoCompleteTextField<S> extends TextField
                         if (!entriesPopup.isShowing())
                         {
                             entriesPopup.show(AutoCompleteTextField.this, Side.BOTTOM, 0, 0);
+
                         }
                     }
                 } else
@@ -234,6 +241,7 @@ public class AutoCompleteTextField<S> extends TextField
         }
         entriesPopup.getItems().clear();
         entriesPopup.getItems().addAll(menuItems);
+        entriesPopup.isFocused();
 
     }
 

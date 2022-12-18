@@ -203,11 +203,13 @@ public class MenuTop extends BorderPane {
         logout.setOnAction(actionEvent -> {
             manager.logout();
             manager.goMainMenu();
+            update();
         });
 
         authIcon.setOnMouseClicked(actionEvent -> {
             manager.setMenuOpt(MenuOpt.AUTHENTICATION);
             manager.goIdle();
+            update();
         });
 
         manager.addPropertyChangeListener(evt -> {
