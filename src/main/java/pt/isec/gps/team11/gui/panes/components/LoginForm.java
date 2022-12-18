@@ -72,9 +72,11 @@ public class LoginForm extends BorderPane {
         email = new TextField();
         email.setPromptText("Enter your email");
         email.setMaxWidth(200);
+        email.setText("client@gps");
         password = new PasswordField();
         password.setPromptText("Enter your password");
         password.setMaxWidth(200);
+        password.setText("client@gps");
         vBox = new VBox(loginLabel, email, password, btnLogin);
         vBox.setSpacing(10);
         vBox2 = new VBox(vBox, loginUsers);

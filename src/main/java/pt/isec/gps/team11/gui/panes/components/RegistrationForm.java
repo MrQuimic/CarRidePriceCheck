@@ -122,5 +122,13 @@ public class RegistrationForm extends BorderPane {
 
     private void update() {
         this.setVisible(!crpcManager.isLogged());
+        this.email.clear();
+        this.phoneNumber.clear();
+        this.firstName.clear();
+        this.lastName.clear();
+        this.address.clear();
+        this.nif.clear();
+        this.password.clear();
+        this.confirmPassword.clear();
     }
 }
