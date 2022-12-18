@@ -122,15 +122,24 @@
     -fx-opacity: 0.7;
 }
 
+#carView{
+    -fx-cursor: Hand;
+    -fx-scale-x: 100%;
+    -fx-scale-y: 100%;
+    -fx-opacity: 0.9;
+}
+
 #carView:hover{
     -fx-cursor: Hand;
-    -fx-opacity: 0.7;
+    -fx-scale-x: 120%;
+    -fx-scale-y: 120%;
+    -fx-opacity: 1;
 }
 
 #carsImages:hover{
-    -fx-scale-x: 120%;
-    -fx-scale-y: 120%;
-    -fx-cursor: Hand;
+    -fx-scale-x: 100%;
+    -fx-scale-y: 100%;
+
 }
 
 #carsImages:pressed{

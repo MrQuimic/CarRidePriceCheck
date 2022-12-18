@@ -57,7 +57,7 @@ public class ConfirmPane extends BorderPane {
         lbInfo.setMaxHeight(50);
 
         MapDisplay mapDisplay = new MapDisplay(crpcManager, myBrowser);
-        btnConfirm = new Button("Confirm");
+        btnConfirm = new Button("Confirm Trip");
         btnConfirm.setId("mbtnSubmit");
 
 

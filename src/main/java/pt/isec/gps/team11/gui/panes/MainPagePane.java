@@ -37,7 +37,7 @@ public class MainPagePane extends BorderPane {
 
         Label lbOurServices = new Label("Our Services");
         Label lbServiceDescription = new Label("    It is our privilege to be a part of the journey" +
-                " and taling you where you need to be\n");
+                " and taking you where you need to be\n");
 
         lbOurServices.setStyle("-fx-text-fill: #335ebe; -fx-font-size: 24px; -fx-font-weight: 700");
         lbServiceDescription.setStyle("-fx-text-fill: grey; -fx-font-size: 15px;");

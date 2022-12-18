@@ -174,7 +174,7 @@ public class Files {
 
                 tripList.put(Trip.getNextId(), new Trip(tempList.get(0), tempList.get(1), Boolean.getBoolean(tempList.get(2)), tempCalendar1.getTime(), Integer.parseInt(tempList.get(6)),
                         Integer.parseInt(tempList.get(7)), Integer.parseInt(tempList.get(8)), tempCalendar2.getTime(), Boolean.getBoolean(tempList.get(11)), tempList.get(12),
-                        Double.parseDouble(tempList.get(13)), Integer.parseInt(tempList.get(14)), tripCar));
+                        Double.parseDouble(tempList.get(13)), Integer.parseInt(String.valueOf(Math.round(Double.parseDouble(tempList.get(14))))), tripCar));
             } catch (Exception e) {
                 System.err.println("Line: " + tempList + " with error" + e);
             }

@@ -76,7 +76,7 @@ public class ChooseCarPane extends BorderPane {
 
         loggedIn = new Alert(Alert.AlertType.ERROR);
         loggedIn.setTitle("User not logged in");
-        loggedIn.setContentText("You must be logged in order to procede.");
+        loggedIn.setContentText("You must be logged in order to proceed.");
 
         chooseCarAlert = new Alert(Alert.AlertType.ERROR);
         chooseCarAlert.setTitle("Choose car error");
@@ -130,7 +130,7 @@ public class ChooseCarPane extends BorderPane {
         waitingTime.setFont(timesNewRomanNormal);
         waitingTime.setTextFill(Color.BLACK);
         waitingTime.setPadding(new Insets(0, 0, 30, 0));
-        btnConfirm = new Button("Confirm");
+        btnConfirm = new Button("Submit Car");
         btnConfirm.setId("mbtnSubmit");
 
         tripInfo.getChildren().addAll(tripsInfos, startAddress, endAddress, carChoosen, directions, passengers, suitcases, departureDate, departureTime, waitingTime, btnConfirm);

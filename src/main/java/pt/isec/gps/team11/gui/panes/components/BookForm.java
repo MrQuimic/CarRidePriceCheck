@@ -156,7 +156,7 @@ public class BookForm extends BorderPane {
         lbDirections.setFont(fontSmall);
         lbDirections.setAlignment(Pos.CENTER_LEFT);
         cbDirections = new ChoiceBox<>();
-        cbDirections.getItems().addAll("One Way", "Return");
+        cbDirections.getItems().addAll("One Way", "Return Trip");
         cbDirections.setValue("One Way");
 
         vbDirections.getChildren().addAll(lbDirections, cbDirections);
@@ -307,8 +307,7 @@ public class BookForm extends BorderPane {
         Date date = new Date();   // given date
         Calendar calendar = GregorianCalendar.getInstance(); // creates a new calendar instance
         calendar.setTime(date);   // assigns calendar to given date
-        //calendar.get(Calendar.HOUR_OF_DAY); // gets hour in 24h format
-        //calendar.get(Calendar.HOUR);        // gets hour in 12h format
+
         int year = calendar.get(Calendar.YEAR);
         int month = calendar.get(Calendar.MONTH) + 1; // Jan = 0, dec = 11
         int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
