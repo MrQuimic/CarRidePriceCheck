@@ -258,6 +258,7 @@ public class CRPCManager {
     }
 
     public void confirmTrip() {
+        pcs.firePropertyChange("CONFIRM", null, null);
         this.fsm.confirmTrip();
     }
 

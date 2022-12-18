@@ -62,10 +62,17 @@ public class BookingPane extends BorderPane {
         crpcManager.addPropertyChangeListener(evt -> {
             update();
         });
+
+        crpcManager.addPropertyChangeListener("CONFIRM", evt -> {
+            resetForm();
+        });
     }
 
-    private void configAdapter() {
+    private void resetForm(){
+        myBrowser.webEngine.load(myBrowser.urlGoogleMaps.toExternalForm());
+        bookForm = new BookForm(crpcManager, myBrowser);
     }
+
 
     private void update() {
         if (crpcManager.getState() == States.BOOKING) {

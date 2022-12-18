@@ -190,7 +190,7 @@ public class BookForm extends BorderPane {
         lbPassengers.setPadding(new Insets(0, 0, 5, 0));
         lbPassengers.setFont(fontSmall);
         cbPassengers = new ChoiceBox<>();
-        cbPassengers.getItems().addAll("1", "2", "3", "4", "5", "6", "7");
+        cbPassengers.getItems().addAll("1", "2", "3", "4", "5", "6");
         cbPassengers.setValue("1");
         vbPassengers.getChildren().addAll(lbPassengers, cbPassengers);
 
@@ -203,7 +203,7 @@ public class BookForm extends BorderPane {
         lbSuitcases.setPadding(new Insets(0, 0, 5, 0));
         lbSuitcases.setFont(fontSmall);
         cbSuitcases = new ChoiceBox<>();
-        cbSuitcases.getItems().addAll("0", "1", "2", "3", "4", "5", "6", "7");
+        cbSuitcases.getItems().addAll("0", "1", "2", "3", "4", "5", "6");
         cbSuitcases.setValue("0");
         vbSuitcases.getChildren().addAll(lbSuitcases, cbSuitcases);
 
