@@ -45,9 +45,9 @@ public class ChooseCarPane extends BorderPane {
     Alert chooseCarAlert;
 
     Alert loggedIn;
-    Button btnConfirm;
+    Button btnConfirm,btnBack;
 
-    HBox cars;
+    HBox cars,hboxButtons;
 
     Car currentCar;
 

@@ -17,11 +17,11 @@ import pt.isec.gps.team11.model.fsm.States;
 public class ConfirmPane extends BorderPane {
 
     CRPCManager crpcManager;
-    HBox submitBtns;
+    HBox submitBtns,hboxButtons;
 
     Label lbInfoLabel;
     TextArea lbInfo;
-    Button btnConfirm;
+    Button btnConfirm,btnBack;
     MyBrowser myBrowser;
 
     public ConfirmPane(CRPCManager crpcManager, MyBrowser myBrowser) {
